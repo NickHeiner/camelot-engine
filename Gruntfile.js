@@ -6,18 +6,33 @@ module.exports = function(grunt) {
 
     grunt.initConfig({
 
+        directories: {
+            lib: 'lib/**/*.js',
+            test: 'lib/**/*.test.js'
+        },
+
         jshint: {
+            options: {
+                node: true
+            },
+
             lib: {
-                files: 'lib/**/*.js',
+                src: ['<%= directories.lib %>', '!<%= directories.test %>'],
+            },
+            test: {
+                src: '<%= directories.test %>',
                 options: {
-                    node: true
+                    globals: {
+                        describe: true,
+                        it: true
+                    }
                 }
             }
         },
 
         mochaTest: {
             lib: {
-                files: 'lib/**/*.test.js'
+                src: '<%= directories.test %>'
             }
         }
     });
