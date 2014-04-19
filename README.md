@@ -1,3 +1,4 @@
+![build badge](https://travis-ci.org/NickHeiner/camelot-engine.svg)
 camelot-engine
 ==============
 
