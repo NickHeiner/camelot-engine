@@ -22,6 +22,7 @@ module.exports = function(grunt) {
             test: {
                 src: '<%= directories.test %>',
                 options: {
+                    expr: true,
                     globals: {
                         describe: true,
                         it: true
