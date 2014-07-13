@@ -33,7 +33,10 @@ module.exports = function(grunt) {
 
         mochaTest: {
             lib: {
-                src: '<%= directories.test %>'
+                src: '<%= directories.test %>',
+                options: {
+                    reporter: 'spec'
+                }
             }
         }
     });
