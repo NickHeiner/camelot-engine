@@ -1,6 +1,6 @@
 {
   "name": "camelot-engine",
-  "version": "3.1.1",
+  "version": "4.0.0",
   "description": "A game engine for the classic game Camelot",
   "main": "lib/camelot-engine.js",
   "scripts": {
