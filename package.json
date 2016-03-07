@@ -29,6 +29,7 @@
     "grunt-cli": "^0.1.13"
   },
   "dependencies": {
+    "immutable": "^3.7.6",
     "lodash": "^2.4.1"
   }
 }
