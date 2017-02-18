@@ -1,4 +1,4 @@
-![build badge](https://travis-ci.org/NickHeiner/camelot-engine.svg)
+![build badge](https://travis-ci.org/NickHeiner/camelot-engine.svg?branch=master)
 camelot-engine
 ==============
 
