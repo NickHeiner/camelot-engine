@@ -2,6 +2,8 @@
 camelot-engine
 ==============
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/NickHeiner/camelot-engine.svg)](https://greenkeeper.io/)
+
 A game engine for the classic game Camelot.
 
 http://en.wikipedia.org/wiki/Camelot_(board_game)
