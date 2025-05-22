@@ -13,7 +13,8 @@ module.exports = function(grunt) {
 
         jshint: {
             options: {
-                node: true
+                node: true,
+                esversion: 6
             },
 
             lib: {
