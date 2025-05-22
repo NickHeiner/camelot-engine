@@ -2,41 +2,41 @@
 
 module.exports = function(grunt) {
 
-    require('load-grunt-tasks')(grunt);
+  require('load-grunt-tasks')(grunt);
 
-    grunt.initConfig({
+  grunt.initConfig({
 
-        directories: {
-            lib: 'lib/**/*.js',
-            test: 'lib/**/*.test.js'
-        },
+    directories: {
+      lib: 'lib/**/*.js',
+      test: 'lib/**/*.test.js'
+    },
 
-        jshint: {
-            options: {
-                node: true,
-                esversion: 6
-            },
+    jshint: {
+      options: {
+        node: true,
+        esversion: 6
+      },
 
-            lib: {
-                src: ['<%= directories.lib %>', '!<%= directories.test %>'],
-            },
-            test: {
-                src: '<%= directories.test %>',
-                options: {
-                    expr: true,
-                    globals: {
-                        describe: true,
-                        it: true
-                    }
-                }
-            }
-        },
-    });
+      lib: {
+        src: ['<%= directories.lib %>', '!<%= directories.test %>']
+      },
+      test: {
+        src: '<%= directories.test %>',
+        options: {
+          expr: true,
+          globals: {
+            describe: true,
+            it: true
+          }
+        }
+      }
+    }
+  });
 
-    grunt.registerTask('test', [
-        'jshint',
-    ]);
+  grunt.registerTask('test', [
+    'jshint'
+  ]);
 
-    grunt.registerTask('default', 'test');
+  grunt.registerTask('default', 'test');
 
 };
