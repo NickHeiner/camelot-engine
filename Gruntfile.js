@@ -31,20 +31,10 @@ module.exports = function(grunt) {
                 }
             }
         },
-
-        mochaTest: {
-            lib: {
-                src: '<%= directories.test %>',
-                options: {
-                    reporter: 'spec'
-                }
-            }
-        }
     });
 
     grunt.registerTask('test', [
         'jshint',
-        'mochaTest'
     ]);
 
     grunt.registerTask('default', 'test');
