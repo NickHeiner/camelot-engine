@@ -13,7 +13,6 @@
     "comma-dangle": "off",
     "space-before-function-paren": "off",
     "object-curly-spacing": "off",
-    "no-magic-numbers": "off",
     "no-multiple-empty-lines": "off",
     "max-len": "off"
   }

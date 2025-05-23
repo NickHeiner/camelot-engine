@@ -6,6 +6,7 @@ plugins:
   - '@typescript-eslint'
 
 rules:
+  no-magic-numbers: off
   jest/valid-title: warn
   jest/expect-expect: warn
   jest/no-conditional-expect: warn
