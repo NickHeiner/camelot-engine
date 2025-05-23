@@ -12,11 +12,7 @@ export interface BoardSpace {
   piece: Piece | null;
 }
 
-export interface CapturedPieces {
-  [player: string]: {
-    [pieceType: string]: number;
-  };
-}
+export type CapturedPieces = Record<Player, Record<PieceType, number>>;
 
 export interface GameState {
   boardSpaces: BoardSpace[];
