@@ -1,14 +1,19 @@
+import type { Coordinates, BoardSpace } from '../types.js';
+
 const JUMP_DISTANCE = 2;
 
-function getCoordsBetween(space1, space2) {
-  const moveDelta = {
+function getCoordsBetween(
+  space1: Coordinates | BoardSpace,
+  space2: Coordinates | BoardSpace
+): Coordinates | null {
+  const moveDelta: Coordinates = {
     row: space2.row - space1.row,
     col: space2.col - space1.col,
   };
   const isJump =
     Math.abs(moveDelta.row) === JUMP_DISTANCE ||
     Math.abs(moveDelta.col) === JUMP_DISTANCE;
-  const offset = {
+  const offset: Coordinates = {
     row: 0,
     col: 0,
   };

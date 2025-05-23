@@ -1,5 +1,9 @@
 import _ from 'lodash';
-import { createEmptyGame, constants, getBoardSpace } from '../..';
+import {
+  createEmptyGame,
+  constants,
+  getBoardSpace,
+} from '../../lib/camelot-engine.js';
 
 const CONST = constants();
 
@@ -24,12 +28,14 @@ describe('with-starting-pieces', function () {
 
   it('should not have a piece at (5, 1)', function () {
     const gameState = createEmptyGame();
-    expect(getBoardSpace(gameState, 5, 1).piece).toBeNull();
+    const boardSpace = getBoardSpace(gameState, 5, 1);
+    expect(boardSpace?.piece).toBeNull();
   });
 
   it('should not have a piece at (5, 2)', function () {
     const gameState = createEmptyGame();
-    expect(getBoardSpace(gameState, 5, 2).piece).toEqual({
+    const boardSpace = getBoardSpace(gameState, 5, 2);
+    expect(boardSpace?.piece).toEqual({
       type: 'knight',
       player: 'playerA',
     });
@@ -37,7 +43,8 @@ describe('with-starting-pieces', function () {
 
   it('should have a piece at (5, 3)', function () {
     const gameState = createEmptyGame();
-    expect(getBoardSpace(gameState, 5, 3).piece).toEqual({
+    const boardSpace = getBoardSpace(gameState, 5, 3);
+    expect(boardSpace?.piece).toEqual({
       type: 'pawn',
       player: 'playerA',
     });

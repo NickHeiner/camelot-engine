@@ -2,14 +2,19 @@
   "name": "camelot-engine",
   "version": "4.0.0",
   "description": "A game engine for the classic game Camelot",
-  "main": "lib/camelot-engine.js",
+  "main": "dist/lib/camelot-engine.js",
+  "types": "dist/lib/camelot-engine.d.ts",
   "type": "module",
   "scripts": {
+    "build": "tsc",
+    "build:watch": "tsc --watch",
+    "clean": "rm -rf dist",
     "lint": "eslint --max-warnings=0 .",
     "format": "prettier --check .",
     "format:fix": "prettier --write .",
     "lint:fix": "eslint --fix .",
-    "test": "npm run lint && npm run format && NODE_OPTIONS=--experimental-vm-modules jest"
+    "test": "npm run lint && npm run format && jest",
+    "prepublishOnly": "npm run clean && npm run build && npm test"
   },
   "repository": {
     "type": "git",
@@ -26,12 +31,19 @@
   },
   "homepage": "https://github.com/NickHeiner/camelot-engine",
   "devDependencies": {
-    "jest": "^29.7.0",
+    "@tsconfig/node20": "^20.1.5",
+    "@types/jest": "^29.5.14",
+    "@types/lodash": "^4.17.17",
+    "@types/node": "^22.15.21",
+    "@typescript-eslint/eslint-plugin": "^6.8.0",
+    "@typescript-eslint/parser": "^8.32.1",
     "eslint": "^8.56.0",
     "eslint-config-nth": "^1.0.0",
-    "prettier": "^3.2.5",
     "eslint-plugin-jest": "^27.6.0",
-    "@typescript-eslint/eslint-plugin": "^6.8.0"
+    "jest": "^29.7.0",
+    "prettier": "^3.2.5",
+    "ts-jest": "^29.3.4",
+    "typescript": "^5.8.3"
   },
   "dependencies": {
     "lodash": "^2.4.1"
@@ -42,7 +54,37 @@
     ]
   },
   "jest": {
+    "preset": "ts-jest",
     "testEnvironment": "node",
-    "transform": {}
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx"
+    ],
+    "testMatch": [
+      "**/test/**/*.ts"
+    ],
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/dist/"
+    ],
+    "moduleNameMapper": {
+      "^(\\.{1,2}/.*)\\.js$": "$1"
+    },
+    "transform": {
+      "^.+\\.ts$": [
+        "ts-jest",
+        {
+          "tsconfig": {
+            "allowJs": true,
+            "esModuleInterop": true
+          }
+        }
+      ]
+    },
+    "extensionsToTreatAsEsm": [
+      ".ts"
+    ]
   }
 }

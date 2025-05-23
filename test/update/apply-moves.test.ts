@@ -21,7 +21,7 @@ describe('apply-moves', function () {
         dest,
       ]);
 
-    expect(getBoardSpace(withMove, dest).piece).toHaveProperty(
+    expect(getBoardSpace(withMove, dest)?.piece).toHaveProperty(
       'type',
       constants.PAWN
     );
@@ -41,7 +41,7 @@ describe('apply-moves', function () {
         },
       ]);
 
-    expect(getBoardSpace(withMove, src).piece).toBe(null);
+    expect(getBoardSpace(withMove, src)?.piece).toBe(null);
   });
 
   it('removes a jumped piece', function () {
@@ -89,7 +89,7 @@ describe('apply-moves', function () {
       afterApplyingMove = applyMoves(withSecondPieceToJump, moves);
 
     expect(getBoardSpace(afterApplyingMove, 3, 7)).toHaveProperty('piece');
-    expect(getBoardSpace(afterApplyingMove, 3, 7).piece).toEqual({
+    expect(getBoardSpace(afterApplyingMove, 3, 7)?.piece).toEqual({
       type: 'pawn',
       player: 'playerA',
     });

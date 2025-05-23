@@ -2,11 +2,12 @@ import _ from 'lodash';
 import getAllBoardSpaces from './get-all-board-spaces.js';
 import util from 'util';
 import getConstants from '../get-constants.js';
+import type { GameState, Player } from '../types.js';
 
 const constants = getConstants();
 
-function getGameWinner(gameState) {
-  function hasEnoughPieces(player) {
+function getGameWinner(gameState: GameState): Player | null {
+  function hasEnoughPieces(player: Player): boolean {
     return (
       _.filter(getAllBoardSpaces(gameState), function (boardPiece) {
         return boardPiece.piece?.player === player;
@@ -14,7 +15,7 @@ function getGameWinner(gameState) {
     );
   }
 
-  function isRowFilled(row) {
+  function isRowFilled(row: number): boolean {
     if (!_.isNumber(row)) {
       throw new Error(
         `isRowFilled: row must be a number, but was: \`${util.inspect(row)}\``

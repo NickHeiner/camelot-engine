@@ -2,9 +2,20 @@ import getBoardSpace from '../query/get-board-space.js';
 import util from 'util';
 import getCoordsBetween from '../query/get-coords-between.js';
 import updateBoardSpace from './update-board-space.js';
+import type { GameState, Coordinates } from '../types.js';
 
-function applyMove(gameState, moveStart, moveEnd) {
-  const movingPiece = getBoardSpace(gameState, moveStart).piece;
+function applyMove(
+  gameState: GameState,
+  moveStart: Coordinates,
+  moveEnd: Coordinates
+): GameState {
+  const startSpace = getBoardSpace(gameState, moveStart);
+  if (!startSpace) {
+    throw new Error(
+      `applyMove: invalid moveStart coordinates. moveStart is: \`${util.inspect(moveStart)}\``
+    );
+  }
+  const movingPiece = startSpace.piece;
   const withMovingPieceNotAtSrc = updateBoardSpace(
     gameState,
     moveStart.row,
@@ -29,13 +40,9 @@ function applyMove(gameState, moveStart, moveEnd) {
     return withMovingPieceAtDest;
   }
 
-  const spaceBetween = getBoardSpace(
-    gameState,
-    coordsBetween.row,
-    coordsBetween.col
-  );
+  const spaceBetween = getBoardSpace(gameState, coordsBetween);
 
-  if (!spaceBetween.piece) {
+  if (!spaceBetween || !spaceBetween.piece) {
     throw new Error(
       'applyMove: if the move is a jump there must be a piece in the space between ' +
         `the start and end. That space between is: \`${util.inspect(spaceBetween)}\``

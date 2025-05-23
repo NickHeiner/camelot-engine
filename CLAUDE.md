@@ -4,12 +4,15 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Overview
 
-This is a game engine for the classic board game Camelot, written in JavaScript using ES modules.
+This is a game engine for the classic board game Camelot, written in TypeScript.
 
 ## Common Commands
 
 ### Development
 
+- `npm run build` - Compile TypeScript to JavaScript
+- `npm run build:watch` - Compile TypeScript in watch mode
+- `npm run clean` - Remove compiled output
 - `npm test` - Runs linting, formatting checks, and all tests
 - `npm run lint` - Run ESLint with zero warnings tolerance
 - `npm run lint:fix` - Auto-fix ESLint issues
@@ -18,8 +21,8 @@ This is a game engine for the classic board game Camelot, written in JavaScript 
 
 ### Running Individual Tests
 
-- `NODE_OPTIONS=--experimental-vm-modules jest test/path/to/specific.test.js` - Run a specific test file
-- `NODE_OPTIONS=--experimental-vm-modules jest --testNamePattern="test name"` - Run tests matching a pattern
+- `npm test -- test/path/to/specific.test.ts` - Run a specific test file
+- `npm test -- --testNamePattern="test name"` - Run tests matching a pattern
 
 ## Architecture
 
@@ -49,6 +52,7 @@ The codebase is organized into three main areas:
 
 - **Immutable State**: All update functions return new game state objects rather than modifying existing ones
 - **Pure Functions**: Query functions have no side effects
+- **TypeScript**: Fully typed codebase with strict type checking
 - **ES Modules**: Uses ES module syntax (`import`/`export`) throughout
 - **Function Style**: Multi-statement top-level functions use `function` declarations; single-expression functions and inline callbacks use arrow functions
 
@@ -72,6 +76,7 @@ Constants are defined in `lib/get-constants.js` including player names, piece ty
 
 ## Code Style
 
-- ESLint extends `eslint-config-nth` with some rules disabled
+- TypeScript configured with `@tsconfig/node20` base and strict mode
+- ESLint extends `eslint-config-nth` with TypeScript support
 - Prettier configured for single quotes and ES5 trailing commas
 - Magic numbers should be extracted as named constants (see `no-magic-numbers` rule exceptions)

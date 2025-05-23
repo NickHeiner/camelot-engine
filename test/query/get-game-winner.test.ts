@@ -4,6 +4,7 @@ import updateBoardSpace from '../../lib/update/update-board-space.js';
 import getConstants from '../../lib/get-constants.js';
 import getAllBoardSpaces from '../../lib/query/get-all-board-spaces.js';
 import getGameWinner from '../../lib/query/get-game-winner.js';
+import type { GameState, Player, PieceType } from '../../lib/types.js';
 
 const constants = getConstants();
 
@@ -12,7 +13,7 @@ describe('get-game-winner', function () {
     expect(getGameWinner(createEmptyGame())).toBe(null);
   });
 
-  function withoutColorPieces(gameState, player) {
+  function withoutColorPieces(gameState: GameState, player: Player): GameState {
     return _.reduce(
       getAllBoardSpaces(gameState),
       function (gameStateAcc, boardSpace) {
@@ -30,8 +31,16 @@ describe('get-game-winner', function () {
     );
   }
 
-  function addPiece(gameState, row, col, piece, player) {
-    return updateBoardSpace(gameState, row, col, { piece, player });
+  function addPiece(
+    gameState: GameState,
+    row: number,
+    col: number,
+    pieceType: PieceType,
+    player: Player
+  ): GameState {
+    return updateBoardSpace(gameState, row, col, {
+      piece: { type: pieceType, player },
+    });
   }
 
   it('identifies playerB as the winner when playerA has fewer than two pieces', function () {

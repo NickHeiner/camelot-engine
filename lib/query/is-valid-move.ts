@@ -2,17 +2,22 @@ import applyMove from '../update/apply-move.js';
 import getBoardSpace from './get-board-space.js';
 import getConstants from '../get-constants.js';
 import getCoordsBetween from './get-coords-between.js';
+import type { GameState, Player, Coordinates } from '../types.js';
 
 const constants = getConstants();
 
-function isValidMove(gameState, moveParts, movingPlayer) {
+function isValidMove(
+  gameState: GameState,
+  moveParts: Coordinates[],
+  movingPlayer?: Player | null
+): boolean {
   function isValidMoveRec(
-    gameState,
-    moveParts,
-    jumpedPlayer,
-    nonJumpHasOccurred,
-    firstRecursiveStep
-  ) {
+    gameState: GameState,
+    moveParts: Coordinates[],
+    jumpedPlayer: Player | null,
+    nonJumpHasOccurred: boolean,
+    firstRecursiveStep: boolean
+  ): boolean {
     const srcBoardSpace = getBoardSpace(gameState, moveParts[0]);
     const destBoardSpace =
       moveParts.length > 1 ? getBoardSpace(gameState, moveParts[1]) : null;
@@ -86,11 +91,11 @@ function isValidMove(gameState, moveParts, movingPlayer) {
 
     const spaceBetween = getCoordsBetween(moveParts[0], moveParts[1]);
     let nextJumpedPlayer = jumpedPlayer;
-    let nextNonJumpHasOccurred = nonJumpHasOccurred;
+    let nextNonJumpHasOccurred: boolean = nonJumpHasOccurred;
 
     if (spaceBetween !== null) {
       const boardSpaceBetween = getBoardSpace(gameState, spaceBetween);
-      if (!getBoardSpace(gameState, spaceBetween).piece) {
+      if (!boardSpaceBetween || !boardSpaceBetween.piece) {
         return false;
       }
       if (

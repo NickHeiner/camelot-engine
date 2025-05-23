@@ -8,7 +8,7 @@ import {
   getBoardSpace,
   getAllBoardSpaces,
   getCoordsBetween,
-} from '..';
+} from '../lib/camelot-engine.js';
 
 describe('camelot-engine', function () {
   describe('createEmptyGame', function () {

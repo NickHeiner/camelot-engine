@@ -9,8 +9,8 @@ describe('get-board-spaces', function () {
 
   it('should have 17 rows', function () {
     const generatedRows = _(createBoardSpaces())
-      .pluck('row')
-      .unique()
+      .map('row')
+      .uniq()
       .sortBy(_.identity)
       .valueOf();
 

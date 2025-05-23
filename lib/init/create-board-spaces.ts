@@ -1,12 +1,15 @@
 import _ from 'lodash';
 import getRangeForRow from './get-range-for-row.js';
+import type { BoardSpace } from '../types.js';
 
 /* eslint-disable no-magic-numbers */
 
-function getBoardSpaces() {
+function getBoardSpaces(): BoardSpace[] {
   // TODO verify that this is actually correct
 
-  const middleRows = _.range(3, 14).map((row) => getRangeForRow(row, 0));
+  const middleRows = _.range(3, 14).map((row: number) =>
+    getRangeForRow(row, 0)
+  );
 
   return [
     ...getRangeForRow(0, 5),

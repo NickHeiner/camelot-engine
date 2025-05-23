@@ -7,7 +7,7 @@ const constants = getConstants();
 
 describe('is-valid-move', function () {
   it('empty moves are valid', function () {
-    expect(isValidMove(createEmptyGame(), [])).toBe(true);
+    expect(isValidMove(createEmptyGame(), [], null)).toBe(true);
   });
 
   it('does not allow moves that do not start on a valid space', function () {

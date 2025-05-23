@@ -22,7 +22,7 @@ describe('apply-move', function () {
         dest
       );
 
-    expect(getBoardSpace(withMove, dest).piece).toHaveProperty(
+    expect(getBoardSpace(withMove, dest)?.piece).toHaveProperty(
       'type',
       constants.PAWN
     );
@@ -39,7 +39,7 @@ describe('apply-move', function () {
         col: 4,
       });
 
-    expect(getBoardSpace(withMove, src).piece).toBe(null);
+    expect(getBoardSpace(withMove, src)?.piece).toBe(null);
   });
 
   it('removes a jumped piece', function () {
@@ -57,7 +57,7 @@ describe('apply-move', function () {
       col: 4,
     });
 
-    expect(getBoardSpace(withMove, 11, 4).piece).toBe(null);
+    expect(getBoardSpace(withMove, 11, 4)?.piece).toBe(null);
   });
 
   it('should not remove a jumped piece if it is friendly', function () {
@@ -74,8 +74,8 @@ describe('apply-move', function () {
         col: 4,
       });
 
-    expect(getBoardSpace(withMove, 11, 4).piece).toEqual(
-      getBoardSpace(withPieceToJump, 11, 4).piece
+    expect(getBoardSpace(withMove, 11, 4)?.piece).toEqual(
+      getBoardSpace(withPieceToJump, 11, 4)?.piece
     );
   });
 

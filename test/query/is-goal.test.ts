@@ -1,5 +1,6 @@
-import { createEmptyGame } from '../..';
+import { createEmptyGame } from '../../lib/camelot-engine.js';
 import isGoal from '../../lib/query/is-goal.js';
+import type { GameState } from '../../lib/types.js';
 
 describe('isGoal', function () {
   function getGame() {
@@ -8,7 +9,7 @@ describe('isGoal', function () {
 
   it('throws an error for invalid input', function () {
     expect(function () {
-      isGoal('not game state', 3, 2);
+      isGoal('not game state' as unknown as GameState, 3, 2);
     }).toThrow(
       /gameState must be an object representing the game state, but was/
     );

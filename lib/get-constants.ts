@@ -1,13 +1,15 @@
-export default function getConstants() {
-  const BOARD_HEIGHT = 17,
-    PLAYER_A = 'playerA',
-    PLAYER_B = 'playerB';
+import { Constants, Player, PieceType } from './types.js';
+
+export default function getConstants(): Constants {
+  const BOARD_HEIGHT = 17;
+  const PLAYER_A: Player = 'playerA';
+  const PLAYER_B: Player = 'playerB';
 
   return {
     BOARD_WIDTH: 12,
     BOARD_HEIGHT,
-    KNIGHT: 'knight',
-    PAWN: 'pawn',
+    KNIGHT: 'knight' as PieceType,
+    PAWN: 'pawn' as PieceType,
 
     PLAYER_A,
     PLAYER_B,

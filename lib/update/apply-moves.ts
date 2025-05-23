@@ -1,7 +1,8 @@
 import applyMove from './apply-move.js';
 import pairwise from '../util/pairwise.js';
+import type { GameState, Coordinates } from '../types.js';
 
-function applyMoves(gameState, moves) {
+function applyMoves(gameState: GameState, moves: Coordinates[]): GameState {
   // TODO it would be nice to throw an error if the moves aren't valid.
 
   if (moves.length === 1) {

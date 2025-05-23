@@ -2,11 +2,18 @@ import updateBoardSpace from '../update/update-board-space.js';
 import getConstants from '../get-constants.js';
 import repeat from '../util/repeat.js';
 import _ from 'lodash';
+import type { GameState, Player, PieceType } from '../types.js';
 
 const constants = getConstants();
 
-function makePieceRow(gameState, countPawns, row, colStart, player) {
-  const pieces = [
+function makePieceRow(
+  gameState: GameState,
+  countPawns: number,
+  row: number,
+  colStart: number,
+  player: Player
+): GameState {
+  const pieces: PieceType[] = [
       constants.KNIGHT,
       ...repeat(constants.PAWN, countPawns),
       constants.KNIGHT,
@@ -14,7 +21,7 @@ function makePieceRow(gameState, countPawns, row, colStart, player) {
     colOffsets = _.range(countPawns + 2);
 
   return colOffsets.reduce(
-    (gameStateAcc, colOffset) =>
+    (gameStateAcc: GameState, colOffset: number) =>
       updateBoardSpace(gameStateAcc, row, colOffset + colStart, {
         piece: {
           type: pieces[colOffset],
@@ -25,9 +32,9 @@ function makePieceRow(gameState, countPawns, row, colStart, player) {
   );
 }
 
-const withStartingPieces = (gameState) =>
+const withStartingPieces = (gameState: GameState): GameState =>
   constants.STARTING_POSITIONS.reduce(
-    (gameStateAcc, startingPosition) =>
+    (gameStateAcc: GameState, startingPosition) =>
       makePieceRow(
         gameStateAcc,
         startingPosition.COUNT_PAWNS,
