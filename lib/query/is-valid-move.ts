@@ -1,10 +1,8 @@
 import applyMove from '../update/apply-move.js';
 import getBoardSpace from './get-board-space.js';
-import getConstants from '../get-constants.js';
+import { PLAYER_A, PLAYER_B, PLAYER_A_GOAL_ROW, PLAYER_B_GOAL_ROW, KNIGHT } from '../constants.js';
 import getCoordsBetween from './get-coords-between.js';
 import type { GameState, Player, Coordinates } from '../types.js';
-
-const constants = getConstants();
 
 function isValidMove(
   gameState: GameState,
@@ -63,14 +61,14 @@ function isValidMove(
     }
 
     if (
-      srcBoardSpace.piece.player === constants.PLAYER_A &&
-      destBoardSpace.row === constants.PLAYER_A_GOAL_ROW
+      srcBoardSpace.piece.player === PLAYER_A &&
+      destBoardSpace.row === PLAYER_A_GOAL_ROW
     ) {
       return false;
     }
     if (
-      srcBoardSpace.piece.player === constants.PLAYER_B &&
-      destBoardSpace.row === constants.PLAYER_B_GOAL_ROW
+      srcBoardSpace.piece.player === PLAYER_B &&
+      destBoardSpace.row === PLAYER_B_GOAL_ROW
     ) {
       return false;
     }
@@ -101,7 +99,7 @@ function isValidMove(
       if (
         jumpedPlayer !== null &&
         boardSpaceBetween.piece.player !== jumpedPlayer &&
-        srcBoardSpace.piece.type !== constants.KNIGHT
+        srcBoardSpace.piece.type !== KNIGHT
       ) {
         return false;
       }

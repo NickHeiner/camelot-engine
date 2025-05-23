@@ -1,15 +1,13 @@
 import createBoardSpaces from './create-board-spaces.js';
 import withStartingPieces from './with-starting-pieces.js';
-import getConstants from '../get-constants.js';
+import { PLAYER_A, PLAYER_B, PAWN, KNIGHT } from '../constants.js';
 import type { CapturedPieces } from '../types.js';
 
-const constants = getConstants();
-
 function createEmptyGame() {
-  const capturedPieces = [constants.PLAYER_A, constants.PLAYER_B].reduce(
+  const capturedPieces = [PLAYER_A, PLAYER_B].reduce(
     (acc, playerName) => ({
       ...acc,
-      [playerName]: { [constants.PAWN]: 0, [constants.KNIGHT]: 0 },
+      [playerName]: { [PAWN]: 0, [KNIGHT]: 0 },
     }),
     {} as CapturedPieces
   );

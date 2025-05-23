@@ -1,6 +1,5 @@
 import {
   createEmptyGame,
-  constants,
   applyMoves,
   isGoal,
   isValidMove,
@@ -9,6 +8,7 @@ import {
   getAllBoardSpaces,
   getCoordsBetween,
 } from '../lib/camelot-engine.js';
+import { KNIGHT, PAWN } from '../lib/constants.js';
 
 describe('camelot-engine', function () {
   describe('createEmptyGame', function () {
@@ -62,11 +62,11 @@ describe('camelot-engine', function () {
 
   describe('constants', function () {
     it('exports KNIGHT', function () {
-      expect(typeof constants().KNIGHT).toBe('string');
+      expect(typeof KNIGHT).toBe('string');
     });
 
     it('exports PAWN', function () {
-      expect(typeof constants().PAWN).toBe('string');
+      expect(typeof PAWN).toBe('string');
     });
   });
 });

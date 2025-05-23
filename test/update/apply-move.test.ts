@@ -1,10 +1,8 @@
 import createEmptyGame from '../../lib/init/create-empty-game.js';
 import updateBoardSpace from '../../lib/update/update-board-space.js';
 import getBoardSpace from '../../lib/query/get-board-space.js';
-import getConstants from '../../lib/get-constants.js';
+import { PAWN } from '../../lib/constants.js';
 import applyMove from '../../lib/update/apply-move.js';
-
-const constants = getConstants();
 
 describe('apply-move', function () {
   it('adds a piece to the destination', function () {
@@ -24,7 +22,7 @@ describe('apply-move', function () {
 
     expect(getBoardSpace(withMove, dest)?.piece).toHaveProperty(
       'type',
-      constants.PAWN
+      PAWN
     );
   });
 
@@ -45,7 +43,7 @@ describe('apply-move', function () {
   it('removes a jumped piece', function () {
     const game = createEmptyGame(),
       withPieceToJump = updateBoardSpace(game, 11, 4, {
-        piece: { type: constants.PAWN, player: 'playerA' },
+        piece: { type: PAWN, player: 'playerA' },
       }),
       src = {
         row: 10,
@@ -63,7 +61,7 @@ describe('apply-move', function () {
   it('should not remove a jumped piece if it is friendly', function () {
     const game = createEmptyGame(),
       withPieceToJump = updateBoardSpace(game, 11, 4, {
-        piece: { type: constants.PAWN, player: 'playerB' },
+        piece: { type: PAWN, player: 'playerB' },
       }),
       src = {
         row: 10,

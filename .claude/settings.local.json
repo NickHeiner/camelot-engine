@@ -10,7 +10,8 @@
       "Bash(touch:*)",
       "Bash(sed:*)",
       "Bash(grep:*)",
-      "Bash(perl:*)"
+      "Bash(perl:*)",
+      "Bash(git checkout:*)"
     ],
     "deny": []
   }

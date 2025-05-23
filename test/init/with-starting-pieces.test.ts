@@ -1,18 +1,16 @@
 import _ from 'lodash';
 import {
   createEmptyGame,
-  constants,
   getBoardSpace,
 } from '../../lib/camelot-engine.js';
-
-const CONST = constants();
+import { KNIGHT, PAWN } from '../../lib/constants.js';
 
 describe('with-starting-pieces', function () {
   it('creates a board with the right number of knights', function () {
     const gameState = createEmptyGame();
     expect(
       _.filter(gameState.boardSpaces, function (boardSpace) {
-        return boardSpace.piece && boardSpace.piece.type === CONST.KNIGHT;
+        return boardSpace.piece && boardSpace.piece.type === KNIGHT;
       }).length
     ).toBe(8);
   });
@@ -21,7 +19,7 @@ describe('with-starting-pieces', function () {
     const gameState = createEmptyGame();
     expect(
       _.filter(gameState.boardSpaces, function (boardSpace) {
-        return boardSpace.piece && boardSpace.piece.type === CONST.PAWN;
+        return boardSpace.piece && boardSpace.piece.type === PAWN;
       }).length
     ).toBe(20);
   });
