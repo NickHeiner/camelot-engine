@@ -1,4 +1,3 @@
-/* eslint-disable no-magic-numbers */
 import type { Player, PieceType } from './types.js';
 
 export const BOARD_WIDTH = 12 as const;
