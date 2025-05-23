@@ -2,11 +2,17 @@
   "root": true,
   "extends": ["nth"],
   "env": {
-    "node": true,
-    "jest": true
+    "node": true
   },
   "parserOptions": {
     "sourceType": "module",
     "ecmaVersion": 2020
+  },
+  "rules": {
+    "comma-dangle": "off",
+    "space-before-function-paren": "off",
+    "object-curly-spacing": "off",
+    "max-len": "off",
+    "indent": "off"
   }
 }
