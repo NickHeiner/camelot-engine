@@ -107,6 +107,14 @@ describe('apply-moves', function () {
     expect(withMove).toHaveProperty('turnCount', 1);
   });
 
+  it('throws an error when only one coordinate is provided', function () {
+    const game = createEmptyGame();
+
+    expect(function () {
+      applyMoves(game, [{ row: 5, col: 5 }]);
+    }).toThrow(/Cannot apply a single move/);
+  });
+
   describe('captured pieces', function () {
     it('updates the captured pieces record when a pawn is captured', function () {
       const game = createEmptyGame(),

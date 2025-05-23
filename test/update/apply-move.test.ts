@@ -74,6 +74,23 @@ describe('apply-move', function () {
     );
   });
 
+  it('updates the captured pieces record when an enemy piece is captured', function () {
+    const game = createEmptyGame(),
+      withPieceToJump = updateBoardSpace(game, 11, 4, {
+        piece: { type: PAWN, player: 'playerA' },
+      }),
+      src = {
+        row: 10,
+        col: 4,
+      },
+      withMove = applyMove(withPieceToJump, src, {
+        row: 12,
+        col: 4,
+      });
+
+    expect(withMove.capturedPieces.playerA.pawn).toBe(1);
+  });
+
   describe('errors', function () {
     it('throws an error when there is no piece to jump', function () {
       const game = createEmptyGame(),
@@ -105,6 +122,14 @@ describe('apply-move', function () {
           col: 5,
         });
       }).toThrow(/there must be a piece to move at moveStart/);
+    });
+
+    it('throws an error when the start coordinates are invalid', function () {
+      const game = createEmptyGame();
+
+      expect(function () {
+        applyMove(game, { row: 99, col: 99 }, { row: 5, col: 5 });
+      }).toThrow(/invalid moveStart coordinates/);
     });
   });
 });
