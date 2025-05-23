@@ -12,11 +12,7 @@ export interface BoardSpace {
   piece: Piece | null;
 }
 
-export interface CapturedPieces {
-  [player: string]: {
-    [pieceType: string]: number;
-  };
-}
+export type CapturedPieces = Record<Player, Record<PieceType, number>>;
 
 export interface GameState {
   boardSpaces: BoardSpace[];
@@ -27,24 +23,4 @@ export interface GameState {
 export interface Coordinates {
   row: number;
   col: number;
-}
-
-export interface StartingPosition {
-  ROW: number;
-  COL_START: number;
-  COUNT_PAWNS: number;
-  COLOR: Player;
-}
-
-export interface Constants {
-  BOARD_WIDTH: number;
-  BOARD_HEIGHT: number;
-  KNIGHT: PieceType;
-  PAWN: PieceType;
-  PLAYER_A: Player;
-  PLAYER_B: Player;
-  COUNT_PIECES_NEEDED_TO_WIN: number;
-  PLAYER_A_GOAL_ROW: number;
-  PLAYER_B_GOAL_ROW: number;
-  STARTING_POSITIONS: StartingPosition[];
 }

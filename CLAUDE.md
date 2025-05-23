@@ -80,3 +80,7 @@ Constants are defined in `lib/get-constants.js` including player names, piece ty
 - ESLint extends `eslint-config-nth` with TypeScript support
 - Prettier configured for single quotes and ES5 trailing commas
 - Magic numbers should be extracted as named constants (see `no-magic-numbers` rule exceptions)
+
+## Memories
+
+- to fix formatting issues, use the format command in package.json, rather than calling prettier directly

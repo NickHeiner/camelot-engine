@@ -1,9 +1,7 @@
 import isValidMove from '../../lib/query/is-valid-move.js';
-import getConstants from '../../lib/get-constants.js';
+import { PAWN } from '../../lib/constants.js';
 import updateBoardSpace from '../../lib/update/update-board-space.js';
 import createEmptyGame from '../../lib/init/create-empty-game.js';
-
-const constants = getConstants();
 
 describe('is-valid-move', function () {
   it('empty moves are valid', function () {
@@ -211,7 +209,7 @@ describe('is-valid-move', function () {
   it('does not allow pawns to jump over both friendly and enemy pieces in the same jump', function () {
     const game = createEmptyGame(),
       withPawnInJumpRange = updateBoardSpace(game, 8, 5, {
-        piece: { type: constants.PAWN, player: 'playerA' },
+        piece: { type: PAWN, player: 'playerA' },
       });
 
     expect(
@@ -235,7 +233,7 @@ describe('is-valid-move', function () {
   it('does allow knights to jump over both friendly and enemy pieces in the same jump', function () {
     const game = createEmptyGame(),
       withPawnInJumpRange = updateBoardSpace(game, 4, 9, {
-        piece: { type: constants.PAWN, player: 'playerB' },
+        piece: { type: PAWN, player: 'playerB' },
       });
 
     expect(
@@ -279,7 +277,7 @@ describe('is-valid-move', function () {
   it('does not allow a non-jump followed by a jump', function () {
     const game = createEmptyGame(),
       withPieceToJump = updateBoardSpace(game, 3, 6, {
-        piece: { type: constants.PAWN, player: 'playerB' },
+        piece: { type: PAWN, player: 'playerB' },
       });
 
     expect(
@@ -323,7 +321,7 @@ describe('is-valid-move', function () {
   it('does not allow playerA to move into its own goal', function () {
     const game = createEmptyGame(),
       withPawnNearGoal = updateBoardSpace(game, 1, 5, {
-        piece: { type: constants.PAWN, player: 'playerA' },
+        piece: { type: PAWN, player: 'playerA' },
       });
 
     expect(
@@ -343,7 +341,7 @@ describe('is-valid-move', function () {
   it("does allow playerB to move into playerA's goal", function () {
     const game = createEmptyGame(),
       withPawnNearGoal = updateBoardSpace(game, 1, 5, {
-        piece: { type: constants.PAWN, player: 'playerB' },
+        piece: { type: PAWN, player: 'playerB' },
       });
 
     expect(
@@ -363,7 +361,7 @@ describe('is-valid-move', function () {
   it("does allow playerA to move into playerB's goal", function () {
     const game = createEmptyGame(),
       withPawnNearGoal = updateBoardSpace(game, 15, 5, {
-        piece: { type: constants.PAWN, player: 'playerA' },
+        piece: { type: PAWN, player: 'playerA' },
       });
 
     expect(
@@ -383,7 +381,7 @@ describe('is-valid-move', function () {
   it('does not allow playerB to move into its own goal', function () {
     const game = createEmptyGame(),
       withPawnNearGoal = updateBoardSpace(game, 15, 5, {
-        piece: { type: constants.PAWN, player: 'playerB' },
+        piece: { type: PAWN, player: 'playerB' },
       });
 
     expect(

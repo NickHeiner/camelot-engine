@@ -1,10 +1,8 @@
 import createEmptyGame from '../../lib/init/create-empty-game.js';
 import updateBoardSpace from '../../lib/update/update-board-space.js';
 import getBoardSpace from '../../lib/query/get-board-space.js';
-import getConstants from '../../lib/get-constants.js';
+import { PAWN } from '../../lib/constants.js';
 import applyMoves from '../../lib/update/apply-moves.js';
-
-const constants = getConstants();
 
 describe('apply-moves', function () {
   it('adds a piece to the destination', function () {
@@ -21,10 +19,7 @@ describe('apply-moves', function () {
         dest,
       ]);
 
-    expect(getBoardSpace(withMove, dest)?.piece).toHaveProperty(
-      'type',
-      constants.PAWN
-    );
+    expect(getBoardSpace(withMove, dest)?.piece).toHaveProperty('type', PAWN);
   });
 
   it('removes a piece from the source', function () {
@@ -47,7 +42,7 @@ describe('apply-moves', function () {
   it('removes a jumped piece', function () {
     const game = createEmptyGame(),
       withPieceToJump = updateBoardSpace(game, 11, 4, {
-        piece: { type: constants.PAWN, player: 'playerA' },
+        piece: { type: PAWN, player: 'playerA' },
       }),
       src = {
         row: 10,
@@ -67,10 +62,10 @@ describe('apply-moves', function () {
   it('applies a chain with three moves', function () {
     const game = createEmptyGame(),
       withPieceToJump = updateBoardSpace(game, 4, 5, {
-        piece: { type: constants.PAWN, player: 'playerB' },
+        piece: { type: PAWN, player: 'playerB' },
       }),
       withSecondPieceToJump = updateBoardSpace(withPieceToJump, 3, 6, {
-        piece: { type: constants.PAWN, player: 'playerB' },
+        piece: { type: PAWN, player: 'playerB' },
       }),
       moves = [
         {

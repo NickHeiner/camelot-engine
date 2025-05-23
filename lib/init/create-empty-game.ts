@@ -1,17 +1,13 @@
 import createBoardSpaces from './create-board-spaces.js';
 import withStartingPieces from './with-starting-pieces.js';
-import getConstants from '../get-constants.js';
+import { PLAYER_A, PLAYER_B, PAWN, KNIGHT } from '../constants.js';
+import type { CapturedPieces, GameState } from '../types.js';
 
-const constants = getConstants();
-
-function createEmptyGame() {
-  const capturedPieces = [constants.PLAYER_A, constants.PLAYER_B].reduce(
-    (acc, playerName) => ({
-      ...acc,
-      [playerName]: { [constants.PAWN]: 0, [constants.KNIGHT]: 0 },
-    }),
-    {}
-  );
+function createEmptyGame(): GameState {
+  const capturedPieces: CapturedPieces = {
+    [PLAYER_A]: { [PAWN]: 0, [KNIGHT]: 0 },
+    [PLAYER_B]: { [PAWN]: 0, [KNIGHT]: 0 },
+  };
 
   return withStartingPieces({
     turnCount: 0,

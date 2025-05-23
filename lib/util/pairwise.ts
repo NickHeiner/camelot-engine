@@ -7,15 +7,15 @@ export default function pairwise<T>(elems: T[]): Array<[T, T]> {
     );
   }
 
-  function pairwiseRec(soFar: Array<[T, T]>, elems: T[]): Array<[T, T]> {
-    if (elems.length <= 1) {
+  function pairwiseRec(soFar: Array<[T, T]>, remaining: T[]): Array<[T, T]> {
+    if (remaining.length <= 1) {
       return soFar;
     }
 
-    const first = _.first(elems) as T;
-    const second = elems[1] as T;
+    const first = remaining[0];
+    const second = remaining[1];
 
-    return pairwiseRec(soFar.concat([[first, second]]), _.tail(elems));
+    return pairwiseRec(soFar.concat([[first, second]]), _.tail(remaining));
   }
 
   return pairwiseRec([], elems);

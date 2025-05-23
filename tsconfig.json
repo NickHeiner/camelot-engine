@@ -12,6 +12,7 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "resolveJsonModule": true,
+    "isolatedModules": true,
     "types": ["node", "jest"]
   },
   "include": ["lib/**/*", "test/**/*"],
