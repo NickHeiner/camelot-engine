@@ -10,9 +10,13 @@ function updateBoardSpace(
   const newGameState = structuredClone(gameState);
   const boardSpace = getBoardSpace(newGameState, row, col);
 
-  if (boardSpace) {
-    Object.assign(boardSpace, newBoardSpace);
+  if (!boardSpace) {
+    throw new Error(
+      `updateBoardSpace: invalid coordinates row=${row}, col=${col}`
+    );
   }
+
+  Object.assign(boardSpace, newBoardSpace);
 
   return newGameState;
 }

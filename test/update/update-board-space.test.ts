@@ -9,4 +9,10 @@ describe('updateBoardSpace', function () {
 
     expect(getBoardSpace(withPiece, 11, 4)?.piece).toEqual(piece);
   });
+
+  it('throws an error when the coordinates do not exist', function () {
+    expect(function () {
+      updateBoardSpace(createEmptyGame(), 99, 99, { piece: null });
+    }).toThrow(/invalid coordinates/);
+  });
 });

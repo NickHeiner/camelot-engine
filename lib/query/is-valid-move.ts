@@ -22,12 +22,6 @@ function isValidMove(
     nonJumpHasOccurred: boolean,
     firstRecursiveStep: boolean
   ): boolean {
-    if (!currentGameState) {
-      throw new Error(
-        `gameState must be a game state object, but was: \`${currentGameState}\``
-      );
-    }
-
     if (!remainingMoveParts.length) {
       return true;
     }
