@@ -1,8 +1,5 @@
 import _ from 'lodash';
-import {
-  createEmptyGame,
-  getBoardSpace,
-} from '../../lib/camelot-engine.js';
+import { createEmptyGame, getBoardSpace } from '../../lib/camelot-engine.js';
 import { KNIGHT, PAWN } from '../../lib/constants.js';
 
 describe('with-starting-pieces', function () {

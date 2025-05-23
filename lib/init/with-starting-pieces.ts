@@ -11,11 +11,7 @@ function makePieceRow(
   colStart: number,
   player: Player
 ): GameState {
-  const pieces: PieceType[] = [
-      KNIGHT,
-      ...repeat(PAWN, countPawns),
-      KNIGHT,
-    ],
+  const pieces: PieceType[] = [KNIGHT, ...repeat(PAWN, countPawns), KNIGHT],
     colOffsets = _.range(countPawns + 2);
 
   return colOffsets.reduce(

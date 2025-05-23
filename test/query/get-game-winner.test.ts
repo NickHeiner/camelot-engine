@@ -42,85 +42,43 @@ describe('get-game-winner', function () {
   }
 
   it('identifies playerB as the winner when playerA has fewer than two pieces', function () {
-    const withoutWhitePieces = withoutColorPieces(
-      createEmptyGame(),
-      PLAYER_A
-    );
+    const withoutWhitePieces = withoutColorPieces(createEmptyGame(), PLAYER_A);
 
     expect(getGameWinner(withoutWhitePieces)).toBe(PLAYER_B);
   });
 
   it('identifies playerA as the winner when playerB has fewer than two pieces', function () {
-    const withoutWhitePieces = withoutColorPieces(
-      createEmptyGame(),
-      PLAYER_B
-    );
+    const withoutWhitePieces = withoutColorPieces(createEmptyGame(), PLAYER_B);
 
     expect(getGameWinner(withoutWhitePieces)).toBe(PLAYER_A);
   });
 
   it('does not identify playerB as a winner when playerA has one piece in the goal', function () {
     const game = createEmptyGame(),
-      gameWithOneInGoal = addPiece(
-        game,
-        0,
-        5,
-        PAWN,
-        PLAYER_B
-      );
+      gameWithOneInGoal = addPiece(game, 0, 5, PAWN, PLAYER_B);
 
     expect(getGameWinner(gameWithOneInGoal)).toBe(null);
   });
 
   it('does not identify playerA as a winner when playerB has one piece in the goal', function () {
     const game = createEmptyGame(),
-      gameWithOneInGoal = addPiece(
-        game,
-        15,
-        5,
-        KNIGHT,
-        PLAYER_A
-      );
+      gameWithOneInGoal = addPiece(game, 15, 5, KNIGHT, PLAYER_A);
 
     expect(getGameWinner(gameWithOneInGoal)).toBe(null);
   });
 
   it('identifies playerB as the winner when it has entered the playerA goal', function () {
     const game = createEmptyGame(),
-      gameWithOneInGoal = addPiece(
-        game,
-        0,
-        5,
-        PAWN,
-        PLAYER_B
-      ),
-      gameWithTwoInGoal = addPiece(
-        gameWithOneInGoal,
-        0,
-        6,
-        PAWN,
-        PLAYER_B
-      );
+      gameWithOneInGoal = addPiece(game, 0, 5, PAWN, PLAYER_B),
+      gameWithTwoInGoal = addPiece(gameWithOneInGoal, 0, 6, PAWN, PLAYER_B);
 
     expect(getGameWinner(gameWithTwoInGoal)).toBe(PLAYER_B);
   });
 
   it('identifies playerA as the winner when it has entered the playerB goal', function () {
     const game = createEmptyGame(),
-      gameWithOneInGoal = addPiece(
-        game,
-        16,
-        5,
-        PAWN,
-        PLAYER_A
-      ),
-      gameWithTwoInGoal = addPiece(
-        gameWithOneInGoal,
-        16,
-        6,
-        PAWN,
-        PLAYER_A
-      );
+      gameWithOneInGoal = addPiece(game, 16, 5, PAWN, PLAYER_A),
+      gameWithTwoInGoal = addPiece(gameWithOneInGoal, 16, 6, PAWN, PLAYER_A);
 
     expect(getGameWinner(gameWithTwoInGoal)).toBe(PLAYER_A);
   });

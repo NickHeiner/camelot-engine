@@ -20,10 +20,7 @@ describe('apply-move', function () {
         dest
       );
 
-    expect(getBoardSpace(withMove, dest)?.piece).toHaveProperty(
-      'type',
-      PAWN
-    );
+    expect(getBoardSpace(withMove, dest)?.piece).toHaveProperty('type', PAWN);
   });
 
   it('removes a piece from the source', function () {

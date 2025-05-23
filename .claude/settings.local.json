@@ -11,7 +11,9 @@
       "Bash(sed:*)",
       "Bash(grep:*)",
       "Bash(perl:*)",
-      "Bash(git checkout:*)"
+      "Bash(git checkout:*)",
+      "Bash(rg:*)",
+      "Bash(NODE_OPTIONS=\"--experimental-vm-modules\" npm test)"
     ],
     "deny": []
   }

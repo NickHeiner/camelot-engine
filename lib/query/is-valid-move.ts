@@ -1,6 +1,12 @@
 import applyMove from '../update/apply-move.js';
 import getBoardSpace from './get-board-space.js';
-import { PLAYER_A, PLAYER_B, PLAYER_A_GOAL_ROW, PLAYER_B_GOAL_ROW, KNIGHT } from '../constants.js';
+import {
+  PLAYER_A,
+  PLAYER_B,
+  PLAYER_A_GOAL_ROW,
+  PLAYER_B_GOAL_ROW,
+  KNIGHT,
+} from '../constants.js';
 import getCoordsBetween from './get-coords-between.js';
 import type { GameState, Player, Coordinates } from '../types.js';
 
@@ -16,10 +22,6 @@ function isValidMove(
     nonJumpHasOccurred: boolean,
     firstRecursiveStep: boolean
   ): boolean {
-    const srcBoardSpace = getBoardSpace(currentGameState, remainingMoveParts[0]);
-    const destBoardSpace =
-      remainingMoveParts.length > 1 ? getBoardSpace(currentGameState, remainingMoveParts[1]) : null;
-
     if (!currentGameState) {
       throw new Error(
         `gameState must be a game state object, but was: \`${currentGameState}\``
@@ -29,6 +31,15 @@ function isValidMove(
     if (!remainingMoveParts.length) {
       return true;
     }
+
+    const srcBoardSpace = getBoardSpace(
+      currentGameState,
+      remainingMoveParts[0]
+    );
+    const destBoardSpace =
+      remainingMoveParts.length > 1
+        ? getBoardSpace(currentGameState, remainingMoveParts[1])
+        : null;
 
     if (srcBoardSpace === null) {
       return false;
@@ -87,7 +98,10 @@ function isValidMove(
       return false;
     }
 
-    const spaceBetween = getCoordsBetween(remainingMoveParts[0], remainingMoveParts[1]);
+    const spaceBetween = getCoordsBetween(
+      remainingMoveParts[0],
+      remainingMoveParts[1]
+    );
     let nextJumpedPlayer = jumpedPlayer;
     let nextNonJumpHasOccurred: boolean = nonJumpHasOccurred;
 
@@ -111,7 +125,11 @@ function isValidMove(
       nextNonJumpHasOccurred = true;
     }
 
-    const gameAfterFirstMove = applyMove(currentGameState, remainingMoveParts[0], remainingMoveParts[1]);
+    const gameAfterFirstMove = applyMove(
+      currentGameState,
+      remainingMoveParts[0],
+      remainingMoveParts[1]
+    );
     return isValidMoveRec(
       gameAfterFirstMove,
       remainingMoveParts.slice(1),

@@ -12,8 +12,8 @@ export default function pairwise<T>(elems: T[]): Array<[T, T]> {
       return soFar;
     }
 
-    const first = _.first(remaining) as T;
-    const second = remaining[1] as T;
+    const first = remaining[0];
+    const second = remaining[1];
 
     return pairwiseRec(soFar.concat([[first, second]]), _.tail(remaining));
   }

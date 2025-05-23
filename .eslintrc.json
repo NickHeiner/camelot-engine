@@ -31,7 +31,10 @@
         "consistent-return": "off",
         "no-invalid-this": "off",
         "prefer-const": "off",
-        "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
+        "@typescript-eslint/no-unused-vars": [
+          "error",
+          { "argsIgnorePattern": "^_" }
+        ],
         "@typescript-eslint/no-use-before-define": "error",
         "@typescript-eslint/no-shadow": "error",
         "@typescript-eslint/no-redeclare": "error",

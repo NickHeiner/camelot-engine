@@ -17,6 +17,4 @@ describe('camelot-engine', function () {
       expect(createEmptyGame().boardSpaces).toHaveLength(172);
     });
   });
-
-
 });
