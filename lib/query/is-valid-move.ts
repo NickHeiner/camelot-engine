@@ -10,23 +10,23 @@ function isValidMove(
   movingPlayer?: Player | null
 ): boolean {
   function isValidMoveRec(
-    gameState: GameState,
-    moveParts: Coordinates[],
+    currentGameState: GameState,
+    remainingMoveParts: Coordinates[],
     jumpedPlayer: Player | null,
     nonJumpHasOccurred: boolean,
     firstRecursiveStep: boolean
   ): boolean {
-    const srcBoardSpace = getBoardSpace(gameState, moveParts[0]);
+    const srcBoardSpace = getBoardSpace(currentGameState, remainingMoveParts[0]);
     const destBoardSpace =
-      moveParts.length > 1 ? getBoardSpace(gameState, moveParts[1]) : null;
+      remainingMoveParts.length > 1 ? getBoardSpace(currentGameState, remainingMoveParts[1]) : null;
 
-    if (!gameState) {
+    if (!currentGameState) {
       throw new Error(
-        `gameState must be a game state object, but was: \`${gameState}\``
+        `gameState must be a game state object, but was: \`${currentGameState}\``
       );
     }
 
-    if (!moveParts.length) {
+    if (!remainingMoveParts.length) {
       return true;
     }
 
@@ -44,7 +44,7 @@ function isValidMove(
       }
     }
 
-    if (moveParts.length <= 1) {
+    if (remainingMoveParts.length <= 1) {
       return true;
     }
 
@@ -74,8 +74,8 @@ function isValidMove(
     }
 
     const moveDelta = {
-      row: Math.abs(moveParts[1].row - moveParts[0].row),
-      col: Math.abs(moveParts[1].col - moveParts[0].col),
+      row: Math.abs(remainingMoveParts[1].row - remainingMoveParts[0].row),
+      col: Math.abs(remainingMoveParts[1].col - remainingMoveParts[0].col),
     };
 
     if (
@@ -87,12 +87,12 @@ function isValidMove(
       return false;
     }
 
-    const spaceBetween = getCoordsBetween(moveParts[0], moveParts[1]);
+    const spaceBetween = getCoordsBetween(remainingMoveParts[0], remainingMoveParts[1]);
     let nextJumpedPlayer = jumpedPlayer;
     let nextNonJumpHasOccurred: boolean = nonJumpHasOccurred;
 
     if (spaceBetween !== null) {
-      const boardSpaceBetween = getBoardSpace(gameState, spaceBetween);
+      const boardSpaceBetween = getBoardSpace(currentGameState, spaceBetween);
       if (!boardSpaceBetween || !boardSpaceBetween.piece) {
         return false;
       }
@@ -111,10 +111,10 @@ function isValidMove(
       nextNonJumpHasOccurred = true;
     }
 
-    const gameAfterFirstMove = applyMove(gameState, moveParts[0], moveParts[1]);
+    const gameAfterFirstMove = applyMove(currentGameState, remainingMoveParts[0], remainingMoveParts[1]);
     return isValidMoveRec(
       gameAfterFirstMove,
-      moveParts.slice(1),
+      remainingMoveParts.slice(1),
       nextJumpedPlayer,
       nextNonJumpHasOccurred,
       false

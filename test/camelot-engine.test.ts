@@ -1,14 +1,4 @@
-import {
-  createEmptyGame,
-  applyMoves,
-  isGoal,
-  isValidMove,
-  getGameWinner,
-  getBoardSpace,
-  getAllBoardSpaces,
-  getCoordsBetween,
-} from '../lib/camelot-engine.js';
-import { KNIGHT, PAWN } from '../lib/constants.js';
+import { createEmptyGame } from '../lib/camelot-engine.js';
 
 describe('camelot-engine', function () {
   describe('createEmptyGame', function () {
