@@ -1,11 +1,9 @@
-'use strict';
-
-const camelotEngine = require('../..'),
-  isGoal = require('../../lib/query/is-goal');
+import { createEmptyGame } from '../..';
+import isGoal from '../../lib/query/is-goal.js';
 
 describe('isGoal', function () {
   function getGame() {
-    return camelotEngine().createEmptyGame();
+    return createEmptyGame();
   }
 
   it('throws an error for invalid input', function () {

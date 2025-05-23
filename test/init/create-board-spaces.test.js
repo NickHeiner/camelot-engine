@@ -1,7 +1,5 @@
-'use strict';
-
-const _ = require('lodash'),
-  createBoardSpaces = require('../../lib/init/create-board-spaces');
+import _ from 'lodash';
+import createBoardSpaces from '../../lib/init/create-board-spaces.js';
 
 describe('get-board-spaces', function () {
   it('should create 172 board spaces', function () {

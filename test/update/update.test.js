@@ -1,9 +1,7 @@
-'use strict';
-
-const update = require('../../lib/update/update');
+import { applyMoves } from '../../lib/update/update.js';
 
 describe('update', function () {
   it('exports applyMoves', function () {
-    expect(typeof update().applyMoves).toBe('function');
+    expect(typeof applyMoves).toBe('function');
   });
 });

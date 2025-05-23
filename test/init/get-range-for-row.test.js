@@ -1,7 +1,7 @@
-'use strict';
+import getConstants from '../../lib/get-constants.js';
+import getRangeForRow from '../../lib/init/get-range-for-row.js';
 
-const constants = require('../../lib/get-constants')(),
-  getRangeForRow = require('../../lib/init/get-range-for-row');
+const constants = getConstants();
 
 describe('get-range-for-row', function () {
   it('should create a full row', function () {
