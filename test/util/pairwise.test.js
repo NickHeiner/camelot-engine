@@ -1,7 +1,5 @@
-'use strict';
-
-const _ = require('lodash'),
-  pairwise = require('../../lib/util/pairwise');
+import _ from 'lodash';
+import pairwise from '../../lib/util/pairwise.js';
 
 describe('pairwise', function () {
   it('returns an empty list for empty input', function () {

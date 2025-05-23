@@ -1,11 +1,11 @@
-'use strict';
+import createEmptyGame from '../../lib/init/create-empty-game.js';
+import _ from 'lodash';
+import updateBoardSpace from '../../lib/update/update-board-space.js';
+import getConstants from '../../lib/get-constants.js';
+import getAllBoardSpaces from '../../lib/query/get-all-board-spaces.js';
+import getGameWinner from '../../lib/query/get-game-winner.js';
 
-const createEmptyGame = require('../../lib/init/create-empty-game'),
-  _ = require('lodash'),
-  updateBoardSpace = require('../../lib/update/update-board-space'),
-  constants = require('../../lib/get-constants')(),
-  getAllBoardSpaces = require('../../lib/query/get-all-board-spaces'),
-  getGameWinner = require('../../lib/query/get-game-winner');
+const constants = getConstants();
 
 describe('get-game-winner', function () {
   it('should not say that anyone has won initially', function () {

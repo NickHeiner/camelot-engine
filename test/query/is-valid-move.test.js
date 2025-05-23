@@ -1,9 +1,9 @@
-'use strict';
+import isValidMove from '../../lib/query/is-valid-move.js';
+import getConstants from '../../lib/get-constants.js';
+import updateBoardSpace from '../../lib/update/update-board-space.js';
+import createEmptyGame from '../../lib/init/create-empty-game.js';
 
-const isValidMove = require('../../lib/query/is-valid-move'),
-  constants = require('../../lib/get-constants')(),
-  updateBoardSpace = require('../../lib/update/update-board-space'),
-  createEmptyGame = require('../../lib/init/create-empty-game');
+const constants = getConstants();
 
 describe('is-valid-move', function () {
   it('empty moves are valid', function () {

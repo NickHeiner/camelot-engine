@@ -1,6 +1,4 @@
-'use strict';
-
-const getCoordsBetween = require('../../lib/query/get-coords-between');
+import getCoordsBetween from '../../lib/query/get-coords-between.js';
 
 describe('get-coords-between', function () {
   describe('returns null when the spaces are adjacent', function () {

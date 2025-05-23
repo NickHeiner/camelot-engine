@@ -1,9 +1,5 @@
-'use strict';
-
-const updateBoardSpace = require('../../lib/update/update-board-space'),
-  camelotEngine = require('../..')(),
-  createEmptyGame = camelotEngine.createEmptyGame,
-  getBoardSpace = camelotEngine.query().getBoardSpace;
+import updateBoardSpace from '../../lib/update/update-board-space.js';
+import { createEmptyGame, getBoardSpace } from '../..';
 
 describe('updateBoardSpace', function () {
   it('updates a board space', function () {

@@ -1,10 +1,10 @@
-'use strict';
+import createEmptyGame from '../../lib/init/create-empty-game.js';
+import updateBoardSpace from '../../lib/update/update-board-space.js';
+import getBoardSpace from '../../lib/query/get-board-space.js';
+import getConstants from '../../lib/get-constants.js';
+import applyMoves from '../../lib/update/apply-moves.js';
 
-const createEmptyGame = require('../../lib/init/create-empty-game'),
-  updateBoardSpace = require('../../lib/update/update-board-space'),
-  getBoardSpace = require('../../lib/query/get-board-space'),
-  constants = require('../../lib/get-constants')(),
-  applyMoves = require('../../lib/update/apply-moves');
+const constants = getConstants();
 
 describe('apply-moves', function () {
   it('adds a piece to the destination', function () {

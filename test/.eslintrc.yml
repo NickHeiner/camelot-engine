@@ -16,3 +16,5 @@ rules:
 
 extends:
   - plugin:jest/recommended
+parserOptions:
+  sourceType: module

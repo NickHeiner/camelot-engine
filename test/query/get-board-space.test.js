@@ -1,7 +1,5 @@
-'use strict';
-
-const getBoardSpace = require('../../lib/query/get-board-space'),
-  createEmptyGame = require('../../lib/init/create-empty-game');
+import getBoardSpace from '../../lib/query/get-board-space.js';
+import createEmptyGame from '../../lib/init/create-empty-game.js';
 
 describe('get-board-space', function () {
   it('returns null for an invalid board space', function () {
