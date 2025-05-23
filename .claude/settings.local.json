@@ -13,7 +13,9 @@
       "Bash(perl:*)",
       "Bash(git checkout:*)",
       "Bash(rg:*)",
-      "Bash(NODE_OPTIONS=\"--experimental-vm-modules\" npm test)"
+      "Bash(NODE_OPTIONS=\"--experimental-vm-modules\" npm test)",
+      "Bash(npm ls:*)",
+      "Bash(npm view:*)"
     ],
     "deny": []
   }

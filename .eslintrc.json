@@ -40,7 +40,7 @@
         "@typescript-eslint/no-redeclare": "error",
         "@typescript-eslint/return-await": "error",
         "@typescript-eslint/require-await": "error",
-        "@typescript-eslint/no-throw-literal": "error",
+        "@typescript-eslint/only-throw-error": "error",
         "@typescript-eslint/prefer-as-const": "error"
       }
     }
