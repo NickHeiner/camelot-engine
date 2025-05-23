@@ -5,7 +5,7 @@
   "main": "lib/camelot-engine.js",
   "type": "module",
   "scripts": {
-    "lint": "eslint .",
+    "lint": "eslint --max-warnings=0 .",
     "format": "prettier --check .",
     "format:fix": "prettier --write .",
     "lint:fix": "eslint --fix .",
