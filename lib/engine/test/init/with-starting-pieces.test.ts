@@ -1,6 +1,6 @@
 import _ from 'lodash';
-import { createEmptyGame, getBoardSpace } from '../../lib/camelot-engine.js';
-import { KNIGHT, PAWN } from '../../lib/constants.js';
+import { createEmptyGame, getBoardSpace } from '../camelot-engine.ts';
+import { KNIGHT, PAWN } from '../constants.ts';
 
 describe('with-starting-pieces', function () {
   it('creates a board with the right number of knights', function () {

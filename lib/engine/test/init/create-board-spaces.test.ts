@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import createBoardSpaces from '../../lib/init/create-board-spaces.js';
+import createBoardSpaces from '../init/create-board-spaces.ts';
 
 describe('get-board-spaces', function () {
   it('should create 172 board spaces', function () {

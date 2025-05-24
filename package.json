@@ -11,6 +11,7 @@
     "lint": "next lint",
     "build:engine": "cd lib/engine && tsc",
     "test:engine": "cd lib/engine && NODE_OPTIONS=\"--experimental-vm-modules\" jest",
+    "test": "next build && npm run test:engine",
     "format": "prettier --check .",
     "format:fix": "prettier --write ."
   },

@@ -1,10 +1,10 @@
-import createEmptyGame from '../../lib/init/create-empty-game.js';
+import createEmptyGame from '../init/create-empty-game.ts';
 import _ from 'lodash';
-import updateBoardSpace from '../../lib/update/update-board-space.js';
-import { PLAYER_A, PLAYER_B, PAWN, KNIGHT } from '../../lib/constants.js';
-import getAllBoardSpaces from '../../lib/query/get-all-board-spaces.js';
-import getGameWinner from '../../lib/query/get-game-winner.js';
-import type { GameState, Player, PieceType } from '../../lib/types.js';
+import updateBoardSpace from '../update/update-board-space.ts';
+import { PLAYER_A, PLAYER_B, PAWN, KNIGHT } from '../constants.ts';
+import getAllBoardSpaces from '../query/get-all-board-spaces.ts';
+import getGameWinner from '../query/get-game-winner.ts';
+import type { GameState, Player, PieceType } from '../types.ts';
 
 describe('get-game-winner', function () {
   it('should not say that anyone has won initially', function () {

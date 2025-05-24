@@ -1,8 +1,8 @@
-import createEmptyGame from '../../lib/init/create-empty-game.js';
-import updateBoardSpace from '../../lib/update/update-board-space.js';
-import getBoardSpace from '../../lib/query/get-board-space.js';
-import { PAWN } from '../../lib/constants.js';
-import applyMove from '../../lib/update/apply-move.js';
+import createEmptyGame from '../init/create-empty-game.ts';
+import updateBoardSpace from '../update/update-board-space.ts';
+import getBoardSpace from '../query/get-board-space.ts';
+import { PAWN } from '../constants.ts';
+import applyMove from '../update/apply-move.ts';
 
 describe('apply-move', function () {
   it('adds a piece to the destination', function () {

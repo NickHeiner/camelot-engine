@@ -1,4 +1,4 @@
-import { createEmptyGame } from '../lib/camelot-engine.js';
+import { createEmptyGame } from '../camelot-engine.ts';
 
 describe('camelot-engine', function () {
   describe('createEmptyGame', function () {

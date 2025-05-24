@@ -1,5 +1,5 @@
-import getBoardSpace from '../../lib/query/get-board-space.js';
-import createEmptyGame from '../../lib/init/create-empty-game.js';
+import getBoardSpace from '../query/get-board-space.ts';
+import createEmptyGame from '../init/create-empty-game.ts';
 
 describe('get-board-space', function () {
   it('returns null for an invalid board space', function () {
