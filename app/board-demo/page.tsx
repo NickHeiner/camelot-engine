@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Board } from '@/components/game/Board';
+import { ClientOnlyBoard } from '@/components/game/ClientOnlyBoard';
 import createEmptyGame from '@/lib/engine/init/create-empty-game';
 import type { GameState } from '@/lib/engine/types';
 
@@ -30,7 +30,7 @@ export default function BoardDemoPage() {
           </span>
         </p>
       </div>
-      <Board
+      <ClientOnlyBoard
         gameState={gameState}
         onMove={handleMove}
         currentPlayer={currentPlayer}
