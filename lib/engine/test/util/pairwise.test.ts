@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import pairwise from '../../util/pairwise.ts';
+import pairwise from '../../util/pairwise.js';
 
 describe('pairwise', function () {
   it('returns an empty list for empty input', function () {

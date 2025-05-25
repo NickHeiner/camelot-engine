@@ -1,7 +1,7 @@
-import isValidMove from '../../query/is-valid-move.ts';
-import { PAWN } from '../../constants.ts';
-import updateBoardSpace from '../../update/update-board-space.ts';
-import createEmptyGame from '../../init/create-empty-game.ts';
+import isValidMove from '../../query/is-valid-move.js';
+import { PAWN } from '../../constants.js';
+import updateBoardSpace from '../../update/update-board-space.js';
+import createEmptyGame from '../../init/create-empty-game.js';
 
 describe('is-valid-move', function () {
   it('empty moves are valid', function () {

@@ -1,3 +1,8 @@
+import { Id } from '@/convex/_generated/dataModel';
+import { preloadQuery } from 'convex/nextjs';
+import { api } from '@/convex/_generated/api';
+import { GameBoardPreloaded } from '@/components/game/game-board-preloaded';
+
 export default async function GamePage({
   params,
 }: {
@@ -5,14 +10,14 @@ export default async function GamePage({
 }) {
   const { id } = await params;
 
+  const preloadedGame = await preloadQuery(api.games.getGame, {
+    gameId: id as Id<'games'>,
+  });
+
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-4">Game {id}</h1>
-      <div className="bg-muted rounded-lg p-8 text-center">
-        <p className="text-muted-foreground">
-          Game board and controls will be implemented here
-        </p>
-      </div>
+      <h1 className="text-3xl font-bold mb-8 text-center">Camelot Game</h1>
+      <GameBoardPreloaded preloadedGame={preloadedGame} />
     </div>
   );
 }

@@ -8,9 +8,11 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
+    "typecheck": "tsc --noEmit",
+    "typecheck:tests": "cd lib/engine && tsc -p tsconfig.test.json --noEmit",
     "lint": "next lint",
     "test:engine": "cd lib/engine && NODE_OPTIONS=\"--experimental-vm-modules\" jest",
-    "test": "next build && npm run test:engine && npm run format && npm run lint",
+    "test": "npm run typecheck && npm run typecheck:tests && next build && npm run test:engine && npm run format && npm run lint",
     "format": "prettier --check .",
     "format:fix": "prettier --write ."
   },
@@ -56,6 +58,7 @@
   },
   "dependencies": {
     "@clerk/nextjs": "^6.20.0",
+    "convex": "^1.24.1",
     "lodash": "^4.17.21",
     "next": "15.3.2",
     "react": "^19.0.0",

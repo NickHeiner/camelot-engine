@@ -30,3 +30,9 @@ coverage/
 .env
 # clerk configuration (can include secrets)
 /.clerk/
+
+# Convex
+.convex/
+convex/_generated/
+
+*.tsbuildinfo
