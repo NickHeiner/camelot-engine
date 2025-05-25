@@ -4,6 +4,7 @@ import { usePreloadedQuery, useMutation } from 'convex/react';
 import { api } from '@/convex/_generated/api';
 import { Id } from '@/convex/_generated/dataModel';
 import { useRouter } from 'next/navigation';
+import { useUser } from '@clerk/nextjs';
 import type { Preloaded } from 'convex/nextjs';
 
 interface GameListClientProps {
@@ -16,20 +17,24 @@ export function GameListClient({
   preloadedMyGames 
 }: GameListClientProps) {
   const router = useRouter();
+  const { user } = useUser();
+  const userId = user?.id;
   const availableGames = usePreloadedQuery(preloadedAvailableGames);
   const myGames = usePreloadedQuery(preloadedMyGames);
   const createGame = useMutation(api.games.createGame);
   const joinGame = useMutation(api.games.joinGame);
 
   const handleCreateGame = async () => {
-    const gameId = await createGame({ createdBy: 'user-123' }); // TODO: Get from auth
+    if (!userId) return;
+    const gameId = await createGame({ createdBy: userId });
     router.push(`/game/${gameId}`);
   };
 
   const handleJoinGame = async (gameId: string) => {
+    if (!userId) return;
     await joinGame({
       gameId: gameId as Id<'games'>,
-      userId: 'user-123', // TODO: Get from auth
+      userId,
     });
     router.push(`/game/${gameId}`);
   };

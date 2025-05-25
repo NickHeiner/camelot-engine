@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useMutation, usePreloadedQuery } from 'convex/react';
 import { api } from '@/convex/_generated/api';
+import { useUser } from '@clerk/nextjs';
 import type { Coordinates } from '@/lib/engine/types';
 import type { Preloaded } from 'convex/nextjs';
 
@@ -15,8 +16,8 @@ export function GameBoardPreloaded({ preloadedGame }: GameBoardPreloadedProps) {
   const gameData = usePreloadedQuery(preloadedGame);
   const [selectedSpace, setSelectedSpace] = useState<Coordinates | null>(null);
   const makeMove = useMutation(api.moves.makeMove);
-  
-  const currentUserId = 'user-123'; // TODO: Get from auth
+  const { user } = useUser();
+  const currentUserId = user?.id;
   
   if (!gameData || !gameData.game) {
     return (
@@ -43,6 +44,7 @@ export function GameBoardPreloaded({ preloadedGame }: GameBoardPreloadedProps) {
         setSelectedSpace({ row, col });
       }
     } else {
+      if (!currentUserId) return;
       try {
         await makeMove({
           gameId: game._id,
