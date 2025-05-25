@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
+import { ClerkProvider } from '@clerk/nextjs';
 import { Navigation } from '@/components/shared/navigation';
 import './globals.css';
 
@@ -10,17 +11,34 @@ export const metadata: Metadata = {
   description: 'Play the classic board game Camelot online',
 };
 
+// Check if Clerk keys are available
+const clerkPublishableKey = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY;
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // If no Clerk keys, render without ClerkProvider (for CI/build environments)
+  if (!clerkPublishableKey) {
+    return (
+      <html lang="en">
+        <body className={inter.className}>
+          <Navigation />
+          <main className="min-h-screen">{children}</main>
+        </body>
+      </html>
+    );
+  }
+
   return (
-    <html lang="en">
-      <body className={inter.className}>
-        <Navigation />
-        <main className="min-h-screen">{children}</main>
-      </body>
-    </html>
+    <ClerkProvider>
+      <html lang="en">
+        <body className={inter.className}>
+          <Navigation />
+          <main className="min-h-screen">{children}</main>
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }
