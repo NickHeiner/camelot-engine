@@ -16,7 +16,6 @@ jobs:
       NEXT_PUBLIC_CONVEX_URL: ${{ secrets.NEXT_PUBLIC_CONVEX_URL }}
       CONVEX_DEPLOYMENT_URL: ${{ secrets.CONVEX_DEPLOYMENT_URL }}
 
-
     strategy:
       matrix:
         node-version: [22.x]
