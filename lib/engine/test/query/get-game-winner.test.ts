@@ -8,7 +8,7 @@ import type { GameState, Player, PieceType } from '../../types.js';
 
 describe('get-game-winner', function () {
   it('should not say that anyone has won initially', function () {
-    expect(getGameWinner(createEmptyGame())).toBe(null);
+    expect(getGameWinner(createEmptyGame())).toBe(undefined);
   });
 
   function withoutColorPieces(gameState: GameState, player: Player): GameState {
@@ -20,7 +20,7 @@ describe('get-game-winner', function () {
             gameStateAcc,
             boardSpace.row,
             boardSpace.col,
-            { piece: null }
+            { piece: undefined }
           );
         }
         return gameStateAcc;
@@ -57,14 +57,14 @@ describe('get-game-winner', function () {
     const game = createEmptyGame(),
       gameWithOneInGoal = addPiece(game, 0, 5, PAWN, PLAYER_B);
 
-    expect(getGameWinner(gameWithOneInGoal)).toBe(null);
+    expect(getGameWinner(gameWithOneInGoal)).toBe(undefined);
   });
 
   it('does not identify playerA as a winner when playerB has one piece in the goal', function () {
     const game = createEmptyGame(),
       gameWithOneInGoal = addPiece(game, 15, 5, KNIGHT, PLAYER_A);
 
-    expect(getGameWinner(gameWithOneInGoal)).toBe(null);
+    expect(getGameWinner(gameWithOneInGoal)).toBe(undefined);
   });
 
   it('identifies playerB as the winner when it has entered the playerA goal', function () {

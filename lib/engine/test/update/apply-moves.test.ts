@@ -36,7 +36,7 @@ describe('apply-moves', function () {
         },
       ]);
 
-    expect(getBoardSpace(withMove, src)?.piece).toBe(null);
+    expect(getBoardSpace(withMove, src)?.piece).toBe(undefined);
   });
 
   it('removes a jumped piece', function () {
@@ -56,7 +56,7 @@ describe('apply-moves', function () {
         },
       ]);
 
-    expect(getBoardSpace(withMove, 11, 4)).toHaveProperty('piece', null);
+    expect(getBoardSpace(withMove, 11, 4)?.piece).toBe(undefined);
   });
 
   it('applies a chain with three moves', function () {

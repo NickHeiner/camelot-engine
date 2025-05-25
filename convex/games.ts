@@ -18,10 +18,7 @@ export const createGame = mutation({
       playerA: args.createdBy,
       turnCount: 0,
       currentPlayer: 'playerA',
-      boardSpaces: gameWithPieces.boardSpaces.map((space) => ({
-        ..._.pick(space, ['row', 'col']),
-        piece: space.piece || undefined,
-      })),
+      boardSpaces: gameWithPieces.boardSpaces,
       capturedPieces: gameWithPieces.capturedPieces,
       createdAt: Date.now(),
     });

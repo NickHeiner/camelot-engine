@@ -36,7 +36,10 @@
       "Bash(mv:*)",
       "Bash(git fetch:*)",
       "Bash(git merge:*)",
-      "Bash(git revert:*)"
+      "Bash(git revert:*)",
+      "Bash(for:*)",
+      "Bash(do)",
+      "Bash(done)"
     ],
     "deny": []
   }

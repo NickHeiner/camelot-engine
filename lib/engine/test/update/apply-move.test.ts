@@ -34,7 +34,7 @@ describe('apply-move', function () {
         col: 4,
       });
 
-    expect(getBoardSpace(withMove, src)?.piece).toBe(null);
+    expect(getBoardSpace(withMove, src)?.piece).toBe(undefined);
   });
 
   it('removes a jumped piece', function () {
@@ -52,7 +52,7 @@ describe('apply-move', function () {
       col: 4,
     });
 
-    expect(getBoardSpace(withMove, 11, 4)?.piece).toBe(null);
+    expect(getBoardSpace(withMove, 11, 4)?.piece).toBe(undefined);
   });
 
   it('should not remove a jumped piece if it is friendly', function () {

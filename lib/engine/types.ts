@@ -2,15 +2,11 @@ import type {
   Player,
   PieceType,
   Piece,
-  BoardSpace as SharedBoardSpace,
+  BoardSpace,
   Coordinates,
 } from '../shared-types.js';
 
-export type { Player, PieceType, Piece, Coordinates };
-
-export interface BoardSpace extends SharedBoardSpace {
-  piece: Piece | null;
-}
+export type { Player, PieceType, Piece, BoardSpace, Coordinates };
 
 export type CapturedPieces = Record<Player, Record<PieceType, number>>;
 

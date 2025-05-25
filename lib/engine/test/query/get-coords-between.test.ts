@@ -1,7 +1,7 @@
 import getCoordsBetween from '../../query/get-coords-between.js';
 
 describe('get-coords-between', function () {
-  describe('returns null when the spaces are adjacent', function () {
+  describe('returns undefined when the spaces are adjacent', function () {
     it('same row', function () {
       expect(
         getCoordsBetween(
@@ -14,7 +14,7 @@ describe('get-coords-between', function () {
             col: 9,
           }
         )
-      ).toBe(null);
+      ).toBe(undefined);
     });
 
     it('same col', function () {
@@ -29,7 +29,7 @@ describe('get-coords-between', function () {
             col: 9,
           }
         )
-      ).toBe(null);
+      ).toBe(undefined);
     });
 
     it('different row and col', function () {
@@ -44,7 +44,7 @@ describe('get-coords-between', function () {
             col: 8,
           }
         )
-      ).toBe(null);
+      ).toBe(undefined);
     });
   });
 

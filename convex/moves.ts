@@ -50,11 +50,8 @@ export const makeMove = mutation({
       timestamp: Date.now(),
     });
 
-    // Convert the new game state board spaces to Convex format
-    const updatedBoardSpaces = newGameState.boardSpaces.map((space) => ({
-      ..._.pick(space, ['row', 'col']),
-      piece: space.piece || undefined,
-    }));
+    // Board spaces are already in the correct format
+    const updatedBoardSpaces = newGameState.boardSpaces;
 
     const winner = getGameWinner(newGameState);
     const updates: Partial<Doc<'games'>> = {

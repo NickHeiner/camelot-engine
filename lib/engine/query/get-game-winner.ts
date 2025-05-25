@@ -9,7 +9,7 @@ import {
 } from '../constants.js';
 import type { GameState, Player, BoardSpace } from '../types.js';
 
-function getGameWinner(gameState: GameState): Player | null {
+function getGameWinner(gameState: GameState): Player | undefined {
   function hasEnoughPieces(player: Player): boolean {
     return (
       _.filter(getAllBoardSpaces(gameState), function (boardPiece: BoardSpace) {
@@ -35,7 +35,7 @@ function getGameWinner(gameState: GameState): Player | null {
     return PLAYER_A;
   }
 
-  return null;
+  return undefined;
 }
 
 export default getGameWinner;

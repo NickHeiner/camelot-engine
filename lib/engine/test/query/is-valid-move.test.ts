@@ -5,7 +5,7 @@ import createEmptyGame from '../../init/create-empty-game.js';
 
 describe('is-valid-move', function () {
   it('empty moves are valid', function () {
-    expect(isValidMove(createEmptyGame(), [], null)).toBe(true);
+    expect(isValidMove(createEmptyGame(), [], undefined)).toBe(true);
   });
 
   it('does not allow moves that do not start on a valid space', function () {

@@ -10,7 +10,7 @@ export interface Piece {
 export interface BoardSpace {
   row: number;
   col: number;
-  piece?: Piece | null;
+  piece?: Piece;
 }
 
 export interface Coordinates {

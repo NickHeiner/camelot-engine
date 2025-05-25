@@ -5,16 +5,16 @@ function getBoardSpace(
   gameState: GameState,
   row: number,
   col: number
-): BoardSpace | null;
+): BoardSpace | undefined;
 function getBoardSpace(
   gameState: GameState,
   coordinates: Coordinates | BoardSpace
-): BoardSpace | null;
+): BoardSpace | undefined;
 function getBoardSpace(
   gameState: GameState,
   rowOrCoordinates: number | Coordinates | BoardSpace,
   col?: number
-): BoardSpace | null {
+): BoardSpace | undefined {
   let targetRow: number;
   let targetCol: number;
 
@@ -29,9 +29,7 @@ function getBoardSpace(
     targetCol = rowOrCoordinates.col;
   }
 
-  return (
-    _.find(gameState.boardSpaces, { row: targetRow, col: targetCol }) || null
-  );
+  return _.find(gameState.boardSpaces, { row: targetRow, col: targetCol });
 }
 
 export default getBoardSpace;

@@ -20,7 +20,7 @@ export default function isGoal(
   }
 
   return (
-    getBoardSpace(gameState, row, col) !== null &&
+    getBoardSpace(gameState, row, col) !== undefined &&
     (row === 0 ||
       row ===
         Math.max(...getAllBoardSpaces(gameState).map((space) => space.row)))
