@@ -18,15 +18,13 @@ export function GameBoardPreloaded({ preloadedGame }: GameBoardPreloadedProps) {
   const makeMove = useMutation(api.moves.makeMove);
   const { user } = useUser();
   const currentUserId = user?.id;
-  
+
   if (!gameData || !gameData.game) {
-    return (
-      <div className="text-center text-red-500">Game not found</div>
-    );
+    return <div className="text-center text-red-500">Game not found</div>;
   }
-  
+
   const { game, boardSpaces } = gameData;
-  
+
   const isMyTurn =
     game.status === 'playing' &&
     ((game.currentPlayer === 'playerA' && game.playerA === currentUserId) ||

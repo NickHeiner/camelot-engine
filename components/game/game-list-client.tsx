@@ -12,9 +12,9 @@ interface GameListClientProps {
   preloadedMyGames: Preloaded<typeof api.games.getMyGames>;
 }
 
-export function GameListClient({ 
-  preloadedAvailableGames, 
-  preloadedMyGames 
+export function GameListClient({
+  preloadedAvailableGames,
+  preloadedMyGames,
 }: GameListClientProps) {
   const router = useRouter();
   const { user } = useUser();
