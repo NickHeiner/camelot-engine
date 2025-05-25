@@ -2,7 +2,9 @@ import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server';
 
 // Define which routes should be protected
 const isProtectedRoute = createRouteMatcher([
-  '/(auth)(.*)', // All routes under (auth) group
+  '/game(.*)',
+  '/profile(.*)',
+  '/history(.*)',
 ]);
 
 export default clerkMiddleware(async (auth, req) => {

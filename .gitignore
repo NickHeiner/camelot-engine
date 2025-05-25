@@ -28,3 +28,5 @@ coverage/
 # Environment variables
 .env.local
 .env
+# clerk configuration (can include secrets)
+/.clerk/
