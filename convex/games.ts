@@ -1,8 +1,8 @@
 import { v } from 'convex/values';
 import { mutation, query } from './_generated/server';
-import { createEmptyGame } from '../lib/engine/init/create-empty-game';
-import { withStartingPieces } from '../lib/engine/init/with-starting-pieces';
-import { createBoardSpaces } from '../lib/engine/init/create-board-spaces';
+import createEmptyGame from '../lib/engine/init/create-empty-game.js';
+import withStartingPieces from '../lib/engine/init/with-starting-pieces.js';
+import getBoardSpaces from '../lib/engine/init/create-board-spaces.js';
 import { getCurrentPlayer } from './gameHelpers';
 
 export const createGame = mutation({
@@ -23,7 +23,7 @@ export const createGame = mutation({
       createdAt: Date.now(),
     });
 
-    const boardSpaces = createBoardSpaces();
+    const boardSpaces = getBoardSpaces();
     for (const space of gameWithPieces.boardSpaces) {
       await ctx.db.insert('boardSpaces', {
         gameId,

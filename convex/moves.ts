@@ -1,9 +1,9 @@
 import { v } from 'convex/values';
 import { mutation } from './_generated/server';
 import { Doc } from './_generated/dataModel';
-import { isValidMove } from '../lib/engine/query/is-valid-move';
-import { applyMove } from '../lib/engine/update/apply-move';
-import { getGameWinner } from '../lib/engine/query/get-game-winner';
+import isValidMove from '../lib/engine/query/is-valid-move.js';
+import applyMove from '../lib/engine/update/apply-move.js';
+import getGameWinner from '../lib/engine/query/get-game-winner.js';
 import { boardSpacesToGameState, getCurrentPlayer } from './gameHelpers';
 import type { Coordinates } from '../lib/engine/types';
 
