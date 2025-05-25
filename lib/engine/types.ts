@@ -6,6 +6,7 @@ import type {
   Coordinates,
   CapturedPieces,
 } from '../shared-types.js';
+import type { Game } from '@/convex/convexTypes';
 
 export type {
   Player,
@@ -16,9 +17,5 @@ export type {
   CapturedPieces,
 };
 
-// Define the minimal game state shape that engine functions need
-export interface GameState {
-  boardSpaces: BoardSpace[];
-  turnCount: number;
-  capturedPieces: CapturedPieces;
-}
+// GameState is the subset of Game fields that engine functions need
+export type GameState = Pick<Game, 'boardSpaces' | 'turnCount' | 'capturedPieces'>;
