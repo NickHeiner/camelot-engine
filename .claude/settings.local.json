@@ -30,7 +30,8 @@
       "Bash(npm run build:engine:*)",
       "Bash(npm run test:engine:*)",
       "Bash(npm run format:fix:*)",
-      "Bash(npm run build:*)"
+      "Bash(npm run build:*)",
+      "Bash(git rm:*)"
     ],
     "deny": []
   }
