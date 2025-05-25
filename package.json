@@ -9,9 +9,10 @@
     "build": "next build",
     "start": "next start",
     "typecheck": "tsc --noEmit",
+    "typecheck:tests": "cd lib/engine && tsc -p tsconfig.test.json --noEmit",
     "lint": "next lint",
     "test:engine": "cd lib/engine && NODE_OPTIONS=\"--experimental-vm-modules\" jest",
-    "test": "npm run typecheck && next build && npm run test:engine && npm run format && npm run lint",
+    "test": "npm run typecheck && npm run typecheck:tests && next build && npm run test:engine && npm run format && npm run lint",
     "format": "prettier --check .",
     "format:fix": "prettier --write ."
   },
