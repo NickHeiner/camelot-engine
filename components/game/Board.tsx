@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback } from 'react';
 import {
   DndContext,
   DragEndEvent,
@@ -25,11 +25,6 @@ export function Board({ gameState, onMove, currentPlayer }: BoardProps) {
   const [selectedPiece, setSelectedPiece] = useState<Coordinates | null>(null);
   const [validMoves, setValidMoves] = useState<Coordinates[]>([]);
   const [isDragging, setIsDragging] = useState(false);
-  const [isClient, setIsClient] = useState(false);
-
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
 
   const handlePieceSelect = useCallback(
     (position: Coordinates) => {
@@ -111,36 +106,61 @@ export function Board({ gameState, onMove, currentPlayer }: BoardProps) {
       onDragStart={handleDragStart}
       onDragEnd={handleDragEnd}
     >
-      <div className="max-w-4xl mx-auto p-4">
-        <div className="grid grid-cols-12 gap-0 border-4 border-amber-900 shadow-2xl">
-          {Array.from({ length: BOARD_HEIGHT }, (_, row) =>
-            Array.from({ length: BOARD_WIDTH }, (_, col) => {
-              const space = getBoardSpace(gameState, { row, col });
+      <div className="max-w-6xl mx-auto p-4">
+        <div className="inline-block border-4 border-amber-900 shadow-2xl bg-amber-50">
+          {/* Render the castle-shaped board */}
+          <div className="flex flex-col">
+            {Array.from({ length: BOARD_HEIGHT }, (_, row) => {
+              // Calculate indent for castle shape
+              let indent = 0;
+              if (row <= 2) indent = 5 - row * 2;
+              else if (row >= 14) indent = (row - 14) * 2 + 1;
+              
               return (
-                <div
-                  key={`${row}-${col}`}
-                  onClick={() => handleSquareClick(row, col)}
-                >
-                  <Square
-                    row={row}
-                    col={col}
-                    isHighlighted={isHighlighted(row, col)}
-                  >
-                    {space?.piece && (
-                      <Piece
-                        piece={space.piece}
-                        position={{ row, col }}
-                        isSelected={isSelected(row, col)}
-                        onSelect={() =>
-                          !isDragging && handlePieceSelect({ row, col })
-                        }
-                      />
-                    )}
-                  </Square>
+                <div key={`row-${row}`} className="flex">
+                  {/* Left padding */}
+                  {Array.from({ length: indent }, (_, i) => (
+                    <div key={`pad-left-${i}`} className="w-16 h-16" />
+                  ))}
+                  
+                  {/* Actual board squares */}
+                  {Array.from({ length: BOARD_WIDTH }, (_, col) => {
+                    const space = getBoardSpace(gameState, { row, col });
+                    if (!space) return null;
+                    
+                    return (
+                      <div
+                        key={`${row}-${col}`}
+                        onClick={() => handleSquareClick(row, col)}
+                      >
+                        <Square
+                          row={row}
+                          col={col}
+                          isHighlighted={isHighlighted(row, col)}
+                        >
+                          {space.piece && (
+                            <Piece
+                              piece={space.piece}
+                              position={{ row, col }}
+                              isSelected={isSelected(row, col)}
+                              onSelect={() =>
+                                !isDragging && handlePieceSelect({ row, col })
+                              }
+                            />
+                          )}
+                        </Square>
+                      </div>
+                    );
+                  })}
+                  
+                  {/* Right padding */}
+                  {Array.from({ length: indent }, (_, i) => (
+                    <div key={`pad-right-${i}`} className="w-16 h-16" />
+                  ))}
                 </div>
               );
-            })
-          )}
+            })}
+          </div>
         </div>
       </div>
     </DndContext>
