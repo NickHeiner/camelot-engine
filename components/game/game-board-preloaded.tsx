@@ -92,10 +92,6 @@ export function GameBoardPreloaded({ preloadedGame }: GameBoardPreloadedProps) {
 
   return (
     <div className="flex flex-col items-center space-y-4">
-      <div className="bg-green-100 p-2 rounded text-sm">
-        🔄 Real-time updates enabled
-      </div>
-      
       <div className="text-lg font-semibold">
         {game.status === 'waiting' && 'Waiting for opponent...'}
         {game.status === 'playing' &&

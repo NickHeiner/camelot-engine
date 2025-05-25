@@ -15,7 +15,6 @@ import type {
 } from "convex/server";
 import type * as gameHelpers from "../gameHelpers.js";
 import type * as games from "../games.js";
-import type * as http from "../http.js";
 import type * as moves from "../moves.js";
 
 /**
@@ -29,7 +28,6 @@ import type * as moves from "../moves.js";
 declare const fullApi: ApiFromModules<{
   gameHelpers: typeof gameHelpers;
   games: typeof games;
-  http: typeof http;
   moves: typeof moves;
 }>;
 export declare const api: FilterApi<
