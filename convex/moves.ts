@@ -29,7 +29,7 @@ export const makeMove = mutation({
     const from: Coordinates = { row: args.from.row, col: args.from.col };
     const to: Coordinates = { row: args.to.row, col: args.to.col };
 
-    if (!isValidMove(gameState, [from, to])) {
+    if (!isValidMove(gameState, from, to)) {
       throw new Error('Invalid move');
     }
 

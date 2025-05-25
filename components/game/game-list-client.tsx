@@ -2,15 +2,14 @@
 
 import { usePreloadedQuery, useMutation } from 'convex/react';
 import { api } from '@/convex/_generated/api';
-import { Id, Doc } from '@/convex/_generated/dataModel';
+import { Id } from '@/convex/_generated/dataModel';
 import { useRouter } from 'next/navigation';
 import { useUser } from '@clerk/nextjs';
+import type { Preloaded } from 'convex/nextjs';
 
 interface GameListClientProps {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  preloadedAvailableGames: any; // Convex preloaded query result
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  preloadedMyGames: any; // Convex preloaded query result
+  preloadedAvailableGames: Preloaded<typeof api.games.getAvailableGames>;
+  preloadedMyGames: Preloaded<typeof api.games.getMyGames>;
 }
 
 export function GameListClient({
@@ -55,7 +54,7 @@ export function GameListClient({
         <div>
           <h2 className="text-xl font-semibold mb-4">Available Games</h2>
           <div className="space-y-2">
-            {availableGames?.map((game: Doc<'games'>) => (
+            {availableGames?.map((game) => (
               <div key={game._id} className="border p-4 rounded">
                 <div className="flex justify-between items-center">
                   <div>
@@ -82,7 +81,7 @@ export function GameListClient({
         <div>
           <h2 className="text-xl font-semibold mb-4">My Games</h2>
           <div className="space-y-2">
-            {myGames?.map((game: Doc<'games'>) => (
+            {myGames?.map((game) => (
               <div key={game._id} className="border p-4 rounded">
                 <div className="flex justify-between items-center">
                   <div>
