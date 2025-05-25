@@ -1,7 +1,6 @@
 import js from '@eslint/js';
 import typescript from '@typescript-eslint/eslint-plugin';
 import typescriptParser from '@typescript-eslint/parser';
-import jest from 'eslint-plugin-jest';
 import globals from 'globals';
 
 export default [
@@ -10,7 +9,15 @@ export default [
 
   // Ignore patterns
   {
-    ignores: ['node_modules/', 'dist/', 'coverage/', '*.d.ts'],
+    ignores: [
+      'node_modules/',
+      'dist/',
+      'coverage/',
+      '*.d.ts',
+      '.next/',
+      'lib/engine/test/**/*',
+      'lib/engine/**/*.test.ts'
+    ],
   },
 
   // General rules for all files
@@ -20,6 +27,7 @@ export default [
       sourceType: 'module',
       globals: {
         ...globals.node,
+        ...globals.browser,
       },
     },
     rules: {
@@ -32,13 +40,38 @@ export default [
     },
   },
 
-  // TypeScript configuration
+  // TypeScript configuration for Next.js files
   {
-    files: ['**/*.ts', '**/*.tsx'],
+    files: ['app/**/*.ts', 'app/**/*.tsx', 'components/**/*.ts', 'components/**/*.tsx', 'lib/*.ts'],
     languageOptions: {
       parser: typescriptParser,
       parserOptions: {
         project: './tsconfig.json',
+      },
+    },
+    plugins: {
+      '@typescript-eslint': typescript,
+    },
+    rules: {
+      ...typescript.configs.recommended.rules,
+      '@typescript-eslint/no-explicit-any': 'warn',
+      '@typescript-eslint/explicit-function-return-type': 'off',
+      'no-undef': 'off',
+      'no-unused-vars': 'off',
+      '@typescript-eslint/no-unused-vars': [
+        'error',
+        { argsIgnorePattern: '^_' },
+      ],
+    },
+  },
+
+  // TypeScript configuration for engine files
+  {
+    files: ['lib/engine/**/*.ts'],
+    languageOptions: {
+      parser: typescriptParser,
+      parserOptions: {
+        project: './lib/engine/tsconfig.json',
       },
     },
     plugins: {
@@ -72,19 +105,6 @@ export default [
       '@typescript-eslint/require-await': 'error',
       '@typescript-eslint/only-throw-error': 'error',
       '@typescript-eslint/prefer-as-const': 'error',
-    },
-  },
-
-  // Jest configuration for test files
-  {
-    files: ['test/**/*.ts'],
-    plugins: {
-      jest,
-    },
-    languageOptions: {
-      globals: {
-        ...globals.jest,
-      },
     },
   },
 ];

@@ -9,9 +9,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "build:engine": "cd lib/engine && tsc",
+  "build:engine": "cd lib/engine && tsc",
     "test:engine": "cd lib/engine && NODE_OPTIONS=\"--experimental-vm-modules\" jest",
-    "test": "next build && npm run test:engine && npm run format",
+    "test": "next build && npm run test:engine && npm run format && npm run lint",
     "format": "prettier --check .",
     "format:fix": "prettier --write ."
   },

@@ -31,7 +31,8 @@
       "Bash(npm run test:engine:*)",
       "Bash(npm run format:fix:*)",
       "Bash(npm run build:*)",
-      "Bash(git rm:*)"
+      "Bash(git rm:*)",
+      "Bash(npm run lint)"
     ],
     "deny": []
   }
