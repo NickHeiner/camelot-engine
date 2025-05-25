@@ -18,4 +18,7 @@ export type {
 };
 
 // GameState is the subset of Game fields that engine functions need
-export type GameState = Pick<Game, 'boardSpaces' | 'turnCount' | 'capturedPieces'>;
+export type GameState = Pick<
+  Game,
+  'boardSpaces' | 'turnCount' | 'capturedPieces'
+>;
