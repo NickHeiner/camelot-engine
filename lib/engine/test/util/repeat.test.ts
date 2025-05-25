@@ -1,4 +1,4 @@
-import repeat from '../../util/repeat.ts';
+import repeat from '../../util/repeat.js';
 
 describe('repeat', function () {
   it('returns an empty array for count 0', function () {
