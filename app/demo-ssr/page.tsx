@@ -30,7 +30,7 @@ export default async function DemoSSRPage() {
           </div>
           
           <div className="mt-4 space-y-2">
-            <Link href="/game/page-ssr" className="text-blue-500 underline block">
+            <Link href="/game-ssr" className="text-blue-500 underline block">
               View SSR Games List →
             </Link>
             <p className="text-xs text-gray-500">
