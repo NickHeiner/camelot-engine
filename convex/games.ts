@@ -2,7 +2,6 @@ import { v } from 'convex/values';
 import { mutation, query } from './_generated/server';
 import createEmptyGame from '../lib/engine/init/create-empty-game.js';
 import withStartingPieces from '../lib/engine/init/with-starting-pieces.js';
-import { getCurrentPlayer } from './gameHelpers';
 
 export const createGame = mutation({
   args: {

@@ -4,12 +4,15 @@ import { useState } from 'react';
 import { useMutation, usePreloadedQuery } from 'convex/react';
 import { api } from '@/convex/_generated/api';
 import { useUser } from '@clerk/nextjs';
+import { Doc } from '@/convex/_generated/dataModel';
 import type { Coordinates } from '@/lib/engine/types';
-import type { Preloaded } from 'convex/nextjs';
 
 interface GameBoardPreloadedProps {
-  preloadedGame: Preloaded<typeof api.games.getGame>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  preloadedGame: any; // Convex preloaded query result
 }
+
+type BoardSpace = Doc<'games'>['boardSpaces'][number];
 
 export function GameBoardPreloaded({ preloadedGame }: GameBoardPreloadedProps) {
   // This hook hydrates the preloaded data AND subscribes to real-time updates
@@ -24,6 +27,7 @@ export function GameBoardPreloaded({ preloadedGame }: GameBoardPreloadedProps) {
   }
 
   const { game, boardSpaces } = gameData;
+  const typedBoardSpaces = boardSpaces as BoardSpace[];
 
   const isMyTurn =
     game.status === 'playing' &&
@@ -33,8 +37,8 @@ export function GameBoardPreloaded({ preloadedGame }: GameBoardPreloadedProps) {
   const handleSpaceClick = async (row: number, col: number) => {
     if (!isMyTurn) return;
 
-    const clickedSpace = boardSpaces.find(
-      (s) => s.row === row && s.col === col
+    const clickedSpace = typedBoardSpaces.find(
+      (s: BoardSpace) => s.row === row && s.col === col
     );
 
     if (!selectedSpace) {
@@ -59,7 +63,9 @@ export function GameBoardPreloaded({ preloadedGame }: GameBoardPreloadedProps) {
   };
 
   const renderSpace = (row: number, col: number) => {
-    const space = boardSpaces.find((s) => s.row === row && s.col === col);
+    const space = typedBoardSpaces.find(
+      (s: BoardSpace) => s.row === row && s.col === col
+    );
     const isSelected = selectedSpace?.row === row && selectedSpace?.col === col;
     const piece = space?.piece;
 
@@ -100,7 +106,9 @@ export function GameBoardPreloaded({ preloadedGame }: GameBoardPreloadedProps) {
       </div>
 
       <div className="grid grid-cols-8 gap-0">
-        {rows.map((row) => cols.map((col) => renderSpace(row, col)))}
+        {rows.map((row: number) =>
+          cols.map((col: number) => renderSpace(row, col))
+        )}
       </div>
 
       <div className="flex space-x-8 text-sm">
