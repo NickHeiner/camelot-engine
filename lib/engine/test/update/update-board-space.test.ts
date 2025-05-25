@@ -12,7 +12,7 @@ describe('updateBoardSpace', function () {
 
   it('throws an error when the coordinates do not exist', function () {
     expect(function () {
-      updateBoardSpace(createEmptyGame(), 99, 99, { piece: null });
+      updateBoardSpace(createEmptyGame(), 99, 99, { piece: undefined });
     }).toThrow(/invalid coordinates/);
   });
 });

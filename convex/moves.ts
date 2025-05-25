@@ -1,18 +1,20 @@
 import { v } from 'convex/values';
 import { mutation } from './_generated/server';
-import { Doc } from './_generated/dataModel';
+import _ from 'lodash';
 import isValidMove from '../lib/engine/query/is-valid-move.js';
 import applyMove from '../lib/engine/update/apply-move.js';
 import getGameWinner from '../lib/engine/query/get-game-winner.js';
-import { boardSpacesToGameState, getCurrentPlayer } from './gameHelpers';
+import getMoveDetails from '../lib/engine/query/get-move-details.js';
+import { getCurrentPlayer } from '../lib/game-utils';
 import type { Coordinates } from '../lib/engine/types';
+import { coordinatesValidator, type Game } from './convexTypes';
 
 export const makeMove = mutation({
   args: {
     gameId: v.id('games'),
     userId: v.string(),
-    from: v.object({ row: v.number(), col: v.number() }),
-    to: v.object({ row: v.number(), col: v.number() }),
+    from: coordinatesValidator,
+    to: coordinatesValidator,
   },
   handler: async (ctx, args) => {
     const game = await ctx.db.get(args.gameId);
@@ -24,62 +26,32 @@ export const makeMove = mutation({
       currentPlayer === 'playerA' ? game.playerA : game.playerB;
     if (playerUserId !== args.userId) throw new Error('Not your turn');
 
-    const gameState = boardSpacesToGameState(game.boardSpaces, game);
-
     const from: Coordinates = { row: args.from.row, col: args.from.col };
     const to: Coordinates = { row: args.to.row, col: args.to.col };
 
-    if (!isValidMove(gameState, [from, to])) {
+    if (!isValidMove(game, [from, to])) {
       throw new Error('Invalid move');
     }
 
-    const newGameState = applyMove(gameState, from, to);
+    // Get move details before applying the move
+    const moveDetails = getMoveDetails(game, from, to);
 
-    // Find the piece being moved
-    const fromSpaceIndex = game.boardSpaces.findIndex(
-      (s) => s.row === from.row && s.col === from.col
-    );
-    const toSpaceIndex = game.boardSpaces.findIndex(
-      (s) => s.row === to.row && s.col === to.col
-    );
-
-    if (fromSpaceIndex === -1 || toSpaceIndex === -1) {
-      throw new Error('Invalid board position');
-    }
-
-    const movingPiece = game.boardSpaces[fromSpaceIndex].piece;
-    if (!movingPiece) throw new Error('No piece at source position');
-
-    const capturedPiece = game.boardSpaces[toSpaceIndex].piece
-      ? {
-          type: game.boardSpaces[toSpaceIndex].piece!.type,
-          at: { row: to.row, col: to.col },
-        }
-      : undefined;
+    // Apply the move to get the new game state
+    const newGameState = applyMove(game, from, to);
 
     await ctx.db.insert('moves', {
-      gameId: args.gameId,
+      ..._.pick(args, ['gameId', 'from', 'to']),
       turnNumber: game.turnCount,
       player: currentPlayer,
-      from: args.from,
-      to: args.to,
-      capturedPiece,
+      capturedPiece: moveDetails.capturedPiece,
       timestamp: Date.now(),
     });
 
-    // Update the board spaces array
-    const updatedBoardSpaces = [...game.boardSpaces];
-    updatedBoardSpaces[fromSpaceIndex] = {
-      ...updatedBoardSpaces[fromSpaceIndex],
-      piece: undefined,
-    };
-    updatedBoardSpaces[toSpaceIndex] = {
-      ...updatedBoardSpaces[toSpaceIndex],
-      piece: movingPiece,
-    };
+    // Board spaces are already in the correct format
+    const updatedBoardSpaces = newGameState.boardSpaces;
 
     const winner = getGameWinner(newGameState);
-    const updates: Partial<Doc<'games'>> = {
+    const updates: Partial<Game> = {
       boardSpaces: updatedBoardSpaces,
       turnCount: newGameState.turnCount,
       currentPlayer: getCurrentPlayer(newGameState.turnCount),

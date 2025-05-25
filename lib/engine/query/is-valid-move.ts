@@ -13,12 +13,12 @@ import type { GameState, Player, Coordinates } from '../types.js';
 function isValidMove(
   gameState: GameState,
   moveParts: Coordinates[],
-  movingPlayer?: Player | null
+  movingPlayer?: Player
 ): boolean {
   function isValidMoveRec(
     currentGameState: GameState,
     remainingMoveParts: Coordinates[],
-    jumpedPlayer: Player | null,
+    jumpedPlayer: Player | undefined,
     nonJumpHasOccurred: boolean,
     firstRecursiveStep: boolean
   ): boolean {
@@ -33,9 +33,9 @@ function isValidMove(
     const destBoardSpace =
       remainingMoveParts.length > 1
         ? getBoardSpace(currentGameState, remainingMoveParts[1])
-        : null;
+        : undefined;
 
-    if (srcBoardSpace === null) {
+    if (!srcBoardSpace) {
       return false;
     }
 
@@ -57,11 +57,7 @@ function isValidMove(
       return false;
     }
 
-    if (
-      destBoardSpace === null ||
-      !srcBoardSpace.piece ||
-      destBoardSpace.piece
-    ) {
+    if (!destBoardSpace || !srcBoardSpace.piece || destBoardSpace.piece) {
       return false;
     }
 
@@ -99,13 +95,13 @@ function isValidMove(
     let nextJumpedPlayer = jumpedPlayer;
     let nextNonJumpHasOccurred: boolean = nonJumpHasOccurred;
 
-    if (spaceBetween !== null) {
+    if (spaceBetween) {
       const boardSpaceBetween = getBoardSpace(currentGameState, spaceBetween);
       if (!boardSpaceBetween || !boardSpaceBetween.piece) {
         return false;
       }
       if (
-        jumpedPlayer !== null &&
+        jumpedPlayer !== undefined &&
         boardSpaceBetween.piece.player !== jumpedPlayer &&
         srcBoardSpace.piece.type !== KNIGHT
       ) {
@@ -113,7 +109,7 @@ function isValidMove(
       }
       nextJumpedPlayer = boardSpaceBetween.piece.player;
     } else {
-      if (jumpedPlayer !== null) {
+      if (jumpedPlayer !== undefined) {
         return false;
       }
       nextNonJumpHasOccurred = true;
@@ -133,7 +129,7 @@ function isValidMove(
     );
   }
 
-  return isValidMoveRec(gameState, moveParts, null, false, true);
+  return isValidMoveRec(gameState, moveParts, undefined, false, true);
 }
 
 export default isValidMove;

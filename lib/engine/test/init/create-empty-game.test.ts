@@ -14,7 +14,7 @@ describe('create-empty-game', function () {
   });
 
   it('should not have a board space at 0, 0', function () {
-    expect(getBoardSpace(createEmptyGame(), 0, 0)).toBe(null);
+    expect(getBoardSpace(createEmptyGame(), 0, 0)).toBe(undefined);
   });
 
   it('should start with turnCount = 0', function () {

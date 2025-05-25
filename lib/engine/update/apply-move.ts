@@ -19,7 +19,7 @@ function applyMove(
     gameState,
     moveStart.row,
     moveStart.col,
-    { piece: null }
+    { piece: undefined }
   );
   const withMovingPieceAtDest = updateBoardSpace(
     withMovingPieceNotAtSrc,
@@ -29,13 +29,13 @@ function applyMove(
   );
   const coordsBetween = getCoordsBetween(moveStart, moveEnd);
 
-  if (movingPiece === null) {
+  if (!movingPiece) {
     throw new Error(
       `applyMove: there must be a piece to move at moveStart. moveStart is: ${JSON.stringify(moveStart)}`
     );
   }
 
-  if (coordsBetween === null) {
+  if (!coordsBetween) {
     return withMovingPieceAtDest;
   }
 
@@ -63,7 +63,7 @@ function applyMove(
       },
     };
     return updateBoardSpace(nextGameState, spaceBetween.row, spaceBetween.col, {
-      piece: null,
+      piece: undefined,
     });
   }
 

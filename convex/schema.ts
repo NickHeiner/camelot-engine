@@ -1,47 +1,31 @@
 import { defineSchema, defineTable } from 'convex/server';
 import { v } from 'convex/values';
+import {
+  playerValidator,
+  gameStatusValidator,
+  boardSpaceValidator,
+  capturedPiecesValidator,
+  coordinatesValidator,
+  pieceTypeValidator,
+} from './convexTypes';
 
 export default defineSchema({
   games: defineTable({
     // Game metadata
-    status: v.union(
-      v.literal('waiting'),
-      v.literal('playing'),
-      v.literal('completed')
-    ),
+    status: gameStatusValidator,
     createdBy: v.string(), // User ID who created the game
     playerA: v.optional(v.string()), // User ID of player A
     playerB: v.optional(v.string()), // User ID of player B
-    winner: v.optional(v.union(v.literal('playerA'), v.literal('playerB'))),
+    winner: v.optional(playerValidator),
     createdAt: v.number(),
     startedAt: v.optional(v.number()),
     completedAt: v.optional(v.number()),
 
     // Game state
     turnCount: v.number(),
-    currentPlayer: v.union(v.literal('playerA'), v.literal('playerB')),
-    boardSpaces: v.array(
-      v.object({
-        row: v.number(),
-        col: v.number(),
-        piece: v.optional(
-          v.object({
-            type: v.union(v.literal('knight'), v.literal('pawn')),
-            player: v.union(v.literal('playerA'), v.literal('playerB')),
-          })
-        ),
-      })
-    ),
-    capturedPieces: v.object({
-      playerA: v.object({
-        knight: v.number(),
-        pawn: v.number(),
-      }),
-      playerB: v.object({
-        knight: v.number(),
-        pawn: v.number(),
-      }),
-    }),
+    currentPlayer: playerValidator,
+    boardSpaces: v.array(boardSpaceValidator),
+    capturedPieces: capturedPiecesValidator,
   })
     .index('by_status', ['status'])
     .index('by_playerA', ['playerA'])
@@ -51,13 +35,13 @@ export default defineSchema({
   moves: defineTable({
     gameId: v.id('games'),
     turnNumber: v.number(),
-    player: v.union(v.literal('playerA'), v.literal('playerB')),
-    from: v.object({ row: v.number(), col: v.number() }),
-    to: v.object({ row: v.number(), col: v.number() }),
+    player: playerValidator,
+    from: coordinatesValidator,
+    to: coordinatesValidator,
     capturedPiece: v.optional(
       v.object({
-        type: v.union(v.literal('knight'), v.literal('pawn')),
-        at: v.object({ row: v.number(), col: v.number() }),
+        type: pieceTypeValidator,
+        at: coordinatesValidator,
       })
     ),
     timestamp: v.number(),

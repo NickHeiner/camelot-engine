@@ -2,8 +2,8 @@ import getBoardSpace from '../../query/get-board-space.js';
 import createEmptyGame from '../../init/create-empty-game.js';
 
 describe('get-board-space', function () {
-  it('returns null for an invalid board space', function () {
-    expect(getBoardSpace(createEmptyGame(), 10000, 20034)).toBeNull();
+  it('returns undefined for an invalid board space', function () {
+    expect(getBoardSpace(createEmptyGame(), 10000, 20034)).toBeUndefined();
   });
 
   it('allows a lookup by row and column', function () {

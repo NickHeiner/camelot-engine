@@ -5,7 +5,7 @@ const JUMP_DISTANCE = 2;
 function getCoordsBetween(
   space1: Coordinates | BoardSpace,
   space2: Coordinates | BoardSpace
-): Coordinates | null {
+): Coordinates | undefined {
   const moveDelta: Coordinates = {
     row: space2.row - space1.row,
     col: space2.col - space1.col,
@@ -19,7 +19,7 @@ function getCoordsBetween(
   };
 
   if (!isJump) {
-    return null;
+    return undefined;
   }
 
   if (moveDelta.col === -JUMP_DISTANCE) {

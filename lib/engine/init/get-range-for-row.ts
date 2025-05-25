@@ -6,7 +6,6 @@ function createBoardSpace(row: number, col: number): BoardSpace {
   return {
     row,
     col,
-    piece: null,
   };
 }
 

@@ -5,6 +5,7 @@ import { useMutation, usePreloadedQuery, Preloaded } from 'convex/react';
 import { api } from '@/convex/_generated/api';
 import { useUser } from '@clerk/nextjs';
 import type { Coordinates } from '@/lib/engine/types';
+import { findBoardSpace } from '@/lib/game-utils';
 
 interface GameBoardPreloadedProps {
   preloadedGame: Preloaded<typeof api.games.getGame>;
@@ -32,9 +33,7 @@ export function GameBoardPreloaded({ preloadedGame }: GameBoardPreloadedProps) {
   const handleSpaceClick = async (row: number, col: number) => {
     if (!isMyTurn) return;
 
-    const clickedSpace = boardSpaces.find(
-      (s) => s.row === row && s.col === col
-    );
+    const clickedSpace = findBoardSpace(boardSpaces, row, col);
 
     if (!selectedSpace) {
       if (clickedSpace?.piece?.player === game.currentPlayer) {
@@ -58,7 +57,7 @@ export function GameBoardPreloaded({ preloadedGame }: GameBoardPreloadedProps) {
   };
 
   const renderSpace = (row: number, col: number) => {
-    const space = boardSpaces.find((s) => s.row === row && s.col === col);
+    const space = findBoardSpace(boardSpaces, row, col);
     const isSelected = selectedSpace?.row === row && selectedSpace?.col === col;
     const piece = space?.piece;
 

@@ -24,7 +24,7 @@ describe('with-starting-pieces', function () {
   it('should not have a piece at (5, 1)', function () {
     const gameState = createEmptyGame();
     const boardSpace = getBoardSpace(gameState, 5, 1);
-    expect(boardSpace?.piece).toBeNull();
+    expect(boardSpace?.piece).toBeUndefined();
   });
 
   it('should not have a piece at (5, 2)', function () {

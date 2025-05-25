@@ -1,26 +1,24 @@
-export type PieceType = 'knight' | 'pawn';
-export type Player = 'playerA' | 'playerB';
+import type {
+  Player,
+  PieceType,
+  Piece,
+  BoardSpace,
+  Coordinates,
+  CapturedPieces,
+} from '../shared-types.js';
+import type { Game } from '@/convex/convexTypes';
 
-export interface Piece {
-  type: PieceType;
-  player: Player;
-}
+export type {
+  Player,
+  PieceType,
+  Piece,
+  BoardSpace,
+  Coordinates,
+  CapturedPieces,
+};
 
-export interface BoardSpace {
-  row: number;
-  col: number;
-  piece: Piece | null;
-}
-
-export type CapturedPieces = Record<Player, Record<PieceType, number>>;
-
-export interface GameState {
-  boardSpaces: BoardSpace[];
-  turnCount: number;
-  capturedPieces: CapturedPieces;
-}
-
-export interface Coordinates {
-  row: number;
-  col: number;
-}
+// GameState is the subset of Game fields that engine functions need
+export type GameState = Pick<
+  Game,
+  'boardSpaces' | 'turnCount' | 'capturedPieces'
+>;

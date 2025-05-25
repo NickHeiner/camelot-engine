@@ -10,7 +10,7 @@ describe('get-range-for-row', function () {
     expect(getRangeForRow(0, 5)).toHaveLength(2);
   });
 
-  it('should init the piece to null', function () {
-    expect(getRangeForRow(0, 5)[0]).toHaveProperty('piece', null);
+  it('should not init a piece property', function () {
+    expect(getRangeForRow(0, 5)[0]).not.toHaveProperty('piece');
   });
 });
