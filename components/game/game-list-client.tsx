@@ -1,11 +1,10 @@
 'use client';
 
-import { usePreloadedQuery, useMutation } from 'convex/react';
+import { usePreloadedQuery, useMutation, Preloaded } from 'convex/react';
 import { api } from '@/convex/_generated/api';
 import { Id } from '@/convex/_generated/dataModel';
 import { useRouter } from 'next/navigation';
 import { useUser } from '@clerk/nextjs';
-import type { Preloaded } from 'convex/nextjs';
 
 interface GameListClientProps {
   preloadedAvailableGames: Preloaded<typeof api.games.getAvailableGames>;

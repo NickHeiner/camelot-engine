@@ -1,11 +1,10 @@
 'use client';
 
 import { useState } from 'react';
-import { useMutation, usePreloadedQuery } from 'convex/react';
+import { useMutation, usePreloadedQuery, Preloaded } from 'convex/react';
 import { api } from '@/convex/_generated/api';
 import { useUser } from '@clerk/nextjs';
 import type { Coordinates } from '@/lib/engine/types';
-import type { Preloaded } from 'convex/nextjs';
 
 interface GameBoardPreloadedProps {
   preloadedGame: Preloaded<typeof api.games.getGame>;
