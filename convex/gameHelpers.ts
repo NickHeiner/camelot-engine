@@ -1,10 +1,10 @@
-import { Doc } from './_generated/dataModel';
+import type { Game } from './convexTypes';
 import type { GameState, BoardSpace } from '../lib/engine/types';
 export { getCurrentPlayer } from '../lib/game-utils';
 
 export function boardSpacesToGameState(
-  boardSpaces: Doc<'games'>['boardSpaces'],
-  game: Doc<'games'>
+  boardSpaces: Game['boardSpaces'],
+  game: Game
 ): GameState {
   return {
     boardSpaces: boardSpaces as BoardSpace[],

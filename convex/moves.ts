@@ -1,6 +1,5 @@
 import { v } from 'convex/values';
 import { mutation } from './_generated/server';
-import { Doc } from './_generated/dataModel';
 import _ from 'lodash';
 import isValidMove from '../lib/engine/query/is-valid-move.js';
 import applyMove from '../lib/engine/update/apply-move.js';
@@ -8,7 +7,7 @@ import getGameWinner from '../lib/engine/query/get-game-winner.js';
 import getMoveDetails from '../lib/engine/query/get-move-details.js';
 import { boardSpacesToGameState, getCurrentPlayer } from './gameHelpers';
 import type { Coordinates } from '../lib/engine/types';
-import { coordinatesValidator } from './convexTypes';
+import { coordinatesValidator, type Game } from './convexTypes';
 
 export const makeMove = mutation({
   args: {
@@ -54,7 +53,7 @@ export const makeMove = mutation({
     const updatedBoardSpaces = newGameState.boardSpaces;
 
     const winner = getGameWinner(newGameState);
-    const updates: Partial<Doc<'games'>> = {
+    const updates: Partial<Game> = {
       boardSpaces: updatedBoardSpaces,
       turnCount: newGameState.turnCount,
       currentPlayer: getCurrentPlayer(newGameState.turnCount),

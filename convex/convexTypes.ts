@@ -51,3 +51,8 @@ export type Piece = Infer<typeof pieceValidator>;
 export type Coordinates = Infer<typeof coordinatesValidator>;
 export type BoardSpace = Infer<typeof boardSpaceValidator>;
 export type CapturedPieces = Infer<typeof capturedPiecesValidator>;
+
+// For convenience, re-export the Convex document types
+import type { Doc } from './_generated/dataModel';
+export type Game = Doc<'games'>;
+export type Move = Doc<'moves'>;
