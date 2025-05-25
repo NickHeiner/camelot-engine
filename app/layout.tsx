@@ -19,26 +19,21 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // If no Clerk keys, render without ClerkProvider (for CI/build environments)
-  if (!clerkPublishableKey) {
-    return (
-      <html lang="en">
-        <body className={inter.className}>
-          <Navigation />
-          <main className="min-h-screen">{children}</main>
-        </body>
-      </html>
-    );
-  }
-
   return (
-    <ClerkProvider>
-      <html lang="en">
-        <body className={inter.className}>
-          <Navigation />
-          <main className="min-h-screen">{children}</main>
-        </body>
-      </html>
-    </ClerkProvider>
+    <html lang="en">
+      <body className={inter.className}>
+        {clerkPublishableKey ? (
+          <ClerkProvider>
+            <Navigation />
+            <main className="min-h-screen">{children}</main>
+          </ClerkProvider>
+        ) : (
+          <>
+            <Navigation />
+            <main className="min-h-screen">{children}</main>
+          </>
+        )}
+      </body>
+    </html>
   );
 }
