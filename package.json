@@ -8,9 +8,10 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
+    "typecheck": "tsc --noEmit",
     "lint": "next lint",
     "test:engine": "cd lib/engine && NODE_OPTIONS=\"--experimental-vm-modules\" jest",
-    "test": "next build && npm run test:engine && npm run format && npm run lint",
+    "test": "npm run typecheck && next build && npm run test:engine && npm run format && npm run lint",
     "format": "prettier --check .",
     "format:fix": "prettier --write ."
   },
