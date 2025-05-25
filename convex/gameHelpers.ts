@@ -1,5 +1,6 @@
 import { Doc } from './_generated/dataModel';
 import type { GameState, BoardSpace } from '../lib/engine/types';
+import type { Player } from '../lib/shared-types';
 
 export function boardSpacesToGameState(
   boardSpaces: Doc<'games'>['boardSpaces'],
@@ -18,6 +19,6 @@ export function boardSpacesToGameState(
   };
 }
 
-export function getCurrentPlayer(turnCount: number): 'playerA' | 'playerB' {
+export function getCurrentPlayer(turnCount: number): Player {
   return turnCount % 2 === 0 ? 'playerA' : 'playerB';
 }

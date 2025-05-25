@@ -1,14 +1,14 @@
-export type PieceType = 'knight' | 'pawn';
-export type Player = 'playerA' | 'playerB';
+import type {
+  Player,
+  PieceType,
+  Piece,
+  BoardSpace as SharedBoardSpace,
+  Coordinates,
+} from '../shared-types.js';
 
-export interface Piece {
-  type: PieceType;
-  player: Player;
-}
+export type { Player, PieceType, Piece, Coordinates };
 
-export interface BoardSpace {
-  row: number;
-  col: number;
+export interface BoardSpace extends SharedBoardSpace {
   piece: Piece | null;
 }
 
@@ -18,9 +18,4 @@ export interface GameState {
   boardSpaces: BoardSpace[];
   turnCount: number;
   capturedPieces: CapturedPieces;
-}
-
-export interface Coordinates {
-  row: number;
-  col: number;
 }

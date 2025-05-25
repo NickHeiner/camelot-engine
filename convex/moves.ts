@@ -4,15 +4,17 @@ import { Doc } from './_generated/dataModel';
 import isValidMove from '../lib/engine/query/is-valid-move.js';
 import applyMove from '../lib/engine/update/apply-move.js';
 import getGameWinner from '../lib/engine/query/get-game-winner.js';
+import getMoveDetails from '../lib/engine/query/get-move-details.js';
 import { boardSpacesToGameState, getCurrentPlayer } from './gameHelpers';
 import type { Coordinates } from '../lib/engine/types';
+import { coordinatesValidator } from './convexTypes';
 
 export const makeMove = mutation({
   args: {
     gameId: v.id('games'),
     userId: v.string(),
-    from: v.object({ row: v.number(), col: v.number() }),
-    to: v.object({ row: v.number(), col: v.number() }),
+    from: coordinatesValidator,
+    to: coordinatesValidator,
   },
   handler: async (ctx, args) => {
     const game = await ctx.db.get(args.gameId);
@@ -33,29 +35,11 @@ export const makeMove = mutation({
       throw new Error('Invalid move');
     }
 
+    // Get move details before applying the move
+    const moveDetails = getMoveDetails(gameState, from, to);
+
+    // Apply the move to get the new game state
     const newGameState = applyMove(gameState, from, to);
-
-    // Find the piece being moved
-    const fromSpaceIndex = game.boardSpaces.findIndex(
-      (s) => s.row === from.row && s.col === from.col
-    );
-    const toSpaceIndex = game.boardSpaces.findIndex(
-      (s) => s.row === to.row && s.col === to.col
-    );
-
-    if (fromSpaceIndex === -1 || toSpaceIndex === -1) {
-      throw new Error('Invalid board position');
-    }
-
-    const movingPiece = game.boardSpaces[fromSpaceIndex].piece;
-    if (!movingPiece) throw new Error('No piece at source position');
-
-    const capturedPiece = game.boardSpaces[toSpaceIndex].piece
-      ? {
-          type: game.boardSpaces[toSpaceIndex].piece!.type,
-          at: { row: to.row, col: to.col },
-        }
-      : undefined;
 
     await ctx.db.insert('moves', {
       gameId: args.gameId,
@@ -63,20 +47,16 @@ export const makeMove = mutation({
       player: currentPlayer,
       from: args.from,
       to: args.to,
-      capturedPiece,
+      capturedPiece: moveDetails.capturedPiece,
       timestamp: Date.now(),
     });
 
-    // Update the board spaces array
-    const updatedBoardSpaces = [...game.boardSpaces];
-    updatedBoardSpaces[fromSpaceIndex] = {
-      ...updatedBoardSpaces[fromSpaceIndex],
-      piece: undefined,
-    };
-    updatedBoardSpaces[toSpaceIndex] = {
-      ...updatedBoardSpaces[toSpaceIndex],
-      piece: movingPiece,
-    };
+    // Convert the new game state board spaces to Convex format
+    const updatedBoardSpaces = newGameState.boardSpaces.map((space) => ({
+      row: space.row,
+      col: space.col,
+      piece: space.piece || undefined,
+    }));
 
     const winner = getGameWinner(newGameState);
     const updates: Partial<Doc<'games'>> = {
