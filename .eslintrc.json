@@ -19,7 +19,7 @@
       "files": ["lib/engine/**/*.ts"],
       "excludedFiles": ["lib/engine/**/*.test.ts", "lib/engine/test/**/*"],
       "parserOptions": {
-        "project": "./lib/engine/tsconfig.json"
+        "project": "./tsconfig.json"
       },
       "rules": {
         "@typescript-eslint/no-use-before-define": "error",
