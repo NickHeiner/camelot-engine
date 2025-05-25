@@ -1,22 +1,23 @@
-export type Player = 'playerA' | 'playerB';
+// Import and re-export types from Convex validators
+import type {
+  Player,
+  GameStatus,
+  PieceType,
+  Piece,
+  BoardSpace,
+  Coordinates,
+  CapturedPieces,
+} from '@/convex/convexTypes';
 
-export type PieceType = 'knight' | 'pawn';
-
-export interface Piece {
-  type: PieceType;
-  player: Player;
-}
-
-export interface BoardSpace {
-  row: number;
-  col: number;
-  piece?: Piece;
-}
-
-export interface Coordinates {
-  row: number;
-  col: number;
-}
+export type {
+  Player,
+  GameStatus,
+  PieceType,
+  Piece,
+  BoardSpace,
+  Coordinates,
+  CapturedPieces,
+};
 
 export interface GameState {
   id: string;
@@ -25,13 +26,10 @@ export interface GameState {
   boardSpaces: BoardSpace[];
   currentPlayer: Player;
   turnCount: number;
-  capturedPieces: {
-    playerA: { knights: number; pawns: number };
-    playerB: { knights: number; pawns: number };
-  };
+  capturedPieces: CapturedPieces;
   winner?: Player;
   winReason?: string;
-  status: 'waiting' | 'active' | 'completed';
+  status: GameStatus;
   createdAt: number;
   updatedAt: number;
 }

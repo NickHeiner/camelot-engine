@@ -17,4 +17,3 @@ export function findBoardSpace(
 ): BoardSpace | undefined {
   return boardSpaces.find((s) => s.row === row && s.col === col);
 }
-

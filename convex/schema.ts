@@ -2,6 +2,7 @@ import { defineSchema, defineTable } from 'convex/server';
 import { v } from 'convex/values';
 import {
   playerValidator,
+  gameStatusValidator,
   boardSpaceValidator,
   capturedPiecesValidator,
   coordinatesValidator,
@@ -11,11 +12,7 @@ import {
 export default defineSchema({
   games: defineTable({
     // Game metadata
-    status: v.union(
-      v.literal('waiting'),
-      v.literal('playing'),
-      v.literal('completed')
-    ),
+    status: gameStatusValidator,
     createdBy: v.string(), // User ID who created the game
     playerA: v.optional(v.string()), // User ID of player A
     playerB: v.optional(v.string()), // User ID of player B

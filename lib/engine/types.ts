@@ -4,11 +4,17 @@ import type {
   Piece,
   BoardSpace,
   Coordinates,
+  CapturedPieces,
 } from '../shared-types.js';
 
-export type { Player, PieceType, Piece, BoardSpace, Coordinates };
-
-export type CapturedPieces = Record<Player, Record<PieceType, number>>;
+export type {
+  Player,
+  PieceType,
+  Piece,
+  BoardSpace,
+  Coordinates,
+  CapturedPieces,
+};
 
 export interface GameState {
   boardSpaces: BoardSpace[];

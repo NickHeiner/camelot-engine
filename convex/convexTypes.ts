@@ -1,16 +1,15 @@
-import { v } from 'convex/values';
-import type {
-  Player,
-  PieceType,
-  Piece,
-  BoardSpace,
-  Coordinates,
-} from '../lib/shared-types';
+import { v, Infer } from 'convex/values';
 
 // Convex validators for shared types
 export const playerValidator = v.union(
   v.literal('playerA'),
   v.literal('playerB')
+);
+
+export const gameStatusValidator = v.union(
+  v.literal('waiting'),
+  v.literal('playing'),
+  v.literal('completed')
 );
 export const pieceTypeValidator = v.union(
   v.literal('knight'),
@@ -44,5 +43,11 @@ export const capturedPiecesValidator = v.object({
   }),
 });
 
-// Re-export the types for convenience
-export type { Player, PieceType, Piece, BoardSpace, Coordinates };
+// Infer types from validators
+export type Player = Infer<typeof playerValidator>;
+export type GameStatus = Infer<typeof gameStatusValidator>;
+export type PieceType = Infer<typeof pieceTypeValidator>;
+export type Piece = Infer<typeof pieceValidator>;
+export type Coordinates = Infer<typeof coordinatesValidator>;
+export type BoardSpace = Infer<typeof boardSpaceValidator>;
+export type CapturedPieces = Infer<typeof capturedPiecesValidator>;
