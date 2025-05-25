@@ -8,4 +8,3 @@ export default function getBoardSpacesArray(
 ): BoardSpace[] {
   return gameState.boardSpaces;
 }
-

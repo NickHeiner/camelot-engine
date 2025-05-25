@@ -1,5 +1,6 @@
 import { v } from 'convex/values';
 import { mutation, query } from './_generated/server';
+import _ from 'lodash';
 import createEmptyGame from '../lib/engine/init/create-empty-game.js';
 import withStartingPieces from '../lib/engine/init/with-starting-pieces.js';
 
@@ -18,8 +19,7 @@ export const createGame = mutation({
       turnCount: 0,
       currentPlayer: 'playerA',
       boardSpaces: gameWithPieces.boardSpaces.map((space) => ({
-        row: space.row,
-        col: space.col,
+        ..._.pick(space, ['row', 'col']),
         piece: space.piece || undefined,
       })),
       capturedPieces: gameWithPieces.capturedPieces,

@@ -46,4 +46,3 @@ export const capturedPiecesValidator = v.object({
 
 // Re-export the types for convenience
 export type { Player, PieceType, Piece, BoardSpace, Coordinates };
-

@@ -1,6 +1,7 @@
 import { v } from 'convex/values';
 import { mutation } from './_generated/server';
 import { Doc } from './_generated/dataModel';
+import _ from 'lodash';
 import isValidMove from '../lib/engine/query/is-valid-move.js';
 import applyMove from '../lib/engine/update/apply-move.js';
 import getGameWinner from '../lib/engine/query/get-game-winner.js';
@@ -42,19 +43,16 @@ export const makeMove = mutation({
     const newGameState = applyMove(gameState, from, to);
 
     await ctx.db.insert('moves', {
-      gameId: args.gameId,
+      ..._.pick(args, ['gameId', 'from', 'to']),
       turnNumber: game.turnCount,
       player: currentPlayer,
-      from: args.from,
-      to: args.to,
       capturedPiece: moveDetails.capturedPiece,
       timestamp: Date.now(),
     });
 
     // Convert the new game state board spaces to Convex format
     const updatedBoardSpaces = newGameState.boardSpaces.map((space) => ({
-      row: space.row,
-      col: space.col,
+      ..._.pick(space, ['row', 'col']),
       piece: space.piece || undefined,
     }));
 
