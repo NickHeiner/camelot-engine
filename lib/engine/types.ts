@@ -24,3 +24,18 @@ export interface Coordinates {
   row: number;
   col: number;
 }
+
+export type MoveType = 'simple' | 'canter' | 'jump';
+
+export interface MoveStep {
+  from: Coordinates;
+  to: Coordinates;
+  type: MoveType;
+  capturedPiece?: Coordinates;
+}
+
+export interface Move {
+  steps: MoveStep[];
+  player: Player;
+  piece: PieceType;
+}
