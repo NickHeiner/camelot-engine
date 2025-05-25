@@ -1,4 +1,4 @@
-import type { Coordinates, BoardSpace } from '../types.js';
+import type { Coordinates, BoardSpace } from '../types';
 
 const JUMP_DISTANCE = 2;
 

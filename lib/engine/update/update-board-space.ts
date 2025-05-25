@@ -1,5 +1,5 @@
-import getBoardSpace from '../query/get-board-space.js';
-import type { GameState, BoardSpace } from '../types.js';
+import getBoardSpace from '../query/get-board-space';
+import type { GameState, BoardSpace } from '../types';
 
 function updateBoardSpace(
   gameState: GameState,

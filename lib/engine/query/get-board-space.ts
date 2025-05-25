@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import type { GameState, BoardSpace, Coordinates } from '../types.js';
+import type { GameState, BoardSpace, Coordinates } from '../types';
 
 function getBoardSpace(
   gameState: GameState,

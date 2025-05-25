@@ -1,7 +1,7 @@
-import getBoardSpace from '../query/get-board-space.js';
-import getCoordsBetween from '../query/get-coords-between.js';
-import updateBoardSpace from './update-board-space.js';
-import type { GameState, Coordinates } from '../types.js';
+import getBoardSpace from '../query/get-board-space';
+import getCoordsBetween from '../query/get-coords-between';
+import updateBoardSpace from './update-board-space';
+import type { GameState, Coordinates } from '../types';
 
 function applyMove(
   gameState: GameState,

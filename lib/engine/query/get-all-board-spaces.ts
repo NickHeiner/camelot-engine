@@ -1,4 +1,4 @@
-import { GameState, BoardSpace } from '../types.js';
+import { GameState, BoardSpace } from '../types';
 
 const getAllBoardSpaces = (gameState: GameState): BoardSpace[] =>
   gameState.boardSpaces;

@@ -1,4 +1,4 @@
-import type { Player, PieceType } from './types.js';
+import type { Player, PieceType } from './types';
 
 export const BOARD_WIDTH = 12 as const;
 export const BOARD_HEIGHT = 17 as const;

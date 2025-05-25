@@ -1,14 +1,14 @@
-import applyMove from '../update/apply-move.js';
-import getBoardSpace from './get-board-space.js';
+import applyMove from '../update/apply-move';
+import getBoardSpace from './get-board-space';
 import {
   PLAYER_A,
   PLAYER_B,
   PLAYER_A_GOAL_ROW,
   PLAYER_B_GOAL_ROW,
   KNIGHT,
-} from '../constants.js';
-import getCoordsBetween from './get-coords-between.js';
-import type { GameState, Player, Coordinates } from '../types.js';
+} from '../constants';
+import getCoordsBetween from './get-coords-between';
+import type { GameState, Player, Coordinates } from '../types';
 
 function isValidMove(
   gameState: GameState,

@@ -1,7 +1,7 @@
-import createBoardSpaces from './create-board-spaces.js';
-import withStartingPieces from './with-starting-pieces.js';
-import { PLAYER_A, PLAYER_B, PAWN, KNIGHT } from '../constants.js';
-import type { CapturedPieces, GameState } from '../types.js';
+import createBoardSpaces from './create-board-spaces';
+import withStartingPieces from './with-starting-pieces';
+import { PLAYER_A, PLAYER_B, PAWN, KNIGHT } from '../constants';
+import type { CapturedPieces, GameState } from '../types';
 
 function createEmptyGame(): GameState {
   const capturedPieces: CapturedPieces = {

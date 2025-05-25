@@ -1,1 +1,1 @@
-export { default as applyMoves } from './apply-moves.js';
+export { default as applyMoves } from './apply-moves';

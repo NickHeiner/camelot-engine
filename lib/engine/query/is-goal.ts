@@ -1,6 +1,6 @@
-import getBoardSpace from './get-board-space.js';
-import getAllBoardSpaces from './get-all-board-spaces.js';
-import type { GameState } from '../types.js';
+import getBoardSpace from './get-board-space';
+import getAllBoardSpaces from './get-all-board-spaces';
+import type { GameState } from '../types';
 
 export default function isGoal(
   gameState: GameState,

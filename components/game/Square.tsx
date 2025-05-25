@@ -31,4 +31,3 @@ export function Square({ row, col, isHighlighted, children }: SquareProps) {
     </div>
   );
 }
-

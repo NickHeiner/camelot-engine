@@ -60,4 +60,3 @@ export function Piece({ piece, position, isSelected, onSelect }: PieceProps) {
     </button>
   );
 }
-

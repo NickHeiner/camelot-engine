@@ -1,6 +1,6 @@
 import _ from 'lodash';
-import { BOARD_WIDTH } from '../constants.js';
-import type { BoardSpace } from '../types.js';
+import { BOARD_WIDTH } from '../constants';
+import type { BoardSpace } from '../types';
 
 function createBoardSpace(row: number, col: number): BoardSpace {
   return {

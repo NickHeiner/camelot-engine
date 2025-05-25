@@ -1,8 +1,8 @@
-import updateBoardSpace from '../update/update-board-space.js';
-import { KNIGHT, PAWN, STARTING_POSITIONS } from '../constants.js';
-import repeat from '../util/repeat.js';
+import updateBoardSpace from '../update/update-board-space';
+import { KNIGHT, PAWN, STARTING_POSITIONS } from '../constants';
+import repeat from '../util/repeat';
 import _ from 'lodash';
-import type { GameState, Player, PieceType } from '../types.js';
+import type { GameState, Player, PieceType } from '../types';
 
 function makePieceRow(
   gameState: GameState,

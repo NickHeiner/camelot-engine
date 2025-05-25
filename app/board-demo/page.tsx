@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { Board } from '@/components/game/Board';
-import { createEmptyGame } from '@/lib/engine/camelot-engine';
+import createEmptyGame from '@/lib/engine/init/create-empty-game';
 import type { GameState } from '@/lib/engine/types';
 
 export default function BoardDemoPage() {
@@ -38,4 +38,3 @@ export default function BoardDemoPage() {
     </div>
   );
 }
-

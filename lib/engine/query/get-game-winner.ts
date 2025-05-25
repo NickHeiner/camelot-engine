@@ -1,13 +1,13 @@
 import _ from 'lodash';
-import getAllBoardSpaces from './get-all-board-spaces.js';
+import getAllBoardSpaces from './get-all-board-spaces';
 import {
   PLAYER_A,
   PLAYER_B,
   PLAYER_A_GOAL_ROW,
   PLAYER_B_GOAL_ROW,
   COUNT_PIECES_NEEDED_TO_WIN,
-} from '../constants.js';
-import type { GameState, Player, BoardSpace } from '../types.js';
+} from '../constants';
+import type { GameState, Player, BoardSpace } from '../types';
 
 function getGameWinner(gameState: GameState): Player | null {
   function hasEnoughPieces(player: Player): boolean {

@@ -1,6 +1,6 @@
 import _ from 'lodash';
-import getRangeForRow from './get-range-for-row.js';
-import type { BoardSpace } from '../types.js';
+import getRangeForRow from './get-range-for-row';
+import type { BoardSpace } from '../types';
 
 function getBoardSpaces(): BoardSpace[] {
   // TODO verify that this is actually correct

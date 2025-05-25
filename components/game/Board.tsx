@@ -11,9 +11,9 @@ import { Square } from './Square';
 import { Piece } from './Piece';
 import type { GameState, Coordinates } from '@/lib/engine/types';
 import { BOARD_WIDTH, BOARD_HEIGHT } from '@/lib/engine/constants';
-import { getBoardSpace } from '@/lib/engine/query/get-board-space';
-import { isValidMove } from '@/lib/engine/query/is-valid-move';
-import { applyMove } from '@/lib/engine/update/apply-move';
+import getBoardSpace from '@/lib/engine/query/get-board-space';
+import isValidMove from '@/lib/engine/query/is-valid-move';
+import applyMove from '@/lib/engine/update/apply-move';
 
 interface BoardProps {
   gameState: GameState;
@@ -121,16 +121,16 @@ export function Board({ gameState, onMove, currentPlayer }: BoardProps) {
                     col={col}
                     isHighlighted={isHighlighted(row, col)}
                   >
-                  {space?.piece && (
-                    <Piece
-                      piece={space.piece}
-                      position={{ row, col }}
-                      isSelected={isSelected(row, col)}
-                      onSelect={() =>
-                        !isDragging && handlePieceSelect({ row, col })
-                      }
-                    />
-                  )}
+                    {space?.piece && (
+                      <Piece
+                        piece={space.piece}
+                        position={{ row, col }}
+                        isSelected={isSelected(row, col)}
+                        onSelect={() =>
+                          !isDragging && handlePieceSelect({ row, col })
+                        }
+                      />
+                    )}
                   </Square>
                 </div>
               );
@@ -141,4 +141,3 @@ export function Board({ gameState, onMove, currentPlayer }: BoardProps) {
     </DndContext>
   );
 }
-
