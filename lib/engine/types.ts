@@ -16,6 +16,7 @@ export type {
   CapturedPieces,
 };
 
+// Define the minimal game state shape that engine functions need
 export interface GameState {
   boardSpaces: BoardSpace[];
   turnCount: number;
