@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { UserButton } from '@clerk/nextjs';
 
 export function Navigation() {
   return (
@@ -8,7 +9,7 @@ export function Navigation() {
           <Link href="/" className="text-2xl font-bold">
             Camelot
           </Link>
-          <div className="flex gap-6">
+          <div className="flex items-center gap-6">
             <Link href="/game" className="hover:underline">
               Play
             </Link>
@@ -18,6 +19,7 @@ export function Navigation() {
             <Link href="/history" className="hover:underline">
               History
             </Link>
+            <UserButton afterSignOutUrl="/" />
           </div>
         </nav>
       </div>
