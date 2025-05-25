@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import {
   DndContext,
   DragEndEvent,
@@ -25,6 +25,11 @@ export function Board({ gameState, onMove, currentPlayer }: BoardProps) {
   const [selectedPiece, setSelectedPiece] = useState<Coordinates | null>(null);
   const [validMoves, setValidMoves] = useState<Coordinates[]>([]);
   const [isDragging, setIsDragging] = useState(false);
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   const handlePieceSelect = useCallback(
     (position: Coordinates) => {
