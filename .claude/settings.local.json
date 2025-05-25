@@ -35,7 +35,8 @@
       "Bash(npm run lint)",
       "Bash(mv:*)",
       "Bash(git fetch:*)",
-      "Bash(git merge:*)"
+      "Bash(git merge:*)",
+      "Bash(git revert:*)"
     ],
     "deny": []
   }
