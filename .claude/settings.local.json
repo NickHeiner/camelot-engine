@@ -28,7 +28,9 @@
       "Bash(npm run dev:*)",
       "Bash(npm test)",
       "Bash(npm run build:engine:*)",
-      "Bash(npm run test:engine:*)"
+      "Bash(npm run test:engine:*)",
+      "Bash(npm run format:fix:*)",
+      "Bash(npm run build:*)"
     ],
     "deny": []
   }

@@ -1,4 +1,4 @@
-import getCoordsBetween from '../query/get-coords-between.ts';
+import getCoordsBetween from '../../query/get-coords-between.ts';
 
 describe('get-coords-between', function () {
   describe('returns null when the spaces are adjacent', function () {

@@ -1,5 +1,5 @@
-import updateBoardSpace from '../update/update-board-space.ts';
-import { createEmptyGame, getBoardSpace } from '../camelot-engine.ts';
+import updateBoardSpace from '../../update/update-board-space.ts';
+import { createEmptyGame, getBoardSpace } from '../../camelot-engine.ts';
 
 describe('updateBoardSpace', function () {
   it('updates a board space', function () {

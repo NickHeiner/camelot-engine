@@ -1,5 +1,5 @@
-import getBoardSpace from '../query/get-board-space.ts';
-import createEmptyGame from '../init/create-empty-game.ts';
+import getBoardSpace from '../../query/get-board-space.ts';
+import createEmptyGame from '../../init/create-empty-game.ts';
 
 describe('create-empty-game', function () {
   it('should have a board space at 10, 3', function () {

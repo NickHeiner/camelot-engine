@@ -1,6 +1,6 @@
-import { createEmptyGame } from '../camelot-engine.ts';
-import isGoal from '../query/is-goal.ts';
-import type { GameState } from '../types.ts';
+import { createEmptyGame } from '../../camelot-engine.ts';
+import isGoal from '../../query/is-goal.ts';
+import type { GameState } from '../../types.ts';
 
 describe('isGoal', function () {
   function getGame() {

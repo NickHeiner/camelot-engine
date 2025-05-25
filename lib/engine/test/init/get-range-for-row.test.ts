@@ -1,5 +1,5 @@
-import { BOARD_WIDTH } from '../constants.ts';
-import getRangeForRow from '../init/get-range-for-row.ts';
+import { BOARD_WIDTH } from '../../constants.ts';
+import getRangeForRow from '../../init/get-range-for-row.ts';
 
 describe('get-range-for-row', function () {
   it('should create a full row', function () {

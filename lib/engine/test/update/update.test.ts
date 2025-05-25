@@ -1,4 +1,4 @@
-import { applyMoves } from '../update/update.ts';
+import { applyMoves } from '../../update/update.ts';
 
 describe('update', function () {
   it('exports applyMoves', function () {
