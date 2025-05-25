@@ -1,8 +1,0 @@
-{
-  "/_not-found/page": "/_not-found",
-  "/page": "/",
-  "/(auth)/game/[id]/page": "/game/[id]",
-  "/(auth)/game/page": "/game",
-  "/(auth)/history/page": "/history",
-  "/(auth)/profile/page": "/profile"
-}
