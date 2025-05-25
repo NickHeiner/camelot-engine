@@ -3,12 +3,13 @@
 ## Phase 1: Critical Path Setup (Sequential - Claude Code)
 
 ### Agent 1.1: Project Foundation
+
 ```
-Create a new Next.js TypeScript project for a chess-like board game called Camelot. 
+Create a new Next.js TypeScript project for a chess-like board game called Camelot.
 
 Setup:
 1. Initialize Next.js with TypeScript, Tailwind CSS, and App Router
-2. Install and configure Shadcn/ui 
+2. Install and configure Shadcn/ui
 3. Create the basic folder structure as outlined in AGENTS.md
 
 Basic Layout:
@@ -19,7 +20,7 @@ Basic Layout:
 
 Create placeholder pages at:
 - app/(auth)/game/[id]/page.tsx
-- app/(auth)/profile/page.tsx  
+- app/(auth)/profile/page.tsx
 - app/(auth)/history/page.tsx
 
 The goal is to create enough structure that other agents can work in parallel. Keep everything minimal but well-organized.
@@ -28,6 +29,7 @@ The goal is to create enough structure that other agents can work in parallel. K
 ## Phase 2: Parallel Development
 
 ### Agent 2.1: Authentication Setup (Claude Code)
+
 ```
 Integrate Clerk authentication into the existing Next.js Camelot game app.
 
@@ -45,6 +47,7 @@ Ensure the auth flow works smoothly and all protected routes redirect to sign-in
 ```
 
 ### Agent 2.2: Convex Backend Setup (Claude Code)
+
 ```
 Set up Convex as the backend for the Camelot game app.
 
@@ -69,6 +72,7 @@ Follow the data models in AGENTS.md. Ensure all mutations validate data properly
 ```
 
 ### Agent 2.3: Game Board UI (Codex)
+
 ```
 Build the game board component for Camelot using the existing types and structure.
 
@@ -94,6 +98,7 @@ The board should be responsive and look good on mobile. Use Tailwind classes for
 ```
 
 ### Agent 2.4: Game Integration (Claude Code)
+
 ```
 Integrate the camelot-engine with the UI and backend.
 
@@ -118,6 +123,7 @@ Ensure moves are validated both client-side (for immediate feedback) and server-
 ```
 
 ### Agent 2.5: Monitoring Setup (Claude Code)
+
 ```
 Set up Datadog monitoring for the Camelot game app.
 
@@ -143,6 +149,7 @@ Use environment variables for API keys. Create a comprehensive monitoring setup 
 ```
 
 ### Agent 2.6: Game Features (Codex)
+
 ```
 Implement core game features for the Camelot web app.
 
@@ -173,6 +180,7 @@ Use Zustand or Context for local game state that doesn't need to be in Convex.
 ```
 
 ### Agent 2.7: User Features (Codex)
+
 ```
 Build user profile and game history features.
 
@@ -201,6 +209,7 @@ Make everything responsive and fast-loading with proper loading states.
 ```
 
 ### Agent 2.8: Game Creation Flow (Codex)
+
 ```
 Build the game creation and joining flow.
 
@@ -232,6 +241,7 @@ Focus on making the flow smooth and intuitive.
 ```
 
 ### Agent 2.9: Polish and Responsive Design (Codex)
+
 ```
 Polish the UI and ensure everything is responsive and accessible.
 
@@ -265,6 +275,7 @@ Test on various devices and ensure consistent experience.
 ```
 
 ### Agent 2.10: Documentation and Deployment (Claude Code)
+
 ```
 Prepare the project for deployment and create documentation.
 

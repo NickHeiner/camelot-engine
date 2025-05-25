@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from 'next/link';
 
 export default function HomePage() {
   return (
@@ -6,7 +6,8 @@ export default function HomePage() {
       <div className="max-w-4xl mx-auto text-center">
         <h1 className="text-5xl font-bold mb-6">Welcome to Camelot</h1>
         <p className="text-xl text-muted-foreground mb-8">
-          Experience the classic board game online. Challenge friends or play against opponents from around the world.
+          Experience the classic board game online. Challenge friends or play
+          against opponents from around the world.
         </p>
         <div className="flex gap-4 justify-center">
           <Link
@@ -23,7 +24,7 @@ export default function HomePage() {
           </Link>
         </div>
       </div>
-      
+
       <div className="grid md:grid-cols-3 gap-8 mt-20">
         <div className="text-center">
           <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
