@@ -1,5 +1,10 @@
 # AGENTS.md - Camelot Web App Architecture Overview
 
+## General guidance
+
+- If you need a task done online (e.g. log into the Convex dev console and do a tas), ask the user to do it for you.
+- Break down complex tasks into a TODO list, then work your way through it.
+
 ## ⚠️ IMPORTANT: This is context, not instructions
 
 This document provides architectural context for all agents working on the Camelot web app. It describes the overall system design and how components fit together. Your specific instructions are in your individual prompt - use this document to understand how your work fits into the larger system.
