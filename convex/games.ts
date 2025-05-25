@@ -2,7 +2,6 @@ import { v } from 'convex/values';
 import { mutation, query } from './_generated/server';
 import createEmptyGame from '../lib/engine/init/create-empty-game.js';
 import withStartingPieces from '../lib/engine/init/with-starting-pieces.js';
-import getBoardSpaces from '../lib/engine/init/create-board-spaces.js';
 import { getCurrentPlayer } from './gameHelpers';
 
 export const createGame = mutation({
@@ -19,19 +18,14 @@ export const createGame = mutation({
       playerA: args.createdBy,
       turnCount: 0,
       currentPlayer: 'playerA',
-      capturedPieces: gameWithPieces.capturedPieces,
-      createdAt: Date.now(),
-    });
-
-    const boardSpaces = getBoardSpaces();
-    for (const space of gameWithPieces.boardSpaces) {
-      await ctx.db.insert('boardSpaces', {
-        gameId,
+      boardSpaces: gameWithPieces.boardSpaces.map((space) => ({
         row: space.row,
         col: space.col,
         piece: space.piece || undefined,
-      });
-    }
+      })),
+      capturedPieces: gameWithPieces.capturedPieces,
+      createdAt: Date.now(),
+    });
 
     return gameId;
   },
@@ -64,11 +58,6 @@ export const getGame = query({
     const game = await ctx.db.get(args.gameId);
     if (!game) return null;
 
-    const boardSpaces = await ctx.db
-      .query('boardSpaces')
-      .withIndex('by_game', (q) => q.eq('gameId', args.gameId))
-      .collect();
-
     const moves = await ctx.db
       .query('moves')
       .withIndex('by_game', (q) => q.eq('gameId', args.gameId))
@@ -77,7 +66,7 @@ export const getGame = query({
 
     return {
       game,
-      boardSpaces,
+      boardSpaces: game.boardSpaces,
       moves,
     };
   },

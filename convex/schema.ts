@@ -20,6 +20,18 @@ export default defineSchema({
     // Game state
     turnCount: v.number(),
     currentPlayer: v.union(v.literal('playerA'), v.literal('playerB')),
+    boardSpaces: v.array(
+      v.object({
+        row: v.number(),
+        col: v.number(),
+        piece: v.optional(
+          v.object({
+            type: v.union(v.literal('knight'), v.literal('pawn')),
+            player: v.union(v.literal('playerA'), v.literal('playerB')),
+          })
+        ),
+      })
+    ),
     capturedPieces: v.object({
       playerA: v.object({
         knight: v.number(),
@@ -35,20 +47,6 @@ export default defineSchema({
     .index('by_playerA', ['playerA'])
     .index('by_playerB', ['playerB'])
     .index('by_creator', ['createdBy']),
-
-  boardSpaces: defineTable({
-    gameId: v.id('games'),
-    row: v.number(),
-    col: v.number(),
-    piece: v.optional(
-      v.object({
-        type: v.union(v.literal('knight'), v.literal('pawn')),
-        player: v.union(v.literal('playerA'), v.literal('playerB')),
-      })
-    ),
-  })
-    .index('by_game', ['gameId'])
-    .index('by_game_position', ['gameId', 'row', 'col']),
 
   moves: defineTable({
     gameId: v.id('games'),

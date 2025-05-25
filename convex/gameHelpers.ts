@@ -2,18 +2,14 @@ import { Doc } from './_generated/dataModel';
 import type { GameState, BoardSpace } from '../lib/engine/types';
 
 export function boardSpacesToGameState(
-  boardSpaces: Doc<'boardSpaces'>[],
+  boardSpaces: Doc<'games'>['boardSpaces'],
   game: Doc<'games'>
 ): GameState {
-  const boardSpacesArray: BoardSpace[] = [];
-
-  for (const space of boardSpaces) {
-    boardSpacesArray.push({
-      row: space.row,
-      col: space.col,
-      piece: space.piece || null,
-    });
-  }
+  const boardSpacesArray: BoardSpace[] = boardSpaces.map((space) => ({
+    row: space.row,
+    col: space.col,
+    piece: space.piece || null,
+  }));
 
   return {
     boardSpaces: boardSpacesArray,
