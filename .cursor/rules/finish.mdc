@@ -3,9 +3,13 @@ description:
 globs: 
 alwaysApply: false
 ---
-You're on a branch from another coding agent. It's partially complete, but you need to verify that everything is working, and/or do what that agent couldn't. Finish it.
+I'll give you a branch from another coding agent. It's partially complete, but you need to verify that everything is working, and/or do what that agent couldn't. Finish it.
 
 <steps>
+  <step>
+  `git fetch origin`
+  `git checkout {the branch name I gave you}`
+  </step>
   <step>
   Run these two commands to get a sense of what the previous agent was doing: 
   * `git --no-pager diff (git merge-base master HEAD)..HEAD`
