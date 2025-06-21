@@ -23,12 +23,22 @@ export function GameBoardPreloaded({ preloadedGame }: GameBoardPreloadedProps) {
     return <div className="text-center text-red-500">Game not found</div>;
   }
 
-  const { game, boardSpaces } = gameData;
+  const { game, boardSpaces, playerAName, playerBName } = gameData;
 
   const isMyTurn =
     game.status === 'playing' &&
     ((game.currentPlayer === 'playerA' && game.playerA === currentUserId) ||
       (game.currentPlayer === 'playerB' && game.playerB === currentUserId));
+
+  const otherPlayerName =
+    currentUserId === game.playerA ? playerBName : playerAName;
+
+  const winnerName =
+    game.winner === 'playerA'
+      ? playerAName
+      : game.winner === 'playerB'
+        ? playerBName
+        : null;
 
   const handleSpaceClick = async (row: number, col: number) => {
     if (!isMyTurn) return;
@@ -110,8 +120,9 @@ export function GameBoardPreloaded({ preloadedGame }: GameBoardPreloadedProps) {
       <div className="text-lg font-semibold">
         {game.status === 'waiting' && 'Waiting for opponent...'}
         {game.status === 'playing' &&
-          (isMyTurn ? 'Your turn' : `${game.currentPlayer}'s turn`)}
-        {game.status === 'completed' && `Winner: ${game.winner}`}
+          (isMyTurn ? 'Your turn' : `${otherPlayerName ?? 'Opponent'}'s turn`)}
+        {game.status === 'completed' &&
+          `Winner: ${winnerName ?? game.winner ?? ''}`}
       </div>
 
       <div className="bg-gray-200 dark:bg-gray-800 p-4 rounded-lg shadow-xl">
@@ -129,7 +140,7 @@ export function GameBoardPreloaded({ preloadedGame }: GameBoardPreloadedProps) {
       <div className="flex space-x-8 text-sm">
         <div className="bg-red-50 dark:bg-red-950/20 p-4 rounded-lg border border-red-200 dark:border-red-800">
           <strong className="text-red-700 dark:text-red-400">
-            Player A (Red):
+            {playerAName ?? 'Player A'} (Red):
           </strong>
           <div className="mt-2 text-gray-700 dark:text-gray-300">
             Knights captured: {game.capturedPieces.playerB.knight}
@@ -140,7 +151,7 @@ export function GameBoardPreloaded({ preloadedGame }: GameBoardPreloadedProps) {
         </div>
         <div className="bg-blue-50 dark:bg-blue-950/20 p-4 rounded-lg border border-blue-200 dark:border-blue-800">
           <strong className="text-blue-700 dark:text-blue-400">
-            Player B (Blue):
+            {playerBName ?? 'Player B'} (Blue):
           </strong>
           <div className="mt-2 text-gray-700 dark:text-gray-300">
             Knights captured: {game.capturedPieces.playerA.knight}
