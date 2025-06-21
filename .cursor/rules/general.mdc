@@ -17,8 +17,8 @@ If tests fail, fix the issues before proceeding. The full test suite should pass
 
 ## Workflow Gudelines
 When you're done:
-1. Ask the user if 
-When you're done and  confirmed that it works, write your own commit message. Identify yourself as Cursor.
+1. Ask the user if your code works and you're ready to commit
+2. When they confirm, write your own commit message and identify yourself as Cursor.
 
 ## Env Guidelines
 Only run `npm run dev` if the server isn't already running. I may have already launched it for you.
