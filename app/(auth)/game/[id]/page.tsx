@@ -1,5 +1,6 @@
 import { Id } from '@/convex/_generated/dataModel';
-import { preloadQuery } from 'convex/nextjs';
+import { preloadQuery, preloadedQueryResult } from 'convex/nextjs';
+import { notFound } from 'next/navigation';
 import { api } from '@/convex/_generated/api';
 import { GameBoardPreloaded } from '@/components/game/game-board-preloaded';
 import Link from 'next/link';
@@ -15,6 +16,11 @@ export default async function GamePage({
   const preloadedGame = await preloadQuery(api.games.getGame, {
     gameId: id as Id<'games'>,
   });
+
+  const gameData = preloadedQueryResult(preloadedGame);
+  if (!gameData || !gameData.game) {
+    notFound();
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-amber-50 to-orange-50">
