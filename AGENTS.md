@@ -5,6 +5,15 @@
 - If you need a task done online (e.g. log into the Convex dev console and do a tas), ask the user to do it for you.
 - Break down complex tasks into a TODO list, then work your way through it.
 - Your task will be described to you in agent-prompts.md. When you finish your task, update the agent-prompts.md file to reflect your progress. (Flag any known issues in the appropriate section of that file.)
+- **IMPORTANT**: Always run `npm test` before reporting any work as complete. This ensures:
+
+  - TypeScript types are correct
+  - The Next.js build succeeds
+  - All unit tests pass
+  - Code formatting is correct
+  - ESLint rules are satisfied
+
+  If any tests fail, fix the issues before considering your work done.
 
 ## ⚠️ IMPORTANT: This is context, not instructions
 

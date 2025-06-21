@@ -5,8 +5,12 @@ import { GameBoardPreloaded } from '@/components/game/game-board-preloaded';
 import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
 
-export default async function GamePage({ params }: { params: { id: string } }) {
-  const { id } = params;
+export default async function GamePage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const { id } = await params;
 
   const preloadedGame = await preloadQuery(api.games.getGame, {
     gameId: id as Id<'games'>,
