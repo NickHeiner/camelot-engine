@@ -13,9 +13,15 @@ export default async function GamePage({
 }) {
   const { id } = await params;
 
-  const preloadedGame = await preloadQuery(api.games.getGame, {
-    gameId: id as Id<'games'>,
-  });
+  let preloadedGame;
+  try {
+    preloadedGame = await preloadQuery(api.games.getGame, {
+      gameId: id as Id<'games'>,
+    });
+  } catch (error) {
+    // If the ID format is invalid, show not found
+    notFound();
+  }
 
   const gameData = preloadedQueryResult(preloadedGame);
   if (!gameData || !gameData.game) {

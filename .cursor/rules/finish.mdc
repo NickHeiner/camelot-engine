@@ -1,0 +1,12 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+You're on a branch from another coding agent. It's partially complete, but you need to verify that everything is working, and/or do what that agent couldn't. Finish it.
+
+Run these two commands to get a sense of what the previous agent was doing: 
+* `git --no-pager diff (git merge-base master HEAD)..HEAD`
+* `git --no-pager log master..HEAD --pretty=%B --no-merges`
+
+Then, run `npm test` to see if the previous agent left you with a mess.
