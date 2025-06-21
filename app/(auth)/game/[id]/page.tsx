@@ -18,7 +18,7 @@ export default async function GamePage({
     preloadedGame = await preloadQuery(api.games.getGame, {
       gameId: id as Id<'games'>,
     });
-  } catch (error) {
+  } catch {
     // If the ID format is invalid, show not found
     notFound();
   }
