@@ -4,6 +4,7 @@
 
 - If you need a task done online (e.g. log into the Convex dev console and do a tas), ask the user to do it for you.
 - Break down complex tasks into a TODO list, then work your way through it.
+- Your task will be described to you in agent-prompts.md. When you finish your task, update the agent-prompts.md file to reflect your progress. (Flag any known issues in the appropriate section of that file.)
 
 ## ⚠️ IMPORTANT: This is context, not instructions
 
