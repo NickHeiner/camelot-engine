@@ -43,7 +43,7 @@ export function GameListClient({
       <div className="mb-8">
         <button
           onClick={handleCreateGame}
-          className="bg-blue-500 text-white px-6 py-2 rounded hover:bg-blue-600"
+          className="bg-primary text-primary-foreground px-6 py-2 rounded hover:bg-primary/90 transition-colors"
         >
           Create New Game
         </button>
@@ -54,17 +54,20 @@ export function GameListClient({
           <h2 className="text-xl font-semibold mb-4">Available Games</h2>
           <div className="space-y-2">
             {availableGames?.map((game) => (
-              <div key={game._id} className="border p-4 rounded">
+              <div
+                key={game._id}
+                className="border border-border p-4 rounded bg-card"
+              >
                 <div className="flex justify-between items-center">
                   <div>
                     <p>Created by: {game.createdBy}</p>
-                    <p className="text-sm text-gray-500">
+                    <p className="text-sm text-muted-foreground">
                       {new Date(game.createdAt).toLocaleString()}
                     </p>
                   </div>
                   <button
                     onClick={() => handleJoinGame(game._id)}
-                    className="bg-green-500 text-white px-4 py-1 rounded hover:bg-green-600"
+                    className="bg-green-600 dark:bg-green-700 text-white px-4 py-1 rounded hover:bg-green-700 dark:hover:bg-green-600 transition-colors"
                   >
                     Join
                   </button>
@@ -72,7 +75,7 @@ export function GameListClient({
               </div>
             ))}
             {!availableGames?.length && (
-              <p className="text-gray-500">No available games</p>
+              <p className="text-muted-foreground">No available games</p>
             )}
           </div>
         </div>
@@ -81,24 +84,29 @@ export function GameListClient({
           <h2 className="text-xl font-semibold mb-4">My Games</h2>
           <div className="space-y-2">
             {myGames?.map((game) => (
-              <div key={game._id} className="border p-4 rounded">
+              <div
+                key={game._id}
+                className="border border-border p-4 rounded bg-card"
+              >
                 <div className="flex justify-between items-center">
                   <div>
                     <p>Status: {game.status}</p>
-                    <p className="text-sm text-gray-500">
+                    <p className="text-sm text-muted-foreground">
                       {new Date(game.createdAt).toLocaleString()}
                     </p>
                   </div>
                   <button
                     onClick={() => router.push(`/game/${game._id}`)}
-                    className="bg-blue-500 text-white px-4 py-1 rounded hover:bg-blue-600"
+                    className="bg-primary text-primary-foreground px-4 py-1 rounded hover:bg-primary/90 transition-colors"
                   >
                     View
                   </button>
                 </div>
               </div>
             ))}
-            {!myGames?.length && <p className="text-gray-500">No games yet</p>}
+            {!myGames?.length && (
+              <p className="text-muted-foreground">No games yet</p>
+            )}
           </div>
         </div>
       </div>

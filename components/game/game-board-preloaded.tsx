@@ -61,21 +61,37 @@ export function GameBoardPreloaded({ preloadedGame }: GameBoardPreloadedProps) {
     const isSelected = selectedSpace?.row === row && selectedSpace?.col === col;
     const piece = space?.piece;
 
+    // Checkerboard pattern: alternate colors based on row + col
+    const isDarkSquare = (row + col) % 2 === 0;
+
+    // Determine if this space exists on the Camelot board
+    const isValidSpace = space !== null;
+
+    if (!isValidSpace) {
+      // Render empty space for non-playable areas
+      return <div key={`${row}-${col}`} className="w-12 h-12" />;
+    }
+
     return (
       <div
         key={`${row}-${col}`}
         onClick={() => handleSpaceClick(row, col)}
         className={`
-          w-12 h-12 border border-gray-400 flex items-center justify-center cursor-pointer
-          ${isSelected ? 'bg-blue-200' : 'bg-gray-100'}
-          ${isMyTurn ? 'hover:bg-gray-200' : ''}
+          w-12 h-12 border border-gray-400 dark:border-gray-600 flex items-center justify-center
+          ${isMyTurn && piece?.player === game.currentPlayer ? 'cursor-pointer' : 'cursor-default'}
+          ${isSelected ? 'ring-4 ring-yellow-400 ring-inset' : ''}
+          ${isDarkSquare ? 'bg-amber-700 dark:bg-amber-800' : 'bg-amber-100 dark:bg-amber-900'}
+          ${isMyTurn && !selectedSpace && piece?.player === game.currentPlayer ? 'hover:brightness-110' : ''}
+          ${isMyTurn && selectedSpace && !piece ? 'hover:brightness-90' : ''}
+          transition-all duration-150
         `}
       >
         {piece && (
           <div
             className={`
-            w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold
-            ${piece.player === 'playerA' ? 'bg-red-500 text-white' : 'bg-blue-500 text-white'}
+            w-9 h-9 rounded-full flex items-center justify-center text-sm font-bold
+            ${piece.player === 'playerA' ? 'bg-red-600 text-white shadow-md' : 'bg-blue-600 text-white shadow-md'}
+            ${piece.type === 'knight' ? 'border-2 border-yellow-300' : ''}
           `}
           >
             {piece.type === 'knight' ? 'K' : 'P'}
@@ -85,8 +101,9 @@ export function GameBoardPreloaded({ preloadedGame }: GameBoardPreloadedProps) {
     );
   };
 
-  const rows = Array.from({ length: 14 }, (_, i) => i);
-  const cols = Array.from({ length: 8 }, (_, i) => i);
+  // Camelot board is 12 columns x 16 rows
+  const BOARD_ROWS = 16;
+  const BOARD_COLS = 12;
 
   return (
     <div className="flex flex-col items-center space-y-4">
@@ -97,20 +114,40 @@ export function GameBoardPreloaded({ preloadedGame }: GameBoardPreloadedProps) {
         {game.status === 'completed' && `Winner: ${game.winner}`}
       </div>
 
-      <div className="grid grid-cols-8 gap-0">
-        {rows.map((row) => cols.map((col) => renderSpace(row, col)))}
+      <div className="bg-gray-200 dark:bg-gray-800 p-4 rounded-lg shadow-xl">
+        <div className="flex flex-col">
+          {Array.from({ length: BOARD_ROWS }, (_, row) => (
+            <div key={row} className="flex">
+              {Array.from({ length: BOARD_COLS }, (_, col) =>
+                renderSpace(row, col)
+              )}
+            </div>
+          ))}
+        </div>
       </div>
 
       <div className="flex space-x-8 text-sm">
-        <div>
-          <strong>Player A (Red):</strong>
-          <div>Knights captured: {game.capturedPieces.playerB.knight}</div>
-          <div>Pawns captured: {game.capturedPieces.playerB.pawn}</div>
+        <div className="bg-red-50 dark:bg-red-950/20 p-4 rounded-lg border border-red-200 dark:border-red-800">
+          <strong className="text-red-700 dark:text-red-400">
+            Player A (Red):
+          </strong>
+          <div className="mt-2 text-gray-700 dark:text-gray-300">
+            Knights captured: {game.capturedPieces.playerB.knight}
+          </div>
+          <div className="text-gray-700 dark:text-gray-300">
+            Pawns captured: {game.capturedPieces.playerB.pawn}
+          </div>
         </div>
-        <div>
-          <strong>Player B (Blue):</strong>
-          <div>Knights captured: {game.capturedPieces.playerA.knight}</div>
-          <div>Pawns captured: {game.capturedPieces.playerA.pawn}</div>
+        <div className="bg-blue-50 dark:bg-blue-950/20 p-4 rounded-lg border border-blue-200 dark:border-blue-800">
+          <strong className="text-blue-700 dark:text-blue-400">
+            Player B (Blue):
+          </strong>
+          <div className="mt-2 text-gray-700 dark:text-gray-300">
+            Knights captured: {game.capturedPieces.playerA.knight}
+          </div>
+          <div className="text-gray-700 dark:text-gray-300">
+            Pawns captured: {game.capturedPieces.playerA.pawn}
+          </div>
         </div>
       </div>
     </div>
