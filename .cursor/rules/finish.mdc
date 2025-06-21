@@ -12,7 +12,7 @@ You're on a branch from another coding agent. It's partially complete, but you n
   * `git --no-pager log master..HEAD --pretty=%B --no-merges`
   </step>
   <step>
-  Then, run `npm test` to see if the previous agent left you with a mess.  
+  Run `npm test` to see if the previous agent left you with a mess.  
   </step>
   <step>
   Pull in the latest changes from `origin`. 
@@ -20,5 +20,11 @@ You're on a branch from another coding agent. It's partially complete, but you n
   `git fetch origin master`
 
   `git pull --rebase origin master`, or if the conflicts are hard to resolve on that, try `git merge origin/master`.
+  </step>
+  <step>
+  `npm test`
+  </step>
+  <step>
+  Manually use the webapp to see if it worked.
   </step>
 </steps>
