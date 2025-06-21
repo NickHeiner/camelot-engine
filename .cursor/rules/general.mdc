@@ -18,6 +18,9 @@ If tests fail, fix the issues before proceeding. The full test suite should pass
 ## Workflow Gudelines
 When you're done, write your own commit message. Identify yourself.
 
+## Env Guidelines
+Only run `npm run dev` if the 
+
 ## General Guidelines
 
 - Follow the architectural guidance in AGENTS.md

@@ -30,8 +30,8 @@ export function GameBoardPreloaded({ preloadedGame }: GameBoardPreloadedProps) {
     ((game.currentPlayer === 'playerA' && game.playerA === currentUserId) ||
       (game.currentPlayer === 'playerB' && game.playerB === currentUserId));
 
-  const otherPlayerName =
-    currentUserId === game.playerA ? playerBName : playerAName;
+  const currentPlayerName =
+    game.currentPlayer === 'playerA' ? playerAName : playerBName;
 
   const winnerName =
     game.winner === 'playerA'
@@ -120,7 +120,9 @@ export function GameBoardPreloaded({ preloadedGame }: GameBoardPreloadedProps) {
       <div className="text-lg font-semibold">
         {game.status === 'waiting' && 'Waiting for opponent...'}
         {game.status === 'playing' &&
-          (isMyTurn ? 'Your turn' : `${otherPlayerName ?? 'Opponent'}'s turn`)}
+          (isMyTurn
+            ? 'Your turn'
+            : `${currentPlayerName ?? game.currentPlayer}'s turn`)}
         {game.status === 'completed' &&
           `Winner: ${winnerName ?? game.winner ?? ''}`}
       </div>
