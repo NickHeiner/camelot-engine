@@ -5,7 +5,7 @@
   "description": "A web app for the classic game Camelot",
   "type": "module",
   "scripts": {
-    "dev": "next dev --turbopack",
+    "dev": "concurrently \"npx convex dev\" \"next dev --turbopack\"",
     "build": "next build",
     "start": "next start",
     "typecheck": "tsc --noEmit",
@@ -58,6 +58,7 @@
   },
   "dependencies": {
     "@clerk/nextjs": "^6.20.0",
+    "concurrently": "^9.1.2",
     "convex": "^1.24.1",
     "lodash": "^4.17.21",
     "next": "15.3.2",
