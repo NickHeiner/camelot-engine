@@ -23,10 +23,12 @@ export default function RootLayout({
   // If no Clerk keys, render without ClerkProvider (for CI/build environments)
   if (!clerkPublishableKey) {
     return (
-      <html lang="en">
+      <html lang="en" suppressHydrationWarning>
         <body className={inter.className}>
-          <Navigation />
-          <main className="min-h-screen">{children}</main>
+          <Providers>
+            <Navigation />
+            <main className="min-h-screen">{children}</main>
+          </Providers>
         </body>
       </html>
     );
@@ -34,7 +36,7 @@ export default function RootLayout({
 
   return (
     <ClerkProvider>
-      <html lang="en">
+      <html lang="en" suppressHydrationWarning>
         <body className={inter.className}>
           <Providers>
             <Navigation />
