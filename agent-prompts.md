@@ -71,7 +71,7 @@ Tasks:
 Follow the data models in AGENTS.md. Ensure all mutations validate data properly.
 ```
 
-### Agent 2.3: Game Board UI (Codex)
+### Agent 2.3: Game Board UI 
 
 ```
 Build the game board component for Camelot using the existing types and structure.
@@ -148,7 +148,7 @@ Tasks:
 Use environment variables for API keys. Create a comprehensive monitoring setup that helps track both technical performance and user behavior.
 ```
 
-### Agent 2.6: Game Features (Codex)
+### Agent 2.6: Game Features 
 
 ```
 Implement core game features for the Camelot web app.
@@ -179,7 +179,7 @@ Tasks:
 Use Zustand or Context for local game state that doesn't need to be in Convex.
 ```
 
-### Agent 2.7: User Features (Codex)
+### Agent 2.7: User Features 
 
 ```
 Build user profile and game history features.
@@ -208,7 +208,7 @@ Tasks:
 Make everything responsive and fast-loading with proper loading states.
 ```
 
-### Agent 2.8: Game Creation Flow (Codex)
+### Agent 2.8: Game Creation Flow 
 
 ```
 Build the game creation and joining flow.
@@ -240,7 +240,7 @@ Tasks:
 Focus on making the flow smooth and intuitive.
 ```
 
-### Agent 2.9: Polish and Responsive Design (Codex)
+### Agent 2.9: Polish and Responsive Design 
 
 ```
 Polish the UI and ensure everything is responsive and accessible.
