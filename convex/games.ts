@@ -53,20 +53,6 @@ export const getGame = query({
     const game = await ctx.db.get(args.gameId);
     if (!game) return null;
 
-    const playerAUser = game.playerA
-      ? await ctx.db
-          .query('users')
-          .withIndex('by_clerk_id', (q) => q.eq('clerkId', game.playerA!))
-          .unique()
-      : null;
-
-    const playerBUser = game.playerB
-      ? await ctx.db
-          .query('users')
-          .withIndex('by_clerk_id', (q) => q.eq('clerkId', game.playerB!))
-          .unique()
-      : null;
-
     const moves = await ctx.db
       .query('moves')
       .withIndex('by_game', (q) => q.eq('gameId', args.gameId))
@@ -77,8 +63,6 @@ export const getGame = query({
       game,
       boardSpaces: game.boardSpaces,
       moves,
-      playerAName: playerAUser?.username ?? null,
-      playerBName: playerBUser?.username ?? null,
     };
   },
 });

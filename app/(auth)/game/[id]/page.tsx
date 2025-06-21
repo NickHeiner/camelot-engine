@@ -1,52 +1,78 @@
-import { Id } from '@/convex/_generated/dataModel';
-import { preloadQuery, preloadedQueryResult } from 'convex/nextjs';
 import { notFound } from 'next/navigation';
+import { preloadQuery, preloadedQueryResult } from 'convex/nextjs';
 import { api } from '@/convex/_generated/api';
 import { GameBoardPreloaded } from '@/components/game/game-board-preloaded';
+import { Id } from '@/convex/_generated/dataModel';
+import { auth, clerkClient } from '@clerk/nextjs/server';
 import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
 
-export default async function GamePage({
-  params,
-}: {
-  params: Promise<{ id: string }>;
-}) {
+interface GamePageProps {
+  params: Promise<{
+    id: string;
+  }>;
+}
+
+export default async function GamePage({ params }: GamePageProps) {
   const { id } = await params;
+  const { userId } = await auth();
+
+  if (!userId) {
+    return <div>Please sign in to play</div>;
+  }
 
   let preloadedGame;
   try {
     preloadedGame = await preloadQuery(api.games.getGame, {
       gameId: id as Id<'games'>,
     });
-  } catch {
-    // If the ID format is invalid, show not found
+  } catch (error) {
+    console.error('Error loading game:', error);
     notFound();
   }
 
+  // Extract the game data to fetch player information
   const gameData = preloadedQueryResult(preloadedGame);
   if (!gameData || !gameData.game) {
     notFound();
   }
 
+  // Fetch both players' data from Clerk
+  const clerk = await clerkClient();
+  const players: Record<string, { username: string | null; email: string }> =
+    {};
+
+  if (gameData.game.playerA) {
+    const playerA = await clerk.users.getUser(gameData.game.playerA);
+    players.playerA = {
+      username: playerA.username,
+      email: playerA.emailAddresses[0]?.emailAddress || '',
+    };
+  }
+
+  if (gameData.game.playerB) {
+    const playerB = await clerk.users.getUser(gameData.game.playerB);
+    players.playerB = {
+      username: playerB.username,
+      email: playerB.emailAddresses[0]?.emailAddress || '',
+    };
+  }
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-amber-50 to-orange-50">
-      <div className="container mx-auto px-4 py-6">
-        {/* Header */}
-        <div className="flex items-center justify-between mb-8">
-          <Link
-            href="/game"
-            className="flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors"
-          >
-            <ArrowLeft className="w-5 h-5" />
-            <span>Back to Games</span>
-          </Link>
-          <h1 className="text-3xl font-bold text-gray-800">Camelot</h1>
-          <div className="w-24" /> {/* Spacer for centering */}
-        </div>
+    <div className="container mx-auto px-4 py-8">
+      <div className="max-w-6xl mx-auto">
+        {/* Back Button */}
+        <Link
+          href="/game"
+          className="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-6 transition-colors"
+        >
+          <ArrowLeft className="w-4 h-4" />
+          Back to Games
+        </Link>
 
         {/* Game Board Container */}
         <div className="bg-white rounded-xl shadow-lg p-8">
-          <GameBoardPreloaded preloadedGame={preloadedGame} />
+          <GameBoardPreloaded preloadedGame={preloadedGame} players={players} />
         </div>
       </div>
     </div>

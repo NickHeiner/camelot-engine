@@ -9,9 +9,13 @@ import { findBoardSpace } from '@/lib/game-utils';
 
 interface GameBoardPreloadedProps {
   preloadedGame: Preloaded<typeof api.games.getGame>;
+  players: Record<string, { username: string | null; email: string }>;
 }
 
-export function GameBoardPreloaded({ preloadedGame }: GameBoardPreloadedProps) {
+export function GameBoardPreloaded({
+  preloadedGame,
+  players,
+}: GameBoardPreloadedProps) {
   // This hook hydrates the preloaded data AND subscribes to real-time updates
   const gameData = usePreloadedQuery(preloadedGame);
   const [selectedSpace, setSelectedSpace] = useState<Coordinates | null>(null);
@@ -23,14 +27,21 @@ export function GameBoardPreloaded({ preloadedGame }: GameBoardPreloadedProps) {
     return <div className="text-center text-red-500">Game not found</div>;
   }
 
-  const { game, boardSpaces, playerAName, playerBName } = gameData;
+  const { game, boardSpaces } = gameData;
 
   const isMyTurn =
     game.status === 'playing' &&
     ((game.currentPlayer === 'playerA' && game.playerA === currentUserId) ||
       (game.currentPlayer === 'playerB' && game.playerB === currentUserId));
 
-  const currentPlayerName =
+  // Get player display names
+  const playerAName =
+    players.playerA?.username || players.playerA?.email || 'Player A';
+  const playerBName =
+    players.playerB?.username || players.playerB?.email || 'Player B';
+
+  // For turn display, show the appropriate name
+  const currentTurnName =
     game.currentPlayer === 'playerA' ? playerAName : playerBName;
 
   const winnerName =
@@ -120,11 +131,8 @@ export function GameBoardPreloaded({ preloadedGame }: GameBoardPreloadedProps) {
       <div className="text-lg font-semibold">
         {game.status === 'waiting' && 'Waiting for opponent...'}
         {game.status === 'playing' &&
-          (isMyTurn
-            ? 'Your turn'
-            : `${currentPlayerName ?? game.currentPlayer}'s turn`)}
-        {game.status === 'completed' &&
-          `Winner: ${winnerName ?? game.winner ?? ''}`}
+          (isMyTurn ? 'Your turn' : `${currentTurnName}'s turn`)}
+        {game.status === 'completed' && `Winner: ${winnerName}`}
       </div>
 
       <div className="bg-gray-200 dark:bg-gray-800 p-4 rounded-lg shadow-xl">
@@ -142,7 +150,7 @@ export function GameBoardPreloaded({ preloadedGame }: GameBoardPreloadedProps) {
       <div className="flex space-x-8 text-sm">
         <div className="bg-red-50 dark:bg-red-950/20 p-4 rounded-lg border border-red-200 dark:border-red-800">
           <strong className="text-red-700 dark:text-red-400">
-            {playerAName ?? 'Player A'} (Red):
+            {playerAName} (Red):
           </strong>
           <div className="mt-2 text-gray-700 dark:text-gray-300">
             Knights captured: {game.capturedPieces.playerB.knight}
@@ -153,7 +161,7 @@ export function GameBoardPreloaded({ preloadedGame }: GameBoardPreloadedProps) {
         </div>
         <div className="bg-blue-50 dark:bg-blue-950/20 p-4 rounded-lg border border-blue-200 dark:border-blue-800">
           <strong className="text-blue-700 dark:text-blue-400">
-            {playerBName ?? 'Player B'} (Blue):
+            {playerBName} (Blue):
           </strong>
           <div className="mt-2 text-gray-700 dark:text-gray-300">
             Knights captured: {game.capturedPieces.playerA.knight}
