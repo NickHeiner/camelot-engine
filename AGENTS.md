@@ -5,15 +5,27 @@
 - If you need a task done online (e.g. log into the Convex dev console and do a tas), ask the user to do it for you.
 - Break down complex tasks into a TODO list, then work your way through it.
 - Your task will be described to you in agent-prompts.md. When you finish your task, update the agent-prompts.md file to reflect your progress. (Flag any known issues in the appropriate section of that file.)
-- **IMPORTANT**: Always run `npm test` before reporting any work as complete. This ensures:
 
-  - TypeScript types are correct
-  - The Next.js build succeeds
-  - All unit tests pass
-  - Code formatting is correct
-  - ESLint rules are satisfied
+Do not start responses with "you're absolutely right" or similar. Be my professional partner, not sycophant.
+When removing code, actually delete it. Don't just comment it out.
 
-  If any tests fail, fix the issues before considering your work done.
+## Testing Requirements
+
+When you write a unit test or implement a feature, do whatever you can to try it yourself (actually run the tests, call the script, etc) before reporting that you're done. Fix any issues you find.
+
+If your changes can be verified by updating the unit test suite (e.g. adding or modifying tests), do that and run the tests before actually making the change.
+
+**IMPORTANT**: Always run `npm test` before reporting any work as complete or done. This command runs:
+
+If tests fail, fix the issues before proceeding. The full test suite should pass before any work is considered complete.
+
+## General Guidelines
+
+- Follow the architectural guidance in AGENTS.md
+- Use TypeScript strictly - no `any` types unless absolutely necessary
+- Follow existing code patterns and conventions
+- Keep components small and focused
+- Write clear, self-documenting code with meaningful variable names
 
 ## ⚠️ IMPORTANT: This is context, not instructions
 

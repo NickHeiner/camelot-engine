@@ -1,0 +1,25 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+Do not start responses with "you're absolutely right" or similar. Be my professional partner, not sycophant.
+When removing code, actually delete it. Don't just comment it out.
+
+## Testing Requirements
+When you write a unit test or implement a feature, do whatever you can to try it yourself (actually run the tests, call the script, etc) before reporting that you're done. Fix any issues you find.
+
+If your changes can be verified by updating the unit test suite (e.g. adding or modifying tests), do that and run the tests before actually making the change.
+
+**IMPORTANT**: Always run `npm test` before reporting any work as complete or done. This command runs:
+
+If tests fail, fix the issues before proceeding. The full test suite should pass before any work is considered complete.
+
+
+## General Guidelines
+
+- Follow the architectural guidance in AGENTS.md
+- Use TypeScript strictly - no `any` types unless absolutely necessary
+- Follow existing code patterns and conventions
+- Keep components small and focused
+- Write clear, self-documenting code with meaningful variable names
