@@ -1,0 +1,11 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+Write a commit message for all the work done on this feature branch, which you can see via:
+
+  * `git --no-pager diff (git merge-base master HEAD)..HEAD`
+  * `git --no-pager log master..HEAD --pretty=%B --no-merges`
+
+Your message *should not* talk about aborted attempts within the feature branch. (e.g. if an approach was tried and then reverted.) Don't talk about "how we got here"; just describe the goals and final state.

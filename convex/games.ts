@@ -98,3 +98,22 @@ export const getMyGames = query({
     return allGames;
   },
 });
+
+export const debugChangeTurn = mutation({
+  args: {
+    gameId: v.id('games'),
+    newCurrentPlayer: v.union(v.literal('playerA'), v.literal('playerB')),
+  },
+  handler: async (ctx, args) => {
+    const game = await ctx.db.get(args.gameId);
+    if (!game) throw new Error('Game not found');
+    if (game.status !== 'playing')
+      throw new Error('Game is not in playing state');
+
+    await ctx.db.patch(args.gameId, {
+      currentPlayer: args.newCurrentPlayer,
+    });
+
+    return { success: true };
+  },
+});

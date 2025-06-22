@@ -6,6 +6,7 @@ import { api } from '@/convex/_generated/api';
 import { useUser } from '@clerk/nextjs';
 import type { Coordinates } from '@/lib/engine/types';
 import { findBoardSpace } from '@/lib/game-utils';
+import { DebugPanel } from './debug-panel';
 
 interface GameBoardPreloadedProps {
   preloadedGame: Preloaded<typeof api.games.getGame>;
@@ -171,6 +172,16 @@ export function GameBoardPreloaded({
           </div>
         </div>
       </div>
+
+      {/* Debug Panel - Only show in development */}
+      {process.env.NODE_ENV === 'development' && (
+        <DebugPanel
+          gameId={game._id}
+          currentPlayer={game.currentPlayer}
+          playerAName={playerAName}
+          playerBName={playerBName}
+        />
+      )}
     </div>
   );
 }
