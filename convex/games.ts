@@ -68,12 +68,20 @@ export const getGame = query({
 });
 
 export const getAvailableGames = query({
-  handler: async (ctx) => {
+  args: { userId: v.optional(v.string()) },
+  handler: async (ctx, args) => {
     const games = await ctx.db
       .query('games')
       .withIndex('by_status', (q) => q.eq('status', 'waiting'))
       .order('desc')
       .take(20);
+
+    // Filter out games where the user is already a player
+    if (args.userId) {
+      return games.filter(
+        (game) => game.playerA !== args.userId && game.playerB !== args.userId
+      );
+    }
 
     return games;
   },

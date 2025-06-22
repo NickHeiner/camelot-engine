@@ -15,7 +15,8 @@ export default async function GameListPage() {
   }
 
   const preloadedAvailableGames = await preloadQuery(
-    api.games.getAvailableGames
+    api.games.getAvailableGames,
+    { userId }
   );
   const preloadedMyGames = await preloadQuery(api.games.getMyGames, {
     userId,
