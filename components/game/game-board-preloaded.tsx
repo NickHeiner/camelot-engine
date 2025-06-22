@@ -50,6 +50,7 @@ export function GameBoardPreloaded({
     state,
     legalDests,
     captureAvailable,
+    mustContinueCapturing,
     selectSquare,
     cancel,
     getCompletePath,
@@ -210,7 +211,7 @@ export function GameBoardPreloaded({
       </div>
 
       {/* Move controls */}
-      {state === 'selecting' && isMyTurn && (
+      {(state === 'selecting' || state === 'complete') && isMyTurn && (
         <div className="flex gap-2">
           <button
             onClick={cancel}
@@ -218,7 +219,7 @@ export function GameBoardPreloaded({
           >
             Cancel
           </button>
-          {!captureAvailable && path.length > 1 && (
+          {(state === 'complete' || (!captureAvailable && path.length > 1)) && (
             <button
               onClick={handleConfirm}
               className="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded transition-colors"
@@ -226,7 +227,7 @@ export function GameBoardPreloaded({
               Confirm Move
             </button>
           )}
-          {captureAvailable && (
+          {state === 'selecting' && mustContinueCapturing && (
             <div className="px-4 py-2 text-orange-600 font-semibold">
               Must continue capturing
             </div>

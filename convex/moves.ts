@@ -21,7 +21,11 @@ export const getLegalMoves = query({
     const game = await ctx.db.get(args.gameId);
     if (!game) throw new Error('Game not found');
     if (game.status !== 'playing')
-      return { legalMoves: [], captureAvailable: false };
+      return {
+        legalMoves: [],
+        captureAvailable: false,
+        mustContinueCapturing: false,
+      };
 
     const currentPlayer = getCurrentPlayer(game.turnCount);
 
@@ -33,8 +37,22 @@ export const getLegalMoves = query({
     };
 
     // Apply the path moves to get current board state
+    let madeCapture = false;
     for (let i = 0; i < args.path.length - 1; i++) {
-      currentState = applyMove(currentState, args.path[i], args.path[i + 1]);
+      const from = args.path[i];
+      const to = args.path[i + 1];
+      // Check if this was a capture
+      const between = getCoordsBetween(from, to);
+      if (between) {
+        const betweenSpace = getBoardSpace(currentState, between);
+        if (
+          betweenSpace?.piece &&
+          betweenSpace.piece.player !== currentPlayer
+        ) {
+          madeCapture = true;
+        }
+      }
+      currentState = applyMove(currentState, from, to);
     }
 
     const from =
@@ -46,23 +64,27 @@ export const getLegalMoves = query({
     for (const space of currentState.boardSpaces) {
       const to = { row: space.row, col: space.col };
       if (isValidMove(currentState, [from, to], currentPlayer)) {
-        legalMoves.push(to);
-
         // Check if this is a capture move
         const between = getCoordsBetween(from, to);
-        if (between) {
-          const betweenSpace = getBoardSpace(currentState, between);
-          if (
-            betweenSpace?.piece &&
-            betweenSpace.piece.player !== currentPlayer
-          ) {
+        const isCapture =
+          between &&
+          getBoardSpace(currentState, between)?.piece &&
+          getBoardSpace(currentState, between)?.piece?.player !== currentPlayer;
+
+        // If we already made a capture, only allow capture moves
+        if (!madeCapture || isCapture) {
+          legalMoves.push(to);
+          if (isCapture) {
             captureAvailable = true;
           }
         }
       }
     }
 
-    return { legalMoves, captureAvailable };
+    // Must continue capturing if already made a capture and more captures available
+    const mustContinueCapturing = madeCapture && captureAvailable;
+
+    return { legalMoves, captureAvailable, mustContinueCapturing };
   },
 });
 
