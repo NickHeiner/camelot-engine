@@ -70,49 +70,65 @@ export const makeMove = mutation({
   args: {
     gameId: v.id('games'),
     userId: v.string(),
-    from: coordinatesValidator,
-    to: coordinatesValidator,
+    path: v.array(coordinatesValidator), // Full path of moves
   },
   handler: async (ctx, args) => {
     const game = await ctx.db.get(args.gameId);
     if (!game) throw new Error('Game not found');
     if (game.status !== 'playing') throw new Error('Game is not active');
 
+    const pathCoords = args.path;
+
+    if (pathCoords.length < 2) {
+      throw new Error('Path must contain at least 2 positions');
+    }
+
     const currentPlayer = getCurrentPlayer(game.turnCount);
     const playerUserId =
       currentPlayer === 'playerA' ? game.playerA : game.playerB;
     if (playerUserId !== args.userId) throw new Error('Not your turn');
 
-    const from: Coordinates = { row: args.from.row, col: args.from.col };
-    const to: Coordinates = { row: args.to.row, col: args.to.col };
-
-    if (!isValidMove(game, [from, to])) {
+    // Validate the entire move sequence
+    if (!isValidMove(game, pathCoords, currentPlayer)) {
       throw new Error('Invalid move');
     }
 
-    // Get move details before applying the move
-    const moveDetails = getMoveDetails(game, from, to);
+    // Apply all moves in the path
+    let currentState = {
+      boardSpaces: game.boardSpaces,
+      turnCount: game.turnCount,
+      capturedPieces: game.capturedPieces,
+    };
 
-    // Apply the move to get the new game state
-    const newGameState = applyMove(game, from, to);
+    // Record all move details
+    const allMoveDetails = [];
+    for (let i = 0; i < pathCoords.length - 1; i++) {
+      const from = pathCoords[i];
+      const to = pathCoords[i + 1];
+      const moveDetails = getMoveDetails(currentState, from, to);
+      allMoveDetails.push(moveDetails);
+      currentState = applyMove(currentState, from, to);
+    }
 
+    // Record the move in the database
     await ctx.db.insert('moves', {
-      ..._.pick(args, ['gameId', 'from', 'to']),
+      gameId: args.gameId,
+      from: pathCoords[0],
+      to: pathCoords[pathCoords.length - 1],
       turnNumber: game.turnCount,
       player: currentPlayer,
-      capturedPiece: moveDetails.capturedPiece,
+      capturedPiece: allMoveDetails.find((d) => d.capturedPiece)?.capturedPiece,
       timestamp: Date.now(),
     });
 
     // Board spaces are already in the correct format
-    const updatedBoardSpaces = newGameState.boardSpaces;
+    const updatedBoardSpaces = currentState.boardSpaces;
 
-    const winner = getGameWinner(newGameState);
+    const winner = getGameWinner(currentState);
     const updates: Partial<Game> = {
       boardSpaces: updatedBoardSpaces,
-      turnCount: newGameState.turnCount,
-      currentPlayer: getCurrentPlayer(newGameState.turnCount),
-      capturedPieces: newGameState.capturedPieces,
+      turnCount: currentState.turnCount,
+      capturedPieces: currentState.capturedPieces,
     };
 
     if (winner) {

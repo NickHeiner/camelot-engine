@@ -3,7 +3,6 @@ import { mutation, query } from './_generated/server';
 import createEmptyGame from '../lib/engine/init/create-empty-game.js';
 import withStartingPieces from '../lib/engine/init/with-starting-pieces.js';
 import skipTurn from '../lib/engine/update/skip-turn.js';
-import { getCurrentPlayer } from '../lib/game-utils';
 
 export const createGame = mutation({
   args: {
@@ -18,7 +17,6 @@ export const createGame = mutation({
       createdBy: args.createdBy,
       playerA: args.createdBy,
       turnCount: 0,
-      currentPlayer: 'playerA',
       boardSpaces: gameWithPieces.boardSpaces,
       capturedPieces: gameWithPieces.capturedPieces,
       createdAt: Date.now(),
@@ -116,7 +114,6 @@ export const debugChangeTurn = mutation({
 
     await ctx.db.patch(args.gameId, {
       turnCount: updatedGame.turnCount,
-      currentPlayer: getCurrentPlayer(updatedGame.turnCount),
     });
 
     return { success: true };

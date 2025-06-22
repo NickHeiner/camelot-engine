@@ -6,6 +6,7 @@ import { Id } from '@/convex/_generated/dataModel';
 import { useUser } from '@clerk/nextjs';
 import { DebugPanel } from './debug-panel';
 import { useMoveSelection } from './hooks/useMoveSelection';
+import { getCurrentPlayer } from '@/lib/game-utils';
 
 interface GameBoardPreloadedProps {
   preloadedGame: Preloaded<typeof api.games.getGame>;
@@ -26,7 +27,7 @@ export function GameBoardPreloaded({
   const moveSelection = useMoveSelection({
     gameId: gameData?.game?._id || ('' as Id<'games'>),
     boardSpaces: gameData?.boardSpaces || [],
-    currentPlayer: gameData?.game?.currentPlayer || 'playerA',
+    currentPlayer: getCurrentPlayer(gameData?.game?.turnCount || 0),
   });
 
   if (!gameData || !gameData.game) {
@@ -35,10 +36,13 @@ export function GameBoardPreloaded({
 
   const { game } = gameData;
 
+  // Calculate current player from turnCount
+  const currentPlayer = getCurrentPlayer(game.turnCount);
+
   const isMyTurn =
     game.status === 'playing' &&
-    ((game.currentPlayer === 'playerA' && game.playerA === currentUserId) ||
-      (game.currentPlayer === 'playerB' && game.playerB === currentUserId));
+    ((currentPlayer === 'playerA' && game.playerA === currentUserId) ||
+      (currentPlayer === 'playerB' && game.playerB === currentUserId));
 
   // Destructure the move selection values after we know the game exists
   const {
@@ -61,7 +65,7 @@ export function GameBoardPreloaded({
 
   // For turn display, show the appropriate name
   const currentTurnName =
-    game.currentPlayer === 'playerA' ? playerAName : playerBName;
+    currentPlayer === 'playerA' ? playerAName : playerBName;
 
   const winnerName =
     game.winner === 'playerA'
@@ -83,8 +87,7 @@ export function GameBoardPreloaded({
       await makeMove({
         gameId: game._id,
         userId: currentUserId,
-        from: completePath[0],
-        to: completePath[completePath.length - 1],
+        path: completePath,
       });
       reset();
     } catch (error) {
@@ -134,7 +137,7 @@ export function GameBoardPreloaded({
           ${isMyTurn ? 'cursor-pointer' : 'cursor-default'}
           ${isLastInPath ? 'ring-4 ring-yellow-400 ring-inset' : ''}
           ${isDarkSquare ? 'bg-amber-700 dark:bg-amber-800' : 'bg-amber-100 dark:bg-amber-900'}
-          ${isMyTurn && state === 'idle' && piece?.player === game.currentPlayer ? 'hover:brightness-110' : ''}
+          ${isMyTurn && state === 'idle' && piece?.player === currentPlayer ? 'hover:brightness-110' : ''}
           ${isMyTurn && isLegalDest ? 'hover:brightness-90' : ''}
           transition-all duration-150
         `}
@@ -260,7 +263,7 @@ export function GameBoardPreloaded({
       {process.env.NODE_ENV === 'development' && (
         <DebugPanel
           gameId={game._id}
-          currentPlayer={game.currentPlayer}
+          currentPlayer={currentPlayer}
           playerAName={playerAName}
           playerBName={playerBName}
         />
