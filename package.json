@@ -87,35 +87,29 @@
       "jsx"
     ],
     "testMatch": [
-      "**/test/**/*.{ts,tsx}"
-    ],
-    "setupFilesAfterEnv": [
-      "<rootDir>/jest.setup.ts"
+      "**/test/**/*.ts"
     ],
     "testPathIgnorePatterns": [
       "/node_modules/",
       "/dist/"
     ],
     "moduleNameMapper": {
-      "^(\\.{1,2}/.*)\\.js$": "$1",
-      "^@/(.*)$": "<rootDir>/$1"
+      "^(\\.{1,2}/.*)\\.js$": "$1"
     },
     "transform": {
-      "^.+\\.(ts|tsx)$": [
+      "^.+\\.ts$": [
         "ts-jest",
         {
           "useESM": true,
           "tsconfig": {
             "allowJs": true,
-            "esModuleInterop": true,
-            "jsx": "react-jsx"
+            "esModuleInterop": true
           }
         }
       ]
     },
     "extensionsToTreatAsEsm": [
-      ".ts",
-      ".tsx"
+      ".ts"
     ]
   }
 }
