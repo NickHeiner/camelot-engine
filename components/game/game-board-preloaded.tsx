@@ -150,7 +150,7 @@ export function GameBoardPreloaded({
       <div className="flex space-x-8 text-sm">
         <div className="bg-red-50 dark:bg-red-950/20 p-4 rounded-lg border border-red-200 dark:border-red-800">
           <strong className="text-red-700 dark:text-red-400">
-            {playerAName} (Red):
+            {playerAName}:
           </strong>
           <div className="mt-2 text-gray-700 dark:text-gray-300">
             Knights captured: {game.capturedPieces.playerB.knight}
@@ -161,7 +161,7 @@ export function GameBoardPreloaded({
         </div>
         <div className="bg-blue-50 dark:bg-blue-950/20 p-4 rounded-lg border border-blue-200 dark:border-blue-800">
           <strong className="text-blue-700 dark:text-blue-400">
-            {playerBName} (Blue):
+            {playerBName}:
           </strong>
           <div className="mt-2 text-gray-700 dark:text-gray-300">
             Knights captured: {game.capturedPieces.playerA.knight}
