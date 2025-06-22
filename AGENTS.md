@@ -137,3 +137,7 @@ camelot-web/
 - Rate limiting on game creation
 
 Remember: This document provides context. Always refer to your specific agent prompt for your actual tasks and deliverables.
+
+# Other Context
+
+<game-rules>
