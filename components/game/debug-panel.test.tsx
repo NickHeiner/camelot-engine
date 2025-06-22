@@ -21,7 +21,7 @@ jest.mock('@/convex/_generated/api', () => ({
 
 describe('DebugPanel', () => {
   const defaultProps = {
-    gameId: 'game123' as any,
+    gameId: 'game123',
     currentPlayer: 'playerA' as const,
     playerAName: 'Alice',
     playerBName: 'Bob',
