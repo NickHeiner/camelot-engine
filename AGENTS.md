@@ -143,20 +143,22 @@ Remember: This document provides context. Always refer to your specific agent pr
 <game-rules>
 **Camelot in a nutshell**
 
-* **Board & setup:** 160-square board (12×14 with the four corner 3-square blocks removed) plus two-square “castle” extensions at each short edge. Each side starts with **14 pieces – 4 knights, 10 men** – in the centre rows. ([en.wikipedia.org][1])
-* **Win conditions:** (1) be the first to occupy the enemy castle with **any two** of your pieces, or (2) capture **all** opposing pieces while still having at least two of your own left. ([en.wikipedia.org][1])
-* **Three ways to move (any direction):**
+- **Board & setup:** 160-square board (12×14 with the four corner 3-square blocks removed) plus two-square “castle” extensions at each short edge. Each side starts with **14 pieces – 4 knights, 10 men** – in the centre rows. ([en.wikipedia.org][1])
+- **Win conditions:** (1) be the first to occupy the enemy castle with **any two** of your pieces, or (2) capture **all** opposing pieces while still having at least two of your own left. ([en.wikipedia.org][1])
+- **Three ways to move (any direction):**
 
   1. **Plain move:** one square, like a chess king.
   2. **Canter:** leap over an adjacent friendly piece to the empty square immediately beyond; chain as many leaps as you like. Cantering is **optional** and you can stop anywhere. ([en.wikipedia.org][1], [worldcamelotfederation.com][2])
   3. **Jump (capture):** leap over an adjacent enemy piece to the empty square beyond; the jumped piece is removed. If, after landing, another capture is available with that same piece, you **must** continue jumping in the same turn. ([en.wikipedia.org][1], [worldcamelotfederation.com][2])
-* **Knight’s Charge:** a knight may string together any number of canters **followed by** one or more compulsory jumps in one turn. It’s voluntary; once begun, the capture part follows the usual forced-jump rule. ([en.wikipedia.org][1])
-* **Castles:** you can **never** move or canter into your own castle, but you may jump out of it if forced on your next turn. Capturing into the opponent’s castle counts toward the “two-in-castle” victory. ([beta.goldtoken.com][3])
-* **Forced capture priority:** if any of your pieces has a legal jump, you must choose **one** of them and perform **some** capture sequence (your choice which). There’s no “legal-max” rule; length doesn’t matter, only that you keep jumping until no more captures are immediately available. ([en.wikipedia.org][1])
-* **No promotion, no piece-type changes, no en passant-style quirks.**
-* **Draws** are rare but can be agreed or declared after 50 consecutive non-capture moves by both players (common tournament rule, not universal). ([worldcamelotfederation.com][2])
 
-[1]: https://en.wikipedia.org/wiki/Camelot_%28board_game%29?utm_source=chatgpt.com "Camelot (board game)"
-[2]: https://www.worldcamelotfederation.com/Camelot_Rules.htm?utm_source=chatgpt.com "Camelot Rules English"
-[3]: https://beta.goldtoken.com/play?rules=Camelot&utm_source=chatgpt.com "Camelot Rules - GoldToken"
+- **Knight’s Charge:** a knight may string together any number of canters **followed by** one or more compulsory jumps in one turn. It’s voluntary; once begun, the capture part follows the usual forced-jump rule. ([en.wikipedia.org][1])
+- **Castles:** you can **never** move or canter into your own castle, but you may jump out of it if forced on your next turn. Capturing into the opponent’s castle counts toward the “two-in-castle” victory. ([beta.goldtoken.com][3])
+- **Forced capture priority:** if any of your pieces has a legal jump, you must choose **one** of them and perform **some** capture sequence (your choice which). There’s no “legal-max” rule; length doesn’t matter, only that you keep jumping until no more captures are immediately available. ([en.wikipedia.org][1])
+- **No promotion, no piece-type changes, no en passant-style quirks.**
+- **Draws** are rare but can be agreed or declared after 50 consecutive non-capture moves by both players (common tournament rule, not universal). ([worldcamelotfederation.com][2])
+
+[1]: https://en.wikipedia.org/wiki/Camelot_%28board_game%29?utm_source=chatgpt.com 'Camelot (board game)'
+[2]: https://www.worldcamelotfederation.com/Camelot_Rules.htm?utm_source=chatgpt.com 'Camelot Rules English'
+[3]: https://beta.goldtoken.com/play?rules=Camelot&utm_source=chatgpt.com 'Camelot Rules - GoldToken'
+
 </game-rules>
