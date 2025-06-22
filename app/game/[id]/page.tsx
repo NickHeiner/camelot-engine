@@ -3,7 +3,7 @@ import { preloadQuery, preloadedQueryResult } from 'convex/nextjs';
 import { api } from '@/convex/_generated/api';
 import { GameBoardPreloaded } from '@/components/game/game-board-preloaded';
 import { Id } from '@/convex/_generated/dataModel';
-import { auth, clerkClient } from '@clerk/nextjs/server';
+import { clerkClient } from '@clerk/nextjs/server';
 import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
 
@@ -15,11 +15,6 @@ interface GamePageProps {
 
 export default async function GamePage({ params }: GamePageProps) {
   const { id } = await params;
-  const { userId } = await auth();
-
-  if (!userId) {
-    return <div>Please sign in to play</div>;
-  }
 
   let preloadedGame;
   try {
