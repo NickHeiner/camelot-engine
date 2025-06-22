@@ -30,6 +30,7 @@
   "exclude": [
     "node_modules",
     "dist",
+    ".next",
     "lib/engine/test/**/*",
     "**/*.test.ts",
     "**/*.test.tsx"

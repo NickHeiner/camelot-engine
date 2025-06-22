@@ -27,6 +27,11 @@ If tests fail, fix the issues before proceeding. The full test suite should pass
 - Keep components small and focused
 - Write clear, self-documenting code with meaningful variable names
 
+<code-best-pratices>
+* Use optional chaining whenever possible
+* Prefer Boolean() over !!
+</code-best-pratices>
+
 ## ⚠️ IMPORTANT: This is context, not instructions
 
 This document provides architectural context for all agents working on the Camelot web app. It describes the overall system design and how components fit together. Your specific instructions are in your individual prompt - use this document to understand how your work fits into the larger system.
