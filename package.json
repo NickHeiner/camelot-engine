@@ -13,7 +13,8 @@
     "lint": "next lint",
     "test:engine": "cd lib/engine && NODE_OPTIONS=\"--experimental-vm-modules\" jest --config ../../package.json",
     "test:components": "jest --config jest.config.cjs",
-    "test": "npm run typecheck && npm run typecheck:tests && npm run test:engine && npm run test:components && npm run format && npm run lint",
+    "test:convex": "jest --config=jest.config.convex.cjs",
+    "test": "npm run typecheck && npm run typecheck:tests && npm run test:engine && npm run test:components && npm run test:convex && npm run format && npm run lint",
     "format": "prettier --check .",
     "format:fix": "prettier --write ."
   },
