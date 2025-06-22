@@ -30,6 +30,7 @@ If tests fail, fix the issues before proceeding. The full test suite should pass
 <code-best-pratices>
 * Use optional chaining whenever possible
 * Prefer Boolean() over !!
+* Prefer Lodash over vanilla JS when it helps, e.g. `_.filter(objs, {k: v})` instead of `objs.filter(o => o.k === v)`
 </code-best-pratices>
 
 ## ⚠️ IMPORTANT: This is context, not instructions
