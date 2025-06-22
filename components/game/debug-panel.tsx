@@ -27,7 +27,6 @@ export function DebugPanel({
     try {
       await changeTurn({
         gameId,
-        newCurrentPlayer: currentPlayer === 'playerA' ? 'playerB' : 'playerA',
       });
     } catch (error) {
       console.error('Failed to change turn:', error);
@@ -94,7 +93,7 @@ export function DebugPanel({
                 onClick={handleChangeTurn}
                 className="px-3 py-1 bg-purple-600 hover:bg-purple-700 text-white text-sm rounded transition-colors flex-shrink-0"
               >
-                Switch Turn
+                Skip Turn
               </button>
             </div>
           </div>

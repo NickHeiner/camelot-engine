@@ -2,6 +2,8 @@ import { v } from 'convex/values';
 import { mutation, query } from './_generated/server';
 import createEmptyGame from '../lib/engine/init/create-empty-game.js';
 import withStartingPieces from '../lib/engine/init/with-starting-pieces.js';
+import skipTurn from '../lib/engine/update/skip-turn.js';
+import { getCurrentPlayer } from '../lib/game-utils';
 
 export const createGame = mutation({
   args: {
@@ -102,7 +104,6 @@ export const getMyGames = query({
 export const debugChangeTurn = mutation({
   args: {
     gameId: v.id('games'),
-    newCurrentPlayer: v.union(v.literal('playerA'), v.literal('playerB')),
   },
   handler: async (ctx, args) => {
     const game = await ctx.db.get(args.gameId);
@@ -110,8 +111,12 @@ export const debugChangeTurn = mutation({
     if (game.status !== 'playing')
       throw new Error('Game is not in playing state');
 
+    // Use the engine to skip the turn
+    const updatedGame = skipTurn(game);
+
     await ctx.db.patch(args.gameId, {
-      currentPlayer: args.newCurrentPlayer,
+      turnCount: updatedGame.turnCount,
+      currentPlayer: getCurrentPlayer(updatedGame.turnCount),
     });
 
     return { success: true };

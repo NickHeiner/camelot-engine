@@ -31,6 +31,7 @@ If tests fail, fix the issues before proceeding. The full test suite should pass
 * Use optional chaining whenever possible
 * Prefer Boolean() over !!
 * Prefer Lodash over vanilla JS when it helps, e.g. `_.filter(objs, {k: v})` instead of `objs.filter(o => o.k === v)`
+* Do not have a top-level `describe` block in a test file that simply repeats the name of the file / module being tested.
 </code-best-pratices>
 
 ## ⚠️ IMPORTANT: This is context, not instructions
