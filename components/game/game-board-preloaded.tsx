@@ -1,12 +1,12 @@
 'use client';
 
-import { useState } from 'react';
 import { useMutation, usePreloadedQuery, Preloaded } from 'convex/react';
 import { api } from '@/convex/_generated/api';
+import { Id } from '@/convex/_generated/dataModel';
 import { useUser } from '@clerk/nextjs';
-import type { Coordinates } from '@/lib/engine/types';
-import { findBoardSpace } from '@/lib/game-utils';
 import { DebugPanel } from './debug-panel';
+import { useMoveSelection } from './hooks/useMoveSelection';
+import { getCurrentPlayer } from '@/lib/game-utils';
 
 interface GameBoardPreloadedProps {
   preloadedGame: Preloaded<typeof api.games.getGame>;
@@ -19,21 +19,44 @@ export function GameBoardPreloaded({
 }: GameBoardPreloadedProps) {
   // This hook hydrates the preloaded data AND subscribes to real-time updates
   const gameData = usePreloadedQuery(preloadedGame);
-  const [selectedSpace, setSelectedSpace] = useState<Coordinates | null>(null);
   const makeMove = useMutation(api.moves.makeMove);
   const { user } = useUser();
   const currentUserId = user?.id;
+
+  // Use the move selection hook for UI logic - must be called before early returns
+  const moveSelection = useMoveSelection({
+    gameId: gameData?.game?._id || ('' as Id<'games'>),
+    boardSpaces: gameData?.boardSpaces || [],
+    currentPlayer: getCurrentPlayer(gameData?.game?.turnCount || 0),
+  });
 
   if (!gameData || !gameData.game) {
     return <div className="text-center text-red-500">Game not found</div>;
   }
 
-  const { game, boardSpaces } = gameData;
+  const { game } = gameData;
+
+  // Calculate current player from turnCount
+  const currentPlayer = getCurrentPlayer(game.turnCount);
 
   const isMyTurn =
     game.status === 'playing' &&
-    ((game.currentPlayer === 'playerA' && game.playerA === currentUserId) ||
-      (game.currentPlayer === 'playerB' && game.playerB === currentUserId));
+    ((currentPlayer === 'playerA' && game.playerA === currentUserId) ||
+      (currentPlayer === 'playerB' && game.playerB === currentUserId));
+
+  // Destructure the move selection values after we know the game exists
+  const {
+    path,
+    state,
+    legalDests,
+    captureAvailable,
+    mustContinueCapturing,
+    selectSquare,
+    cancel,
+    getCompletePath,
+    reset,
+    getBoardSpace,
+  } = moveSelection;
 
   // Get player display names
   const playerAName =
@@ -43,7 +66,7 @@ export function GameBoardPreloaded({
 
   // For turn display, show the appropriate name
   const currentTurnName =
-    game.currentPlayer === 'playerA' ? playerAName : playerBName;
+    currentPlayer === 'playerA' ? playerAName : playerBName;
 
   const winnerName =
     game.winner === 'playerA'
@@ -52,36 +75,48 @@ export function GameBoardPreloaded({
         ? playerBName
         : null;
 
-  const handleSpaceClick = async (row: number, col: number) => {
+  const handleSpaceClick = (row: number, col: number) => {
     if (!isMyTurn) return;
+    selectSquare(row, col);
+  };
 
-    const clickedSpace = findBoardSpace(boardSpaces, row, col);
+  const handleConfirm = async () => {
+    const completePath = getCompletePath();
+    if (!currentUserId || completePath.length < 2) return;
 
-    if (!selectedSpace) {
-      if (clickedSpace?.piece?.player === game.currentPlayer) {
-        setSelectedSpace({ row, col });
-      }
-    } else {
-      if (!currentUserId) return;
-      try {
-        await makeMove({
-          gameId: game._id,
-          userId: currentUserId,
-          from: selectedSpace,
-          to: { row, col },
-        });
-        setSelectedSpace(null);
-      } catch (error) {
-        console.error('Move failed:', error);
-        setSelectedSpace(null);
-      }
+    try {
+      await makeMove({
+        gameId: game._id,
+        userId: currentUserId,
+        path: completePath,
+      });
+      reset();
+    } catch (error) {
+      console.error('Move failed:', error);
+      reset();
     }
   };
 
+  const squareSize = 48; // Use w-12 h-12 size
+
+  const pointFor = (row: number, col: number) => {
+    return {
+      x: col * squareSize + squareSize / 2,
+      y: row * squareSize + squareSize / 2,
+    };
+  };
+
   const renderSpace = (row: number, col: number) => {
-    const space = findBoardSpace(boardSpaces, row, col);
-    const isSelected = selectedSpace?.row === row && selectedSpace?.col === col;
+    // Use getBoardSpace from the hook
+    const space = getBoardSpace(row, col);
+    const isLastInPath =
+      path.length > 0 &&
+      path[path.length - 1].row === row &&
+      path[path.length - 1].col === col;
     const piece = space?.piece;
+
+    // Check if this is a legal destination
+    const isLegalDest = legalDests.some((d) => d.row === row && d.col === col);
 
     // Checkerboard pattern: alternate colors based on row + col
     const isDarkSquare = (row + col) % 2 === 0;
@@ -99,15 +134,20 @@ export function GameBoardPreloaded({
         key={`${row}-${col}`}
         onClick={() => handleSpaceClick(row, col)}
         className={`
-          w-12 h-12 border border-gray-400 dark:border-gray-600 flex items-center justify-center
-          ${isMyTurn && piece?.player === game.currentPlayer ? 'cursor-pointer' : 'cursor-default'}
-          ${isSelected ? 'ring-4 ring-yellow-400 ring-inset' : ''}
+          w-12 h-12 border border-gray-400 dark:border-gray-600 flex items-center justify-center relative
+          ${isMyTurn ? 'cursor-pointer' : 'cursor-default'}
+          ${isLastInPath ? 'ring-4 ring-yellow-400 ring-inset' : ''}
           ${isDarkSquare ? 'bg-amber-700 dark:bg-amber-800' : 'bg-amber-100 dark:bg-amber-900'}
-          ${isMyTurn && !selectedSpace && piece?.player === game.currentPlayer ? 'hover:brightness-110' : ''}
-          ${isMyTurn && selectedSpace && !piece ? 'hover:brightness-90' : ''}
+          ${isMyTurn && state === 'idle' && piece?.player === currentPlayer ? 'hover:brightness-110' : ''}
+          ${isMyTurn && isLegalDest ? 'hover:brightness-90' : ''}
           transition-all duration-150
         `}
       >
+        {/* Legal move indicator */}
+        {isLegalDest && (
+          <div className="absolute inset-0 bg-green-500 opacity-30 pointer-events-none" />
+        )}
+
         {piece && (
           <div
             className={`
@@ -136,7 +176,29 @@ export function GameBoardPreloaded({
         {game.status === 'completed' && `Winner: ${winnerName}`}
       </div>
 
-      <div className="bg-gray-200 dark:bg-gray-800 p-4 rounded-lg shadow-xl">
+      <div className="bg-gray-200 dark:bg-gray-800 p-4 rounded-lg shadow-xl relative">
+        {/* Path visualization */}
+        {path.length > 1 && (
+          <svg
+            className="absolute inset-0 pointer-events-none"
+            style={{ padding: '16px' }}
+          >
+            <polyline
+              points={path
+                .map((p) => {
+                  const pt = pointFor(p.row, p.col);
+                  return `${pt.x},${pt.y}`;
+                })
+                .join(' ')}
+              stroke="black"
+              strokeWidth="3"
+              fill="none"
+              strokeOpacity="0.5"
+              strokeDasharray="5,5"
+            />
+          </svg>
+        )}
+
         <div className="flex flex-col">
           {Array.from({ length: BOARD_ROWS }, (_, row) => (
             <div key={row} className="flex">
@@ -147,6 +209,31 @@ export function GameBoardPreloaded({
           ))}
         </div>
       </div>
+
+      {/* Move controls */}
+      {(state === 'selecting' || state === 'complete') && isMyTurn && (
+        <div className="flex gap-2">
+          <button
+            onClick={cancel}
+            className="px-4 py-2 bg-gray-500 hover:bg-gray-600 text-white rounded transition-colors"
+          >
+            Cancel
+          </button>
+          {(state === 'complete' || (!captureAvailable && path.length > 1)) && (
+            <button
+              onClick={handleConfirm}
+              className="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded transition-colors"
+            >
+              Confirm Move
+            </button>
+          )}
+          {state === 'selecting' && mustContinueCapturing && (
+            <div className="px-4 py-2 text-orange-600 font-semibold">
+              Must continue capturing
+            </div>
+          )}
+        </div>
+      )}
 
       <div className="flex space-x-8 text-sm">
         <div className="bg-red-50 dark:bg-red-950/20 p-4 rounded-lg border border-red-200 dark:border-red-800">
@@ -177,7 +264,7 @@ export function GameBoardPreloaded({
       {process.env.NODE_ENV === 'development' && (
         <DebugPanel
           gameId={game._id}
-          currentPlayer={game.currentPlayer}
+          currentPlayer={currentPlayer}
           playerAName={playerAName}
           playerBName={playerBName}
         />

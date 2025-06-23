@@ -23,7 +23,6 @@ export default defineSchema({
 
     // Game state
     turnCount: v.number(),
-    currentPlayer: playerValidator,
     boardSpaces: v.array(boardSpaceValidator),
     capturedPieces: capturedPiecesValidator,
   })

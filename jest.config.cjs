@@ -13,6 +13,7 @@ module.exports = {
   setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/$1',
+    '^(.*)\\.js$': '$1',
   },
   transform: {
     '^.+\\.(ts|tsx)$': [

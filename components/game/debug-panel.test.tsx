@@ -1,3 +1,5 @@
+/** @jest-environment jsdom */
+import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { DebugPanel } from './debug-panel';
@@ -49,7 +51,7 @@ describe('DebugPanel', () => {
     expect(screen.getByText('Debug Panel')).toBeInTheDocument();
     expect(screen.getByText('Current Turn')).toBeInTheDocument();
     expect(screen.getByText('Alice')).toBeInTheDocument();
-    expect(screen.getByText('Switch Turn')).toBeInTheDocument();
+    expect(screen.getByText('Skip Turn')).toBeInTheDocument();
   });
 
   it('closes the panel when close button is clicked', async () => {
@@ -124,14 +126,13 @@ describe('DebugPanel', () => {
     // Open panel
     await user.click(screen.getByTitle('Open Debug Panel'));
 
-    // Click switch turn
-    const switchButton = screen.getByText('Switch Turn');
-    await user.click(switchButton);
+    // Click skip turn
+    const skipButton = screen.getByText('Skip Turn');
+    await user.click(skipButton);
 
     await waitFor(() => {
       expect(mockChangeTurn).toHaveBeenCalledWith({
         gameId: 'game123',
-        newCurrentPlayer: 'playerB',
       });
     });
   });
@@ -145,14 +146,13 @@ describe('DebugPanel', () => {
     // Open panel
     await user.click(screen.getByTitle('Open Debug Panel'));
 
-    // Click switch turn
-    const switchButton = screen.getByText('Switch Turn');
-    await user.click(switchButton);
+    // Click skip turn
+    const skipButton = screen.getByText('Skip Turn');
+    await user.click(skipButton);
 
     await waitFor(() => {
       expect(mockChangeTurn).toHaveBeenCalledWith({
         gameId: 'game123',
-        newCurrentPlayer: 'playerA',
       });
     });
   });
@@ -167,9 +167,9 @@ describe('DebugPanel', () => {
     // Open panel
     await user.click(screen.getByTitle('Open Debug Panel'));
 
-    // Click switch turn
-    const switchButton = screen.getByText('Switch Turn');
-    await user.click(switchButton);
+    // Click skip turn
+    const skipButton = screen.getByText('Skip Turn');
+    await user.click(skipButton);
 
     await waitFor(() => {
       expect(consoleError).toHaveBeenCalledWith(

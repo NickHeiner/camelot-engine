@@ -2,6 +2,7 @@ import { v } from 'convex/values';
 import { mutation, query } from './_generated/server';
 import createEmptyGame from '../lib/engine/init/create-empty-game.js';
 import withStartingPieces from '../lib/engine/init/with-starting-pieces.js';
+import skipTurn from '../lib/engine/update/skip-turn.js';
 
 export const createGame = mutation({
   args: {
@@ -16,7 +17,6 @@ export const createGame = mutation({
       createdBy: args.createdBy,
       playerA: args.createdBy,
       turnCount: 0,
-      currentPlayer: 'playerA',
       boardSpaces: gameWithPieces.boardSpaces,
       capturedPieces: gameWithPieces.capturedPieces,
       createdAt: Date.now(),
@@ -68,14 +68,24 @@ export const getGame = query({
 });
 
 export const getAvailableGames = query({
-  handler: async (ctx) => {
-    const games = await ctx.db
+  args: { userId: v.optional(v.string()) },
+  handler: async (ctx, args) => {
+    let gamesQuery = ctx.db
       .query('games')
-      .withIndex('by_status', (q) => q.eq('status', 'waiting'))
-      .order('desc')
-      .take(20);
+      .withIndex('by_status', (q) => q.eq('status', 'waiting'));
 
-    return games;
+    // Get all waiting games first
+    const allGames = await gamesQuery.order('desc').take(100);
+
+    // Filter out games where the user is already a player
+    const filteredGames = args.userId
+      ? allGames.filter(
+          (game) => game.playerA !== args.userId && game.playerB !== args.userId
+        )
+      : allGames;
+
+    // Return up to 20 games
+    return filteredGames.slice(0, 20);
   },
 });
 
@@ -102,7 +112,6 @@ export const getMyGames = query({
 export const debugChangeTurn = mutation({
   args: {
     gameId: v.id('games'),
-    newCurrentPlayer: v.union(v.literal('playerA'), v.literal('playerB')),
   },
   handler: async (ctx, args) => {
     const game = await ctx.db.get(args.gameId);
@@ -110,8 +119,11 @@ export const debugChangeTurn = mutation({
     if (game.status !== 'playing')
       throw new Error('Game is not in playing state');
 
+    // Use the engine to skip the turn
+    const updatedGame = skipTurn(game);
+
     await ctx.db.patch(args.gameId, {
-      currentPlayer: args.newCurrentPlayer,
+      turnCount: updatedGame.turnCount,
     });
 
     return { success: true };

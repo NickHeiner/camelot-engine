@@ -25,6 +25,8 @@ Only run `npm run dev` if the server isn't already running. I may have already l
 
 You do not need to stop the dev server to run tests.
 
+When you run git commands, git thinks you're in interactive mode, but you aren't actually capable of responding to an interaction. So you always need things like `--no-pager`. For instance, if you're doing a command that will ask for a commit message by opening an editor, that won't work for you – you need to pass the commmit message as a flag arg.
+
 ## General Guidelines
 
 - Follow the architectural guidance in AGENTS.md
