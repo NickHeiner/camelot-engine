@@ -13,6 +13,8 @@ When removing code, actually delete it. Don't just comment it out.
 
 When you write a unit test or implement a feature, do whatever you can to try it yourself (actually run the tests, call the script, etc) before reporting that you're done. Fix any issues you find.
 
+You can't run a browser, so use unit tests as much as possible to verify your changes. You can even write throwaway unit tests just to debug log certain scenarios, etc.
+
 If your changes can be verified by updating the unit test suite (e.g. adding or modifying tests), do that and run the tests before actually making the change.
 
 **IMPORTANT**: Always run `npm test` before reporting any work as complete or done. This command runs:
