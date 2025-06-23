@@ -1,0 +1,265 @@
+{
+  "url": "https://fantastic-blackbird-332.convex.cloud",
+  "functions": [
+    {
+      "args": {
+        "type": "object",
+        "value": {
+          "createdBy": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          }
+        }
+      },
+      "functionType": "Mutation",
+      "identifier": "games.js:createGame",
+      "returns": {
+        "type": "any"
+      },
+      "visibility": {
+        "kind": "public"
+      }
+    },
+    {
+      "args": {
+        "type": "object",
+        "value": {
+          "gameId": {
+            "fieldType": {
+              "tableName": "games",
+              "type": "id"
+            },
+            "optional": false
+          },
+          "userId": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          }
+        }
+      },
+      "functionType": "Mutation",
+      "identifier": "games.js:joinGame",
+      "returns": {
+        "type": "any"
+      },
+      "visibility": {
+        "kind": "public"
+      }
+    },
+    {
+      "args": {
+        "type": "object",
+        "value": {
+          "gameId": {
+            "fieldType": {
+              "tableName": "games",
+              "type": "id"
+            },
+            "optional": false
+          }
+        }
+      },
+      "functionType": "Query",
+      "identifier": "games.js:getGame",
+      "returns": {
+        "type": "any"
+      },
+      "visibility": {
+        "kind": "public"
+      }
+    },
+    {
+      "args": {
+        "type": "any"
+      },
+      "functionType": "Query",
+      "identifier": "games.js:getAvailableGames",
+      "returns": {
+        "type": "any"
+      },
+      "visibility": {
+        "kind": "public"
+      }
+    },
+    {
+      "args": {
+        "type": "object",
+        "value": {
+          "userId": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          }
+        }
+      },
+      "functionType": "Query",
+      "identifier": "games.js:getMyGames",
+      "returns": {
+        "type": "any"
+      },
+      "visibility": {
+        "kind": "public"
+      }
+    },
+    {
+      "args": {
+        "type": "object",
+        "value": {
+          "gameId": {
+            "fieldType": {
+              "tableName": "games",
+              "type": "id"
+            },
+            "optional": false
+          }
+        }
+      },
+      "functionType": "Mutation",
+      "identifier": "games.js:debugChangeTurn",
+      "returns": {
+        "type": "any"
+      },
+      "visibility": {
+        "kind": "public"
+      }
+    },
+    {
+      "args": {
+        "type": "object",
+        "value": {
+          "from": {
+            "fieldType": {
+              "type": "object",
+              "value": {
+                "col": {
+                  "fieldType": {
+                    "type": "number"
+                  },
+                  "optional": false
+                },
+                "row": {
+                  "fieldType": {
+                    "type": "number"
+                  },
+                  "optional": false
+                }
+              }
+            },
+            "optional": false
+          },
+          "gameId": {
+            "fieldType": {
+              "tableName": "games",
+              "type": "id"
+            },
+            "optional": false
+          },
+          "path": {
+            "fieldType": {
+              "type": "array",
+              "value": {
+                "type": "object",
+                "value": {
+                  "col": {
+                    "fieldType": {
+                      "type": "number"
+                    },
+                    "optional": false
+                  },
+                  "row": {
+                    "fieldType": {
+                      "type": "number"
+                    },
+                    "optional": false
+                  }
+                }
+              }
+            },
+            "optional": false
+          }
+        }
+      },
+      "functionType": "Query",
+      "identifier": "moves.js:getLegalMoves",
+      "returns": {
+        "type": "any"
+      },
+      "visibility": {
+        "kind": "public"
+      }
+    },
+    {
+      "args": {
+        "type": "object",
+        "value": {
+          "from": {
+            "fieldType": {
+              "type": "object",
+              "value": {
+                "col": {
+                  "fieldType": {
+                    "type": "number"
+                  },
+                  "optional": false
+                },
+                "row": {
+                  "fieldType": {
+                    "type": "number"
+                  },
+                  "optional": false
+                }
+              }
+            },
+            "optional": false
+          },
+          "gameId": {
+            "fieldType": {
+              "tableName": "games",
+              "type": "id"
+            },
+            "optional": false
+          },
+          "to": {
+            "fieldType": {
+              "type": "object",
+              "value": {
+                "col": {
+                  "fieldType": {
+                    "type": "number"
+                  },
+                  "optional": false
+                },
+                "row": {
+                  "fieldType": {
+                    "type": "number"
+                  },
+                  "optional": false
+                }
+              }
+            },
+            "optional": false
+          },
+          "userId": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          }
+        }
+      },
+      "functionType": "Mutation",
+      "identifier": "moves.js:makeMove",
+      "returns": {
+        "type": "any"
+      },
+      "visibility": {
+        "kind": "public"
+      }
+    }
+  ]
+}
